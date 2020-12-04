@@ -1,0 +1,39 @@
+.btn {
+    border-radius: 0.2em;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 1em;
+    background: var(--Accent);
+    padding: 0.5em 1em 0.5em 1em;
+    text-decoration: none;
+    min-width: 1em;
+    vertical-align: middle;
+}
+
+.btn:hover {
+    background: var(--Decoration);
+    text-decoration: none;
+    color:white
+}
+
+.inpt{
+    border-radius: 0.2em;
+    font-family: Arial;
+    color: #ffffff;
+    border: none;
+    font-size: 1em;
+    background:#afafaf;
+    vertical-align: middle;
+    padding: 0.5em 1em 0.5em 1em;
+    text-decoration: none;
+}
+.inpt:hover {
+    background: #BF8360;
+    color: white;
+    text-decoration: none;
+    color:white
+}
+
+.btn_canc{
+    background-color: var(--errorColor);
+}
