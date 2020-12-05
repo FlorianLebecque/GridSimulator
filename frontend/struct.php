@@ -3,6 +3,11 @@
     <?php
         include_once("public/html/head.html");
     ?>
+    <script>
+        let status = 0;
+        let timerFunction = [];
+        let timerHDL = new timerHandler();
+    </script>
     <body>
 
         <?php

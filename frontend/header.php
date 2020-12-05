@@ -36,14 +36,25 @@
 </header>
 
 <script type="text/javascript">
+
 	function StartStop_Sim(str) {
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				document.getElementById("status").innerHTML = this.responseText;
-			}
-		};
-		xmlhttp.open("GET", "ajaxHandler.php?q=" + str, true);
-		xmlhttp.send();
+		let ajx = new ajaxHandler()
+		if(status == 0){
+			ajx.sendRequest("startSim","a",updateButton);
+		}else{
+			ajx.sendRequest("stopSim","a",updateButton);
+		}
+		
 	}
+
+	function updateButton(data){
+		
+		let dt = JSON.parse(data)
+		status = dt["1"]
+		
+		console.log(timerHDL)
+
+		$("#status").html(dt["2"])
+	}
+
 </script>

@@ -61,6 +61,10 @@
 <script>
     
     let graphMan = new graphManager();
+    let ajx = new ajaxHandler();
+    
+
+
 
     let labs = [1,2,3,4,5,6,7,8,9,10];
     let dataSet = [
@@ -85,6 +89,5 @@
     graphMan.create_graph("cns_graph",labs,dataSet,0,10);
     graphMan.create_graph("prd_graph",labs,dataSet,0,10);
     graphMan.create_graph("str_graph",labs,dataSet,0,10);
-
 
 </script>
