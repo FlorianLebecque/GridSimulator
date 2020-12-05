@@ -80,8 +80,9 @@ header{
 }
 
 .wideContainer{
-  padding-left: 1em;
+  padding-left: 2em;
   padding-right: 1em;
+  width: 100%;
 }
 
 .title{
