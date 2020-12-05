@@ -118,3 +118,7 @@ header{
   margin-bottom: 0.1em;
   vertical-align: middle;
 }
+
+.graphContainer{
+  height: 25em;
+}

@@ -4,20 +4,20 @@
             <button class="collapsible">Electrical data</button>
             <div class="collasibleContent"><hr>
                 <div class="row">
-                    <div class="col-lg-6">
-                        <h3>Consumption</h3>
-                        <canvas id="cns_graph" width="400" height="200"> </canvas>
+                    <div class="col-lg-8 graphContainer" >
+                        <h3>Production</h3>
+                        <canvas id="prd_graph"></canvas>
                     </div>
                     
-                    <div class="col-lg-6">
-                        <h3>Production</h3>
-                        <canvas id="prd_graph" width="400" height="200">  </canvas>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
+                    <div class="col-lg-4 graphContainer" >
                         <h3>Storage</h3>
-                        <canvas id="str_graph" width="400" height="100"> </canvas>
+                        <canvas id="str_graph"></canvas>
+                    </div>
+                </div><hr>
+                <div class="row">
+                    <div class="col graphContainer">
+                        <h3>Consumption</h3>
+                        <canvas id="cns_graph"></canvas>
                     </div>
                 </div>
             </div>  

@@ -16,6 +16,9 @@ class graphManager{
                 "datasets":array_data
             },
             options: {
+                
+                responsive:true,
+                maintainAspectRatio:false,
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -23,6 +26,11 @@ class graphManager{
                             suggestedMax: int_axeMax
                         }
                     }],
+                    xAxes: [{
+                        gridLines: {
+                          display: true
+                        }
+                      }]
                 }
             }
         });
