@@ -1,8 +1,6 @@
 <?php
-    //tsety
-    //$crtl->status = true;
-
-
+    include_once("backend\inc\graph.php");
+    
 
     $action = htmlspecialchars($_REQUEST["a"]);
     if(isset($_REQUEST["p"])){
@@ -15,7 +13,11 @@
 
     switch($action){
         case "getdata":
-            //go to get somme data
+            
+            break;
+        case "getDashBoardData":
+            $grh = new graphHandler();
+            $grh->getDashBoardData();
             break;
         case "startSim":
             //start the sim
