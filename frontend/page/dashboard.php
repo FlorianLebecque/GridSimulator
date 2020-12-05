@@ -69,7 +69,25 @@
 
     function getDashboardData(){
         let ajx = new ajaxHandler();
-        ajx.sendRequest("getDashBoardData","a",graphMan.update);
+        ajx.sendRequest("getDashBoardData","a",update);
+    }
+
+    function update(data){
+        let dt = JSON.parse(data);
+
+        for(let i = 0; i < dt.length;i++){
+            array_graphInfo = dt[i];
+
+            
+
+            let temp_graph = graphMan.getGraph(array_graphInfo["id"]);
+        
+
+            graphMan.update(temp_graph,array_graphInfo["set"])
+
+        }
+
+        
     }
 
     timerFunction.push(getDashboardData);
@@ -78,23 +96,21 @@
     let dataSet = [
 					{
                         "label":"Nuclear",
-                        "data":[5,6,5,4,5,6,5,4,5,6],
+                        "data":[],
 						"borderColor":CL_GREEN,
                         "lineTension":0.2,
                         "fill": "origin",
                         "backgroundColor":CL_GREEN_A
                     },
-                    {
-                        "label":"Wind",
-                        "data":[5,6,1,8,2,3,6,4,8,3],
-						"borderColor":CL_BLUE,
-                        "lineTension":0.2,
-                        "fill": "origin",
-                        "backgroundColor":CL_BLUE_A
-					}
 				]
 
     graphMan.create_graph("cns_graph",labs,dataSet,0,10);
     graphMan.create_graph("prd_graph",labs,dataSet,0,10);
     graphMan.create_graph("str_graph",labs,dataSet,0,10);
+
+
+    
+
+    
+
 </script>

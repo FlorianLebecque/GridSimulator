@@ -10,6 +10,7 @@ class graphManager{
         let ctx = $('#'+str_PanelID);
 
         let myLineChart = new Chart(ctx, {
+            name:str_PanelID,
             type: 'line',
             "data":{
                 "labels":array_labels,
@@ -35,11 +36,7 @@ class graphManager{
             }
         });
 
-        this.graphs.push(myLineChart);
-    }
-
-    newDataSet(){
-        
+        this.graphs.push([str_PanelID,myLineChart]);
     }
 
     addData(chart, label, data) {
@@ -50,8 +47,20 @@ class graphManager{
         chart.update();
     }
 
-    update(data){
-        console.log("update chart")
+    getGraph(id){
+        for(let i = 0; i < this.graphs.length;i++){
+            if(this.graphs[i][0] == id){
+                return this.graphs[i][1]
+            }
+        }
+        return -1;
+    }
+
+
+    update(grh,data){
+        console.log(data)
+        grh.data.datasets = data;
+        grh.update();
     }
 
 
