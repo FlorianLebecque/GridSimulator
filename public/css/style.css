@@ -79,6 +79,11 @@ header{
   animation: 0.2s ease-in 0s 1 ShowsTras;
 }
 
+.wideContainer{
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
 .title{
   color:var(--texteColor);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
