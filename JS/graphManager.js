@@ -42,6 +42,9 @@ class graphManager{
         chart.update();
     }
 
+    update(data){
+        console.log("update chart")
+    }
 
 
 }

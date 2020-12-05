@@ -1,16 +1,12 @@
 <?php
     class graphHandler{
 
-
-
-        function createGraph($title,$id){
-            echo "<script>";
+        function getDashBoardData(){
             
-            
-
-            echo "</script>";
         }
 
-
+        function getDataSet(){
+            
+        }
     }
 ?>
