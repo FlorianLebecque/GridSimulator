@@ -3,6 +3,7 @@
 
     include_once("backend/header.php");
     include_once("backend\inc\graph.php");
+    include_once("backend\inc\javascriptInculder.php");
     
 
     class Controller {  
