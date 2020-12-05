@@ -5,10 +5,10 @@ class timerHandler{
     }
 
     update(){
-       
-        //console.log(this.status)
         if(status == 1){
-            
+            for(let i = 0 ; i < timerFunction.length ; i++){
+                timerFunction[i]();
+            }
         }
     }
 }

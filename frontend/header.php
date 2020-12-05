@@ -51,9 +51,6 @@
 		
 		let dt = JSON.parse(data)
 		status = dt["1"]
-		
-		console.log(timerHDL)
-
 		$("#status").html(dt["2"])
 	}
 
