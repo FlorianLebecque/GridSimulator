@@ -1,5 +1,3 @@
-
-    
 class graphManager{
 
     constructor(){
@@ -56,14 +54,13 @@ class graphManager{
         return -1;
     }
 
-
-    update(grh,data){
-        console.log(data)
+    setDatasets(grh,data){
         grh.data.datasets = data;
         grh.update();
     }
 
-
+    update(grh,data){
+        grh.data.datasets[0].data = data;
+        grh.update();
+    }
 }
-
-

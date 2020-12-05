@@ -2,14 +2,21 @@
     session_start();
 
     include_once("backend/header.php");
+    include_once("backend\inc\graph.php");
     
 
     class Controller {  
          
         public $hdrData;
+        public $graphControl;
 
         public function __construct(){    
            $this->hdrData = new headerData();
+           $this->graphControl = new getDHdData();
+
+            $_SESSION["data"] = [5,2,5,6,6,6,5,6,5,4];
+            $_SESSION["data1"] = [5,2,5,6,6,6,5,6,5,4];
+
         } 
 
 

@@ -1,4 +1,7 @@
 <?php
+
+    session_start();
+
     include_once("backend\inc\graph.php");
     
 
@@ -16,7 +19,7 @@
             
             break;
         case "getDashBoardData":
-            $grh = new graphHandler();
+            $grh = new getDHdData();
             $grh->getDashBoardData();
             break;
         case "startSim":

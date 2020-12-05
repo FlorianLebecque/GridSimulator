@@ -1,3 +1,4 @@
+
 <div class="row wideContainer">
     <div class="col-sm-12">
         <div class="main">
@@ -66,51 +67,41 @@
 <script>
 
     let graphMan = new graphManager();
+    let defaultData_set = <?php $this->graphControl->getDashBoardDatasets() ?>;
+    let labs = [1,2,3,4,5,6,7,8,9,10];
+
 
     function getDashboardData(){
         let ajx = new ajaxHandler();
         ajx.sendRequest("getDashBoardData","a",update);
     }
 
+    function setDataset(data){
+        let dt = JSON.parse(data);
+
+        for(let i = 0; i < dt.length;i++){
+            array_graphInfo = dt[i];     
+            let temp_graph = graphMan.getGraph(array_graphInfo["id"]);
+            graphMan.setDatasets(temp_graph,array_graphInfo["set"])
+        }
+    }
+
     function update(data){
         let dt = JSON.parse(data);
 
         for(let i = 0; i < dt.length;i++){
-            array_graphInfo = dt[i];
-
-            
-
+            array_graphInfo = dt[i];     
             let temp_graph = graphMan.getGraph(array_graphInfo["id"]);
-        
-
-            graphMan.update(temp_graph,array_graphInfo["set"])
-
+            graphMan.update(temp_graph,array_graphInfo["data"])
         }
-
-        
     }
 
     timerFunction.push(getDashboardData);
 
-    let labs = [1,2,3,4,5,6,7,8,9,10];
-    let dataSet = [
-					{
-                        "label":"Nuclear",
-                        "data":[],
-						"borderColor":CL_GREEN,
-                        "lineTension":0.2,
-                        "fill": "origin",
-                        "backgroundColor":CL_GREEN_A
-                    },
-				]
+    graphMan.create_graph("cns_graph",labs,[],0,10);
+    graphMan.create_graph("prd_graph",labs,[],0,10);
+    graphMan.create_graph("str_graph",labs,[],0,10);
 
-    graphMan.create_graph("cns_graph",labs,dataSet,0,10);
-    graphMan.create_graph("prd_graph",labs,dataSet,0,10);
-    graphMan.create_graph("str_graph",labs,dataSet,0,10);
-
-
-    
-
-    
+    setDataset(defaultData_set);
 
 </script>
