@@ -26,9 +26,11 @@ html{
   --shadowColor:rgba(0,0,0,0.50);
 
   --Accent:#FDC30D;
+  --Selected:#34cceb;
   --Decoration:#9e7a08;
 
   --texteColor:white;
+  --texteBtnColor:black;
 
   --errorColor:firebrick;
   --goodColor : rgb(0, 104, 0);
@@ -70,6 +72,7 @@ header{
   background-color: var(--ContainerColor);
   min-height: 5em;
   padding: 1em;
+  margin:0;
   margin-bottom: 2em;
   animation: 0.2s ease-in 0s 1 ShowsTras;
   box-shadow: 0.5em 0.7em 1em -0.7em var(--shadowColor);
@@ -108,9 +111,19 @@ header{
   color: var(--errorColor);
 }
 
+.good{
+  color: var(--goodColor);
+}
+
 .margR{
   margin-right: 1em;
+}
+.margB{
+  margin-bottom: 1em;
+}
 
+.fullW{
+  width: 100%;
 }
 
 .icon{
@@ -121,4 +134,37 @@ header{
 
 .graphContainer{
   height: 25em;
+}
+
+.selected{
+  background: var(--Selected) !important;
+}
+.selected:hover{
+  background:#268ea3;
+}
+
+.containerLogin {
+  height: 100%;
+  width:100%;
+  position: absolute;
+  top:0;
+  left:0;
+
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.logInWidth{
+  width: 25em;
+}
+
+hr {
+  border-top: 1px solid var(--backColor);
 }

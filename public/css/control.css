@@ -1,7 +1,8 @@
 .btn {
     border-radius: 0.2em;
     font-family: Arial;
-    color: #ffffff;
+
+    color:var(--texteBtnColor);
     font-size: 1em;
     background: var(--Accent);
     padding: 0.5em 1em 0.5em 1em;
