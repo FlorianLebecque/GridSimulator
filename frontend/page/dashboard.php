@@ -65,5 +65,5 @@
 </div>
 
 <script>
-    let defaultData_set = <?php $this->graphControl->getDashBoardDatasets() ?>;
+    let defaultData_set = <?php getDHdData::getDashBoardDatasets() ?>;
 </script>

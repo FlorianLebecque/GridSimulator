@@ -2,15 +2,15 @@
     
     class getDHdData{
 
-        function getDashBoardDatasets(){
-            echo "'".json_encode($this->getDataSet())."'";
+        static public function getDashBoardDatasets(){
+            echo "'".json_encode(self::getDataSet())."'";
         }
 
-        function getDashBoardData(){
-            echo json_encode($this->getDatas());
+        static public function getDashBoardData(){
+            echo json_encode(self::getDatas());
         }
 
-        function getDataSet(){
+        static private function getDataSet(){
 
             
             $set["label"] = "Nucleaire";
@@ -44,7 +44,7 @@
 
         }
 
-        function getDatas(){
+        static private function getDatas(){
 
             $data[0]["id"] = "prd_graph";
 

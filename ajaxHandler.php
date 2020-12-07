@@ -19,8 +19,7 @@
             
             break;
         case "getDashBoardData":
-            $grh = new getDHdData();
-            $grh->getDashBoardData();
+            getDHdData::getDashBoardData();
             break;
         case "startSim":
             //start the sim
