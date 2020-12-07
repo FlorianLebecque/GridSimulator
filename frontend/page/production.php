@@ -35,7 +35,3 @@
     </div>
     
 </div>
-
-<script>
-    let defaultData_set = <?php $this->graphControl->getDashBoardDatasets() ?>;
-</script>
