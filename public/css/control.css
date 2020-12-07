@@ -20,19 +20,21 @@
 .inpt{
     border-radius: 0.2em;
     font-family: Arial;
-    color: #ffffff;
+    color: var(--textColor);
     border: none;
     font-size: 1em;
-    background:#afafaf;
+    background:var(--backColor);
+    border-bottom: 0.15em solid var(--backColor);
     vertical-align: middle;
     padding: 0.5em 1em 0.5em 1em;
     text-decoration: none;
+    font-size: 1em;
 }
 .inpt:hover {
-    background: #BF8360;
-    color: white;
+    border-bottom: 0.15em solid var(--Decoration);
     text-decoration: none;
-    color:white
+    transition: border-bottom 0.1s linear 0.1s
+    
 }
 
 .btn_canc{
@@ -55,9 +57,10 @@
 
 .collapsible:after {
     content: '\02795'; /* Unicode character for "plus" sign (+) */
-    font-size: 13px;
     float: right;
-    margin-left: 5px;
+    vertical-align: middle;
+    align-self: center;
+    margin-left: 0.2em;
 }
 
 .active:after {

@@ -30,13 +30,13 @@
             ?>
             <div class="row main logInWidth">
                 <div class="col">
-                    <button class="collapsible">Login</button>
+                    <button class="collapsible">Load simulation</button>
                     <div class="collasibleContent "><hr>
 
                         <form method="post" action="login.php">
                             <input name="sim" class="inpt fullW margB" type="text" placeholder="Simulation name"><br>
                             <input name="pass" class="inpt fullW margB" type="password" placeholder="password"><br>
-                            <input class="btn margB" type="submit" value="SIGN IN"><br>
+                            <input class="btn margB" type="submit" value="LOAD"><br>
                         </form>
                     </div>
                 </div>
