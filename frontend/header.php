@@ -22,11 +22,7 @@
 
 		<div class="nav justify-contend-end">
 
-			<select class="btn margR" id="simSelect">
-				<?php
-				headerData::getCentral();
-				?>
-			</select>
+			<a href="index.php?a=logoff" class="btn margR">Disconnect</a>
 
 			<button onclick="StartStop_Sim(1)" class="btn" id="status"><?php headerData::getSimState();?></button>
 
