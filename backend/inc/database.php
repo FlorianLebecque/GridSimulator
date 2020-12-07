@@ -1,7 +1,7 @@
 <?php
     class bdd{
             //connect to the database
-        static private function getBDD(){
+        static public function getBDD(){
             $server ="localhost";
             $user = "root"; 
             $password="";
@@ -18,7 +18,7 @@
         }
 
             //function to send a querry, return the result
-        static private function sendQuerry($req){
+        static public function sendQuery($req){
             $BDD = self::getBDD();
             return mysqli_query($BDD,$req);
         }
@@ -36,7 +36,7 @@
 
             //retreive the data base en the query ($req)
         static public function getData($req){
-            $raw_data = self::sendQuerry($req);
+            $raw_data = self::sendQuery($req);
             return self::format($raw_data);
         }
     } 
@@ -44,8 +44,24 @@
         //class that create and return all the
     class bddQuerry{
             //get all the node by type
-        static function getNopeQuerry_by_type($sim,$type){
+        static function getNopeQuery_by_type($sim,$type){
             return 'SELECT node.id, node.label FROM `pe_node` node INNER JOIN `pe_type_node` tnode  ON node.id_type = tnode.id WHERE tnode.type_simple = "'.$type.'" AND node.id_sim ='.$sim;
+        }
+            //get all the node type by simulation
+        public static function getNodeTypeQuery($sim){
+            return 'SELECT tnode.`id`,tnode.label ,tnode.`type_simple`,tnode.`type`,tnode.`meta` FROM `pe_type_node` AS tnode INNER JOIN pe_sim AS sm ON tnode.`id_sim` = sm.id WHERE tnode.`id_sim` = '.$sim;
+        }
+
+        public static function qetTestSimNameQuery($name){
+            return "SELECT `id`,`psw` FROM `pe_sim` WHERE `name` = '".$name."'";
+        }
+
+        public static function getCountSimQuery($name){
+            return "SELECT count(*) as 'count' FROM `pe_sim` WHERE `name` = '".$name."'";
+        }
+
+        public static function getAddSimQuery($name,$pass){
+            return 'INSERT INTO `pe_sim`(`name`, `psw`) VALUES ("'.$name.'","'.$pass.'")';
         }
     }
 
