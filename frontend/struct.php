@@ -27,7 +27,7 @@
 
             }else{
                 include_once("frontend/page/dashboard.php");
-                include_js("frontend/JS/".$str_page.".js");
+                include_js("frontend/JS/dashboard.js");
             }
         ?>
 
