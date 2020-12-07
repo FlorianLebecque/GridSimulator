@@ -4,7 +4,7 @@
         <div class="main">
             <div class="row">
                 <?php
-                    graphArray::createPrdArray("p");
+                    graphArray::createPrdArray("c");
                 ?>
             </div> 
         </div>

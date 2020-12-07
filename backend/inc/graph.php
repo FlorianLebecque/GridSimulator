@@ -75,4 +75,19 @@
             return $data;
         }
     }
+
+
+    class graphArray{
+            //function that create the production or consumation graphics array
+        static public function createPrdArray($type){   // type -> define if we use prd or cns
+            $data = simdataHandler::getNode($_SESSION["simulation"],$type);
+            for($i = 0; $i < count($data);$i++){
+                echo '<div class="col-lg-4 graphContainer" >';
+                echo '<h3>'.$data[$i]["label"].'</h3>';
+                echo '<canvas id="prd_'.$data[$i]["id"].'"></canvas>';
+                echo '</div>';
+            }
+        }
+    }
+
 ?>
