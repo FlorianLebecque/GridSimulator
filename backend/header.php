@@ -25,7 +25,7 @@
             }else{
                 $str_title = "Dashboard";
             }
-            echo " ".ucfirst($str_title);
+            echo " ".ucfirst($str_title)." : ".$_SESSION["sim_name"];
         }
 
             //get the state of the simulation
