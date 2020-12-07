@@ -7,6 +7,7 @@
 			<a class="btn" href="index.php?p=loads">Loads</a>
 			<a class="btn" href="index.php?p=weathers">Weathers</a>
 			<a class="btn" href="index.php?p=stock">Stock</a>
+			<a class="btn" href="index.php?p=editor">Editor</a>
 		</div>
 	</div>
 	<nav class="navbar">

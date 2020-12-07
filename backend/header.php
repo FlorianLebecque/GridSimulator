@@ -16,7 +16,7 @@
         }
             //get the data from the database
         function retreiveData(){
-
+            
         }
 
         function getPageTitle(){
