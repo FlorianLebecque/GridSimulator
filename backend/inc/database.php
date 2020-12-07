@@ -17,13 +17,13 @@
             return $BDD;
         }
 
-            //function to send a querry, return the result
+            //function to send a query, return the result
         static public function sendQuery($req){
             $BDD = self::getBDD();
             return mysqli_query($BDD,$req);
         }
 
-            //format the querry result into an assoc array
+            //format the query result into an assoc array
         static private function format($data){
             $dt = [];
             if(mysqli_num_rows($data)>0){
@@ -42,7 +42,7 @@
     } 
 
         //class that create and return all the
-    class bddQuerry{
+    class bddQuery{
             //get all the node by type
         static function getNopeQuery_by_type($sim,$type){
             return 'SELECT node.id, node.label FROM `pe_node` node INNER JOIN `pe_type_node` tnode  ON node.id_type = tnode.id WHERE tnode.type_simple = "'.$type.'" AND node.id_sim ='.$sim;

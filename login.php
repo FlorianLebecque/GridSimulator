@@ -9,7 +9,7 @@
                 $name = htmlspecialchars($_POST["sim"]);
                 $testPass = htmlspecialchars($_POST["pass"]);
                 
-                $req = bddQuerry::qetTestSimNameQuery($name);
+                $req = bddQuery::qetTestSimNameQuery($name);
                 $BDD = bdd::getBDD();
                 $data = bdd::sendQuery($req);
                 $pass = mysqli_fetch_array($data,MYSQLI_ASSOC);

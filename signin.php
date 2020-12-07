@@ -27,7 +27,7 @@
 
                     $name = htmlspecialchars($_POST["sim"]);
 
-                    $req = bddQuerry::getCountSimQuery($name);
+                    $req = bddQuery::getCountSimQuery($name);
                     $count = mysqli_fetch_array(bdd::sendQuery($req),MYSQLI_ASSOC);
 
 
@@ -35,7 +35,7 @@
                         $_POST["sim"] = htmlspecialchars($_POST["sim"]);
                         $_POST["pass1"] = md5(htmlspecialchars($_POST["pass1"]));
 
-                        $req = bddQuerry::getAddSimQuery($_POST["sim"],$_POST["pass1"]);
+                        $req = bddQuery::getAddSimQuery($_POST["sim"],$_POST["pass1"]);
                         $res = bdd::sendQuery($req);
 
                         $err=10;
