@@ -23,6 +23,9 @@
             $data["id"] = "prd_graph";
             $data["set"][0] = $set;
 
+            $set["data"] = [1,2,3,4,5,6,7,8,9,10];
+            $data["set"][1] = $set;
+
             $dt[0] = $data;
 
             $set["label"] = "Maison";
@@ -32,10 +35,10 @@
             $set["fill"] = "origin";
             $set["backgroundColor"] = "rgba(75, 192, 192,0.2)";
 
-            $data["id"] = "cns_graph";
-            $data["set"][0] = $set;
+            $data1["id"] = "cns_graph";
+            $data1["set"][0] = $set;
 
-            $dt[1] = $data;
+            $dt[1] = $data1;
 
             return $dt;
 
