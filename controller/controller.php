@@ -12,7 +12,6 @@
         public $graphControl;
 
         public function __construct(){    
-           $this->hdrData = new headerData();
            $this->graphControl = new getDHdData();
 
             $_SESSION["data"] = [5,2,5,6,6,6,5,6,5,4];

@@ -15,7 +15,7 @@
 			<h1>
 				<?php
 					include("public/img/svgMenuIcon.html");
-					$this->hdrData->getPageTitle();
+					headerData::getPageTitle();
 				?>
 			</h1>
 		</a>
@@ -24,11 +24,11 @@
 
 			<select class="btn margR" id="simSelect">
 				<?php
-				$this->hdrData->getCentral();
+				headerData::getCentral();
 				?>
 			</select>
 
-			<button onclick="StartStop_Sim(1)" class="btn" id="status"><?php $this->hdrData->getSimState();?></button>
+			<button onclick="StartStop_Sim(1)" class="btn" id="status"><?php headerData::getSimState();?></button>
 
 		</div>
 

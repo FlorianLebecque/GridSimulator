@@ -1,8 +1,8 @@
 <?php
     class headerData{
             //create the html tag
-        function getCentral(){
-            $data = $this->formatData();
+        static public function getCentral(){
+            $data = self::formatData();
 
             foreach($data as $central){
                 echo "<option>";
@@ -11,15 +11,15 @@
             }
         }
             //formate the data
-        function formatData(){
+        static private function formatData(){
             return array("Central 1","Central 2","Central 3");  
         }
             //get the data from the database
-        function retreiveData(){
+        static private function retreiveData(){
             
         }
 
-        function getPageTitle(){
+        static public function getPageTitle(){
             if(isset($_GET["p"])){
                 $str_title = htmlspecialchars($_GET["p"]);
             }else{
@@ -29,7 +29,7 @@
         }
 
             //get the state of the simulation
-        function getSimState(){
+        static public function getSimState(){
             echo file_get_contents("public/img/svgPlayIcon.html");
         }
 
