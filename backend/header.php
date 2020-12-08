@@ -29,8 +29,17 @@
         }
 
             //get the state of the simulation
-        static public function getSimState(){
-            echo file_get_contents("public/img/svgPlayIcon.html");
+        static public function getSimState_icon(){
+
+            switch($_SESSION["status"]){
+                case 0:
+                    echo file_get_contents("public/img/svgPlayIcon.html");
+                    break;
+                case 1:
+                    echo file_get_contents("public/img/svgPauseIcon.html");
+                    break;
+            }
+            
         }
 
     }

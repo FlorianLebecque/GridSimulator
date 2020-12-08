@@ -4,7 +4,7 @@
         include_once("public/html/head.html");
     ?>
     <script>
-        let status = 0;
+        let status = <?php echo $_SESSION["status"] ?>;
         let timerFunction = [];
         let timerHDL = new timerHandler();
     </script>

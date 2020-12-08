@@ -34,18 +34,16 @@
                 }
             }
 
-            
-
 
             if(isset($_SESSION["simulation"])){         //check if we are connected
+
+                if(!isset($_SESSION["status"])){
+                    $_SESSION["status"] == 1;
+                }
+
                 include_once("frontend/struct.php");        //if yes -> show the page
-            }else{
-
-                
+            }else{    
                 include_once("frontend/special/login.php"); //if not -> show the login page
-                
-
-                
             }
 
             

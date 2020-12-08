@@ -27,12 +27,16 @@
             $a["1"] = 1;
             $a["2"] = file_get_contents("public/img/svgPauseIcon.html");
 
+            $_SESSION["status"] = 1;
+
             echo  json_encode($a);
             break;
         case "stopSim":
             //stop the sim
             $a["1"] = 0;
             $a["2"] = file_get_contents("public/img/svgPlayIcon.html");
+
+            $_SESSION["status"] = 0;
 
             echo json_encode($a);
             break;

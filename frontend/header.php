@@ -24,7 +24,7 @@
 
 			<a href="index.php?a=logoff" class="btn margR">Disconnect</a>
 
-			<button onclick="StartStop_Sim(1)" class="btn" id="status"><?php headerData::getSimState();?></button>
+			<button onclick="StartStop_Sim(1)" class="btn" id="status"><?php headerData::getSimState_icon();?></button>
 
 		</div>
 
