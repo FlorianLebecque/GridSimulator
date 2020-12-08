@@ -39,10 +39,9 @@
         }
     }
 
-
     class graphArray{
             //function that create the production or consumation graphics array
-        static public function createGraphArray($type,$dataType){                                   // type -> define if we use prd or cns
+        static public function createGraphArray($type,$dataType = "PWR"){                       // type -> define if we use prd or cns | datatype -> power or co2
             $data = simdataHandler::getNode_by_type($_SESSION["simulation"],$type);     // get the node data needed
             for($i = 0; $i < count($data);$i++){
                 echo '<div class="col-lg-4 graphContainer" >';
@@ -51,37 +50,34 @@
                 echo '</div>';
             }
         }
-
-        static public function createGraphArray_CO2($type){                                   // type -> define if we use prd or cns
-            $data = simdataHandler::getNode_by_type($_SESSION["simulation"],$type);     // get the node data needed
-            for($i = 0; $i < count($data);$i++){
-                echo '<div class="col-lg-4 graphContainer" >';
-                echo '<h3>'.$data[$i]["label"].'</h3>';
-                echo '<canvas id="prd_'.$data[$i]["id"].'_CO2"></canvas>';
-                echo '</div>';
-            }
-        }
     }
-
+    
+    //------------------------------------------------------
+    //      Class that handle all the dataset creation
+    //------------------------------------------------------
     class graphDataSetHander{
-        public static function getDataSets($str_arrayID){
-            $array_GraphID = json_decode($str_arrayID);
 
-            $dt = [];
-            $index = 0;
+        //------------------------------------------------
+        //      function that sort datasets request
+        //------------------------------------------------
+        public static function getDataSets($str_arrayID){
+            $array_GraphID = json_decode($str_arrayID);         //convert the string into a real array
+
+            $dt = [];       //array of assoc array contains [[cns_all,set],[prd_all_PWR,set],[prd_1_PWR,set]]
+            $index = 0;     //counter to know how many array are created
 
             for($i = 0; $i < count($array_GraphID);$i++){
-                $str_id = $array_GraphID[$i];   //prd_1_PWR -> productor, node 1, power
+                $str_id = $array_GraphID[$i];   //get the current id we are working on
 
                 $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
                 switch($array_idData[0]){   //check the type of graph
-                    case "cns":
-                        $dt[$index] = self::generateDataSetNode($str_id,array_slice ($array_idData,1));
+                    case "cns":             
+                        $dt[$index] = self::getDataSetNode($str_id,array_slice ($array_idData,1));
                         $index++;
                         break;
                     case "prd":
-                        $dt[$index] = self::generateDataSetNode($str_id,array_slice ($array_idData,1));
+                        $dt[$index] = self::getDataSetNode($str_id,array_slice ($array_idData,1));
                         $index++;
                         break;
                     case "str":
@@ -91,62 +87,57 @@
                     case "mSL":
                         break;
                 }
-                
-
             }
 
-            return JSON_encode($dt);
+            return JSON_encode($dt);    //convert the array into json string for data transfer
         }
-
-        private static function generateDataSetNode($str_id,$idData){
+        //-------------------------------------------------------------------------
+        //      function that get the dataset for the correct type of node
+        //-------------------------------------------------------------------------
+        private static function getDataSetNode($str_id,$idData){
             $id = $idData[0]; //all or the node id
 
-            if(count($idData)>1){
-                $param = $idData[1];
-            }else{
-                $param = "";
-            }
-
+                //sort if we are looking for a specific node or not
             switch($id){
-                case "all":
-                    return self::getAllDataSet($str_id,$param);
+                case "all":     //not a node
+                    return self::generateAllDataSet($str_id);
                     break;
-                default:
+                default:        //here $id is the id of the node
                     break;
             }
         }
 
-        private static function getAllDataSet($str_id,$soption){
+        //------------------------------------------------
+        //      function to generate the dataset array
+        //------------------------------------------------
+        private static function generateAllDataSet($str_id){
 
-            $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+            $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
 
-            if($array_idData[0]=="cns"){
+            if($array_idData[0]=="cns"){                            //if it's a cns (consumption)
                 $set["label"] = "All power consumtion";
                 $set["borderColor"] = "rgb(0, 186, 219)";
                 $set["backgroundColor"] = "rgba(0, 186, 219,0.2)";
-            }else{
-                if($array_idData[2]=="PWR"){
+            }else{                                                  //if it's a production
+                if($array_idData[2]=="PWR"){                            //we want the power
                     $set["label"] = "All power production";
                     $set["borderColor"] = "rgb(44, 219, 0)";
                     $set["backgroundColor"] = "rgba(44, 219, 0,0.2)";
-                }else{
+                }else{                                                  //CO2 production
                     $set["label"] = "All CO2 production";
                     $set["borderColor"] = "rgb(219, 0, 0)";
                     $set["backgroundColor"] = "rgba(219, 0, 0,0.2)";
                 }
-
-                
             }
 
+            $set["data"] = [5,6,5,4,5,6,5,4,5,6];   //placeholder data (must be change by last availaible data)
+            $set["lineTension"] = 0.2;              //make line smooth
+            $set["fill"] = "origin";                //create an area under the line
             
-            $set["data"] = [5,6,5,4,5,6,5,4,5,6];
-            
-            $set["lineTension"] = 0.2;
-            $set["fill"] = "origin";
-            
-
             $data["id"] = $str_id;
             $data["set"][0] = $set;
+
+            //data is an array with [0] -> str_id (prd_all_PWR) and [1] -> the new generated set
 
             return $data;
         }

@@ -3,7 +3,7 @@
         
         <div class="row main">
             <?php
-                graphArray::createGraphArray("c","power");
+                graphArray::createGraphArray("c");
             ?>
         </div> 
         

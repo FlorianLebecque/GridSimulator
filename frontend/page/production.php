@@ -8,7 +8,7 @@
             <hr>
             <div class="row">
                 <?php
-                    graphArray::createGraphArray("p","power");
+                    graphArray::createGraphArray("p","PWR");
                 ?>
             </div> 
         </div>

@@ -11,7 +11,6 @@ class graphManager{
         ajaxHandler.sendRequest("getGraphDataSet",JSON.stringify(array_graphID),graphUpdater.setDataset,this);
     }
 
-
     create_graph(str_PanelID,array_labels,array_data,int_axeMin=0,int_axeMax=10) {
         let ctx = $('#'+str_PanelID);
 
@@ -78,8 +77,6 @@ class graphUpdater{
 
     static setDataset(data,graphMan){
         let dt = JSON.parse(data);
-    
-        console.log(dt)
 
         for(let i = 0; i < dt.length;i++){
             let array_graphInfo = dt[i];     

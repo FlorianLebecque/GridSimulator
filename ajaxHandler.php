@@ -1,30 +1,25 @@
 <?php
-
     session_start();
 
     include_once("backend\inc\graph.php");
     
+    //action requested
+    $action = $_REQUEST["a"];
 
-    $action = htmlspecialchars($_REQUEST["a"],ENT_QUOTES,'UTF-8',false);
+    //get the parameters for the action
     if(isset($_REQUEST["p"])){
         $param = $_REQUEST["p"];
     }else{
         $param = "";
     }
-    
 
+    //sort the ajax request by action
 
     switch($action){
-        case "getdata":
-            
-            break;
-        case "getDashBoardData":
-            getDHdData::getDashBoardData();
-            break;
-        
-        case "getGraphDataSet":
-            echo graphDataSetHander::getDataSets($param);
-            break;
+
+        case "getGraphDataSet":                             // action wich return the datasets for the given charts
+            echo graphDataSetHander::getDataSets($param);   //      $param : array with the charts 'id'
+            break;                                          //          ["cns_all","prd_all","prd_1_PWR"]
 
         case "startSim":
             //start the sim
