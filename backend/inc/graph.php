@@ -79,12 +79,22 @@
 
     class graphArray{
             //function that create the production or consumation graphics array
-        static public function createPrdArray($type){                                   // type -> define if we use prd or cns
+        static public function createGraphArray($type,$dataType){                                   // type -> define if we use prd or cns
             $data = simdataHandler::getNode_by_type($_SESSION["simulation"],$type);     // get the node data needed
             for($i = 0; $i < count($data);$i++){
                 echo '<div class="col-lg-4 graphContainer" >';
                 echo '<h3>'.$data[$i]["label"].'</h3>';
-                echo '<canvas id="prd_'.$data[$i]["id"].'"></canvas>';
+                echo '<canvas id="prd_'.$data[$i]["id"].'_'.$dataType.'"></canvas>';
+                echo '</div>';
+            }
+        }
+
+        static public function createGraphArray_CO2($type){                                   // type -> define if we use prd or cns
+            $data = simdataHandler::getNode_by_type($_SESSION["simulation"],$type);     // get the node data needed
+            for($i = 0; $i < count($data);$i++){
+                echo '<div class="col-lg-4 graphContainer" >';
+                echo '<h3>'.$data[$i]["label"].'</h3>';
+                echo '<canvas id="prd_'.$data[$i]["id"].'_CO2"></canvas>';
                 echo '</div>';
             }
         }
