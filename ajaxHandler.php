@@ -5,9 +5,9 @@
     include_once("backend\inc\graph.php");
     
 
-    $action = htmlspecialchars($_REQUEST["a"]);
+    $action = htmlspecialchars($_REQUEST["a"],ENT_QUOTES,'UTF-8',false);
     if(isset($_REQUEST["p"])){
-        $param = htmlspecialchars($_REQUEST["p"]);
+        $param = $_REQUEST["p"];
     }else{
         $param = "";
     }
@@ -21,6 +21,11 @@
         case "getDashBoardData":
             getDHdData::getDashBoardData();
             break;
+        
+        case "getGraphDataSet":
+            echo graphDataSetHander::getDataSets($param);
+            break;
+
         case "startSim":
             //start the sim
 

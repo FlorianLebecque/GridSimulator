@@ -4,6 +4,14 @@ class graphManager{
         this.graphs = [];
     }
 
+    load_graph(array_graphID){
+        for(let i = 0; i < array_graphID.length;i++){
+            this.create_graph(array_graphID[i],label,[],0,10);
+        }
+        ajaxHandler.sendRequest("getGraphDataSet",JSON.stringify(array_graphID),graphUpdater.setDataset,this);
+    }
+
+
     create_graph(str_PanelID,array_labels,array_data,int_axeMin=0,int_axeMax=10) {
         let ctx = $('#'+str_PanelID);
 
@@ -63,4 +71,32 @@ class graphManager{
         grh.data.datasets[0].data = data;
         grh.update();
     }
+}
+
+class graphUpdater{
+    constructor(){}
+
+    static setDataset(data,graphMan){
+        let dt = JSON.parse(data);
+    
+        console.log(dt)
+
+        for(let i = 0; i < dt.length;i++){
+            let array_graphInfo = dt[i];     
+            console.log(array_graphInfo)
+            let temp_graph = graphMan.getGraph(array_graphInfo["id"]);
+            graphMan.setDatasets(temp_graph,array_graphInfo["set"]);
+        }
+    }
+
+    static update(data,graphMan){
+        let dt = JSON.parse(data);
+    
+        for(let i = 0; i < dt.length;i++){
+            let array_graphInfo = dt[i];     
+            let temp_graph = graphMan.getGraph(array_graphInfo["id"]);
+            graphMan.update(temp_graph,array_graphInfo["data"])
+        }
+    }
+
 }

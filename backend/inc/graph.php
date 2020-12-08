@@ -6,43 +6,6 @@
             echo "'".json_encode(self::getDataSet())."'";
         }
 
-        static public function getDashBoardData(){
-            echo json_encode(self::getDatas());
-        }
-
-        static private function getDataSet(){
-
-            
-            $set["label"] = "Nucleaire";
-            $set["data"] = [5,6,5,4,5,6,5,4,5,6];
-            $set["borderColor"] = "rgb(62, 240, 53)";
-            $set["lineTension"] = 0.2;
-            $set["fill"] = "origin";
-            $set["backgroundColor"] = "rgba(62, 240, 53,0.2)";
-
-            $data["id"] = "prd_graph";
-            $data["set"][0] = $set;
-
-            $set["data"] = [1,2,3,4,5,6,7,8,9,10];
-            $data["set"][1] = $set;
-
-            $dt[0] = $data;
-
-            $set["label"] = "Maison";
-            $set["data"] = [5,6,5,4,5,6,5,4,5,6];
-            $set["borderColor"] = "rgb(75, 192, 192)";
-            $set["lineTension"] = 0.2;
-            $set["fill"] = "origin";
-            $set["backgroundColor"] = "rgba(75, 192, 192,0.2)";
-
-            $data1["id"] = "cns_graph";
-            $data1["set"][0] = $set;
-
-            $dt[1] = $data1;
-
-            return $dt;
-
-        }
 
         static private function getDatas(){
 
@@ -98,6 +61,96 @@
                 echo '</div>';
             }
         }
+    }
+
+    class graphDataSetHander{
+        public static function getDataSets($str_arrayID){
+            $array_GraphID = json_decode($str_arrayID);
+
+            $dt = [];
+            $index = 0;
+
+            for($i = 0; $i < count($array_GraphID);$i++){
+                $str_id = $array_GraphID[$i];   //prd_1_PWR -> productor, node 1, power
+
+                $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+
+                switch($array_idData[0]){   //check the type of graph
+                    case "cns":
+                        $dt[$index] = self::generateDataSetNode($str_id,array_slice ($array_idData,1));
+                        $index++;
+                        break;
+                    case "prd":
+                        $dt[$index] = self::generateDataSetNode($str_id,array_slice ($array_idData,1));
+                        $index++;
+                        break;
+                    case "str":
+                        break;
+                    case "mUP":
+                        break;
+                    case "mSL":
+                        break;
+                }
+                
+
+            }
+
+            return JSON_encode($dt);
+        }
+
+        private static function generateDataSetNode($str_id,$idData){
+            $id = $idData[0]; //all or the node id
+
+            if(count($idData)>1){
+                $param = $idData[1];
+            }else{
+                $param = "";
+            }
+
+            switch($id){
+                case "all":
+                    return self::getAllDataSet($str_id,$param);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static function getAllDataSet($str_id,$soption){
+
+            $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+
+            if($array_idData[0]=="cns"){
+                $set["label"] = "All power consumtion";
+                $set["borderColor"] = "rgb(0, 186, 219)";
+                $set["backgroundColor"] = "rgba(0, 186, 219,0.2)";
+            }else{
+                if($array_idData[2]=="PWR"){
+                    $set["label"] = "All power production";
+                    $set["borderColor"] = "rgb(44, 219, 0)";
+                    $set["backgroundColor"] = "rgba(44, 219, 0,0.2)";
+                }else{
+                    $set["label"] = "All CO2 production";
+                    $set["borderColor"] = "rgb(219, 0, 0)";
+                    $set["backgroundColor"] = "rgba(219, 0, 0,0.2)";
+                }
+
+                
+            }
+
+            
+            $set["data"] = [5,6,5,4,5,6,5,4,5,6];
+            
+            $set["lineTension"] = 0.2;
+            $set["fill"] = "origin";
+            
+
+            $data["id"] = $str_id;
+            $data["set"][0] = $set;
+
+            return $data;
+        }
+
     }
 
 ?>
