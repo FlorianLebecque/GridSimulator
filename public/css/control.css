@@ -73,3 +73,14 @@
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
+
+.table{
+    color: var(--textColor);
+    border:none;
+}
+.table td, .table th{
+    border:none;
+}
+.table thead th{
+    border-bottom: 1px solid var(--backColor);
+}

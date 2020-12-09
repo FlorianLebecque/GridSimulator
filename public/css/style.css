@@ -168,3 +168,7 @@ header{
 hr {
   border-top: 1px solid var(--backColor);
 }
+
+.minheight{
+  min-height: 5em;
+}

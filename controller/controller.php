@@ -4,10 +4,10 @@
     include_once("backend/header.php");
     include_once("backend/editor.php");
 
-
+    include_once("backend\inc\action.php");
     include_once("backend\inc\graph.php");
     include_once("backend\inc\javascriptInculder.php");
-    include("backend\inc\database.php");
+    include_once("backend\inc\database.php");
     include_once("backend\inc\simdata.php");
 
     class Controller {  
@@ -29,9 +29,18 @@
                 $action = htmlspecialchars($_GET["a"]);
 
                 if($action == "logoff"){
-                    session_destroy();
-                    header('Location: index.php');
+                    
                 }
+
+                switch($action){
+                    case "addNodeType":
+                        ActionHandler::addNodeType();
+                        break;
+                    case "logoff":
+                        ActionHandler::LogOff();
+                        break;
+                }
+
             }
 
             if(isset($_SESSION["simulation"])){         //check if we are connected

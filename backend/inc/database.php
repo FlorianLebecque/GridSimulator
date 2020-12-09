@@ -52,6 +52,10 @@
             return 'SELECT tnode.`id`,tnode.label ,tnode.`type_simple`,tnode.`type`,tnode.`meta` FROM `pe_type_node` AS tnode INNER JOIN pe_sim AS sm ON tnode.`id_sim` = sm.id WHERE tnode.`id_sim` = '.$sim;
         }
 
+        public static function getNodeTypeQuery_by_simpleType($sim,$stype){
+            return 'SELECT tnode.`id`,tnode.label ,tnode.`type_simple`,tnode.`type`,tnode.`meta` FROM `pe_type_node` AS tnode INNER JOIN pe_sim AS sm ON tnode.`id_sim` = sm.id WHERE tnode.`type_simple`="'.$stype.'" and tnode.`id_sim` = '.$sim;
+        }
+
         public static function qetTestSimNameQuery($name){
             return "SELECT `id`,`psw` FROM `pe_sim` WHERE `name` = '".$name."'";
         }
@@ -62,6 +66,18 @@
 
         public static function getAddSimQuery($name,$pass){
             return 'INSERT INTO `pe_sim`(`name`, `psw`) VALUES ("'.$name.'","'.$pass.'")';
+        }
+
+        public static function getNodeTypeFieldQuery(){
+            return 'SELECT * FROM `pe_type_meta_field` WHERE 1';
+        }
+
+        public static function getNodeTypeFieldQuery_by_type($type){
+            return 'SELECT * FROM `pe_type_meta_field` WHERE `type` = "'.$type.'"';
+        }
+
+        public static function getAddNewNodeTypeQuery($label,$sim,$stype,$type,$meta){
+            return 'INSERT INTO `pe_type_node`(`label`, `id_sim`, `type_simple`, `type`, `meta`) VALUES ("'.$label.'",'.$sim.',"'.$stype.'","'.$type.'",\''.$meta.'\')';
         }
     }
 
