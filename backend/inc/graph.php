@@ -1,42 +1,70 @@
 <?php
     
-    class getDHdData{
+    class graphDataHandler{
 
-        static public function getDashBoardDatasets(){
-            echo "'".json_encode(self::getDataSet())."'";
+        static public function getData($str_arrayID){
+            $array_GraphID = json_decode($str_arrayID);
+
+            $dt = [];
+            $index = 0;
+            for($i = 0; $i < count($array_GraphID);$i++){
+                $str_id = $array_GraphID[$i];   //get the current id we are working on
+
+                $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+
+                switch($array_idData[0]){   //check the type of graph
+                    case "cns":             
+                        $dt[$index] = self::getDataNode($str_id,array_slice ($array_idData,1));
+                        $index++;
+                        break;
+                    case "prd":
+                        $dt[$index] = self::getDataNode($str_id,array_slice ($array_idData,1));
+                        $index++;
+                        break;
+                    case "str":
+                        break;
+                    case "mUP":
+                        break;
+                    case "mSL":
+                        break;
+                }
+            }
+
+            return JSON_encode($dt);    //convert the array into json string for data transfer
         }
 
+        private static function getDataNode($str_id,$idData){
+            $id = $idData[0]; //all or the node id
 
-        static private function getDatas(){
-
-            $data[0]["id"] = "prd_graph";
-
-
-            $dt = $_SESSION["data"];
-
-            $new_val = abs($dt[count($dt)-1] + rand(-1,1));
-
-            array_push($dt,$new_val);
-            $dt = array_slice($dt,1,10);
-            $_SESSION["data"] = $dt;
-
-            $data[0]["data"] = $dt;
-
-
-
-            $data[1]["id"] = "cns_graph";
-
-            $dt = $_SESSION["data1"];
-            $new_val = abs($dt[count($dt)-1] + rand(-1,1));
-
-            array_push($dt,$new_val);
-            $dt = array_slice($dt,1,10);
-            $_SESSION["data1"] = $dt;
-
-            $data[1]["data"] = $dt;
-
-            return $data;
+                //sort if we are looking for a specific node or not
+            switch($id){
+                case "all":     //not a node
+                    return self::generateAllData($str_id);
+                    break;
+                default:        //here $id is the id of the node
+                    break;
+            }
         }
+
+        private static function generateAllData($str_id){
+            $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
+
+            $data["id"] = $str_id;
+
+            if($array_idData[0]=="cns"){                            //if it's a cns (consumption)
+                $dt = simdataHandler::getALLCnsPWR();
+            }else{                                                  //if it's a production
+                if($array_idData[2]=="PWR"){                            //we want the power
+                    $dt = simdataHandler::getALLPrdPWR();
+                }else{                                                  //CO2 production
+                    $dt = simdataHandler::getALLPrdCO2();
+                }
+            }
+
+            $data["data"] = $dt;
+            return $data;        
+        }    
+
     }
 
     class graphArray{

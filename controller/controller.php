@@ -18,7 +18,7 @@
             //session_destroy();
             $_SESSION["data"] = [5,2,5,6,6,6,5,6,5,4];
             $_SESSION["data1"] = [5,2,5,6,6,6,5,6,5,4];
-
+            //$_SESSION["status"] = 1;
         } 
 
 
@@ -34,18 +34,16 @@
                 }
             }
 
-
             if(isset($_SESSION["simulation"])){         //check if we are connected
 
                 if(!isset($_SESSION["status"])){
-                    $_SESSION["status"] == 1;
+                    $_SESSION["status"] = 0;
                 }
 
                 include_once("frontend/struct.php");        //if yes -> show the page
             }else{    
                 include_once("frontend/special/login.php"); //if not -> show the login page
             }
-
             
         }
 

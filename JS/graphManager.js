@@ -77,10 +77,8 @@ class graphUpdater{
 
     static setDataset(data,graphMan){
         let dt = JSON.parse(data);
-
         for(let i = 0; i < dt.length;i++){
             let array_graphInfo = dt[i];     
-            console.log(array_graphInfo)
             let temp_graph = graphMan.getGraph(array_graphInfo["id"]);
             graphMan.setDatasets(temp_graph,array_graphInfo["set"]);
         }
@@ -88,7 +86,6 @@ class graphUpdater{
 
     static update(data,graphMan){
         let dt = JSON.parse(data);
-    
         for(let i = 0; i < dt.length;i++){
             let array_graphInfo = dt[i];     
             let temp_graph = graphMan.getGraph(array_graphInfo["id"]);

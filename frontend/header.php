@@ -22,7 +22,7 @@
 
 		<div class="nav justify-contend-end">
 
-			<a href="index.php?a=logoff" class="btn margR">Disconnect</a>
+			<a href="index.php?a=logoff" class="btn margR">Exit</a>
 
 			<button onclick="StartStop_Sim(1)" class="btn" id="status"><?php headerData::getSimState_icon();?></button>
 
@@ -32,23 +32,4 @@
 
 </header>
 
-<script type="text/javascript">
-
-	function StartStop_Sim(str) {
-		let ajx = new ajaxHandler()
-		if(status == 0){
-			ajx.sendRequest("startSim","a",updateButton);
-		}else{
-			ajx.sendRequest("stopSim","a",updateButton);
-		}
-		
-	}
-
-	function updateButton(data){
-		
-		let dt = JSON.parse(data)
-		status = dt["1"]
-		$("#status").html(dt["2"])
-	}
-
-</script>
+<script type="text/javascript" src="frontend\JS\header.js"></script>

@@ -2,6 +2,7 @@
     session_start();
 
     include_once("backend\inc\graph.php");
+    include_once("backend\inc\simdata.php");
     
     //action requested
     $action = $_REQUEST["a"];
@@ -21,6 +22,9 @@
             echo graphDataSetHander::getDataSets($param);   //      $param : array with the charts 'id'
             break;                                          //          ["cns_all","prd_all","prd_1_PWR"]
 
+        case "getGraphData":
+            echo graphDataHandler::getData($param);
+            break;
         case "startSim":
             //start the sim
 

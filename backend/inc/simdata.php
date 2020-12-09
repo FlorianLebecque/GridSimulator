@@ -20,5 +20,17 @@
             return bdd::getData($req);                              //get the all the node
         }
 
+        static public function getALLPrdPWR(){
+            return [1,2,3,4,5,6,7,8,9,10];
+        }
+
+        static public function getALLPrdCO2(){
+            return [10,9,8,7,6,5,4,3,2,1];
+        }
+
+        static public function getALLCnsPWR(){
+            return [1,2,3,4,5,5,4,3,2,1];
+        }
+
     }
 ?>
