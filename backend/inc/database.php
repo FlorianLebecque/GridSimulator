@@ -79,6 +79,11 @@
         public static function getAddNewNodeTypeQuery($label,$sim,$stype,$type,$meta){
             return 'INSERT INTO `pe_type_node`(`label`, `id_sim`, `type_simple`, `type`, `meta`) VALUES ("'.$label.'",'.$sim.',"'.$stype.'","'.$type.'",\''.$meta.'\')';
         }
+
+        public static function getNopeLabelQuery($id){
+            return 'SELECT `label` FROM `pe_node` WHERE `id` ='.$id;
+        }
+
     }
 
 ?>

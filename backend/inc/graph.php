@@ -71,12 +71,30 @@
             //function that create the production or consumation graphics array
         static public function createGraphArray($type,$dataType = "PWR"){                       // type -> define if we use prd or cns | datatype -> power or co2
             $data = simdataHandler::getNode_by_type($_SESSION["simulation"],$type);     // get the node data needed
-            for($i = 0; $i < count($data);$i++){
-                echo '<div class="col-lg-4 graphContainer" >';
-                echo '<h3>'.$data[$i]["label"].'</h3>';
-                echo '<canvas id="prd_'.$data[$i]["id"].'_'.$dataType.'"></canvas>';
-                echo '</div>';
+
+            $count = count($data);
+
+            $int_numRow = floor($count / 3);
+            if($count % 3 != 0){
+                $int_numRow += 1;
             }
+
+            for($i = 0; $i < $int_numRow; $i++){
+                echo "<div class='row'>";
+
+                for($j = $i*3; $j < 3+($i*3);$j++){
+                    if($j < $count){
+                        echo '<div class="col-lg-4 graphContainer" >';
+                        echo '<h3>'.$data[$j]["label"].'</h3>';
+                        echo '<canvas id="prd_'.$data[$j]["id"].'_'.$dataType.'"></canvas>';
+                        echo '</div>';
+                    } 
+                }
+
+                echo "</div><hr>";
+            }
+
+
         }
     }
     
@@ -131,6 +149,7 @@
                     return self::generateAllDataSet($str_id);
                     break;
                 default:        //here $id is the id of the node
+                    return self::generateNodeDataSet($str_id);
                     break;
             }
         }
@@ -157,6 +176,36 @@
                     $set["backgroundColor"] = "rgba(219, 0, 0,0.2)";
                 }
             }
+
+            $set["data"] = [5,6,5,4,5,6,5,4,5,6];   //placeholder data (must be change by last availaible data)
+            $set["lineTension"] = 0.2;              //make line smooth
+            $set["fill"] = "origin";                //create an area under the line
+            
+            $data["id"] = $str_id;
+            $data["set"][0] = $set;
+
+            //data is an array with [0] -> str_id (prd_all_PWR) and [1] -> the new generated set
+
+            return $data;
+        }
+
+        //------------------------------------------------
+        //      function to generate the dataset array
+        //------------------------------------------------
+        private static function generateNodeDataSet($str_id){
+
+            $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
+
+            $label = simdataHandler::getNodeLabel($array_idData[1]);
+
+            $set["label"] = $label[0]["label"];
+
+            $r = rand(100,255);
+            $g = rand(100,255);
+            $b = rand(100,255);
+
+            $set["borderColor"] = "rgb(".$r.", ".$g.", ".$b.")";
+            $set["backgroundColor"] = "rgba(".$r.", ".$g.", ".$b.",0.2)";
 
             $set["data"] = [5,6,5,4,5,6,5,4,5,6];   //placeholder data (must be change by last availaible data)
             $set["lineTension"] = 0.2;              //make line smooth

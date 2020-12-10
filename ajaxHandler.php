@@ -3,6 +3,7 @@
 
     include_once("backend\inc\graph.php");
     include_once("backend\inc\simdata.php");
+    include_once("backend\inc\database.php");
     
     //action requested
     $action = $_REQUEST["a"];

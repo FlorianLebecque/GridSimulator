@@ -1,4 +1,5 @@
 <?php
+
     class simdataHandler{
 
         static public function getPrdType(){
@@ -33,6 +34,12 @@
             $req = bddQuery::getNopeQuery_by_type($sim,$type);      //get the mysql query require to get the data
             return bdd::getData($req);                              //get the all the node
         }
+
+        static public function getNodeLabel($id){                   //
+            $req = bddQuery::getNopeLabelQuery($id);         //  get node label
+            return bdd::getData($req);                              //
+        }
+        
 
         static public function getALLPrdPWR(){
             return [1,2,3,4,5,6,7,8,9,10];
