@@ -91,7 +91,7 @@
                     } 
                 }
 
-                echo "</div><hr>";
+                echo "</div><br><br>";
             }
 
 
