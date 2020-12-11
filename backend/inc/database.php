@@ -114,5 +114,9 @@
             return 'INSERT INTO `pe_node_children`(`id_parent`, `id_child`, `max_pwr`) VALUES ('.$parent_id.','.$node_id.','.$max_power.')';
         }
 
+        public static function getLastSimQuery($name){
+            return 'SELECT max(id) AS id FROM `pe_sim` WHERE `name` = "'.$name.'"';
+        }
+
     }
 ?>

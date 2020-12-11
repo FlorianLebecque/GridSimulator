@@ -80,5 +80,10 @@
             return bdd::getData($req);
         }
 
+        public static function getLastSim($sim){
+            $req = bddQuery::getLastSimQuery($sim);
+            return bdd::getData($req);
+        }
+
     }
 ?>

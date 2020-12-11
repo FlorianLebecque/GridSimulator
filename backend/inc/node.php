@@ -78,7 +78,7 @@
 
         private static function formatType_array($type_array){
 
-            //$new_typeArray = [];
+            $new_typeArray = [];
 
             for($i = 0;$i < count($type_array);$i++){
                 $new_typeArray[$type_array[$i]["id"]] = array(

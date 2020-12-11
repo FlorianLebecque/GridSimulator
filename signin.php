@@ -35,8 +35,17 @@
                         $_POST["sim"] = htmlspecialchars($_POST["sim"]);
                         $_POST["pass1"] = md5(htmlspecialchars($_POST["pass1"]));
 
+                            //create new sim
                         $req = bddQuery::getAddSimQuery($_POST["sim"],$_POST["pass1"]);
                         $res = bdd::sendQuery($req);
+
+                            //get sim id
+                        $req = bddQuery::getLastSimQuery($name);
+                        $LastSimId = bdd::getData($req)[0]["id"];
+
+                            //insert node N1
+                        $req = bddQuery::InsertNodeQuery($LastSimId,0,"N1");
+                        bdd::setData($req);
 
                         $err=10;
                     }else{
