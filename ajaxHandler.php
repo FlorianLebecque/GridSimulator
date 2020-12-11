@@ -4,6 +4,7 @@
     include_once("backend\inc\graph.php");
     include_once("backend\inc\simdata.php");
     include_once("backend\inc\database.php");
+    include_once("backend\inc\\node.php");
     
     //action requested
     $action = $_REQUEST["a"];
@@ -25,6 +26,10 @@
 
         case "getGraphData":
             echo graphDataHandler::getData($param);
+            break;
+
+        case "addNewNode":
+            echo nodeHandler::addNode($param);
             break;
         case "startSim":
             //start the sim

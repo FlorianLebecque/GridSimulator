@@ -2,14 +2,6 @@
 
     class simdataHandler{
 
-        static public function getPrdType(){
-
-        }
-
-        static public function getCnsType(){
-
-        }
-
         static public function getNodeType($sim){           //
             $req = bddQuery::getNodeTypeQuery($sim);        //  get the node type for the simulation
             return bdd::getData($req);                      //
@@ -35,11 +27,15 @@
             return bdd::getData($req);                              //get the all the node
         }
 
-        static public function getNodeLabel($id){                   //
-            $req = bddQuery::getNopeLabelQuery($id);         //  get node label
-            return bdd::getData($req);                              //
+        static public function getNodeLabel($id){           //
+            $req = bddQuery::getNodeLabelQuery($id);        //  get node label
+            return bdd::getData($req);                      //
         }
         
+        public static function getNode($sim){
+            $req = bddQuery::getNodeQuery($sim);
+            return bdd::getData($req);
+        }
 
         static public function getALLPrdPWR(){
             return [1,2,3,4,5,6,7,8,9,10];
@@ -55,10 +51,34 @@
 
         static public function addNewNodeType($label,$sim,$stype,$type,$meta){          //
             $req = bddQuery::getAddNewNodeTypeQuery($label,$sim,$stype,$type,$meta);    //  Add a new node type in pe_node_type
-            return bdd::getData($req);                                                  //
+            return bdd::setData($req);                                                  //
         }
 
-        
+        public static function getNodeChild($sim){
+            $req = bddQuery::getNodeChildQuery($sim);
+            return bdd::getData($req);
+        }
+
+        public static function getFirstNode($sim){
+            $req = bddQuery::getFirstNodeQuery($sim);
+            return bdd::getData($req);
+        }
+
+        public static function InsertNode($sim,$parent_id,$type_id,$node_label,$max_power){
+            $req = bddQuery::InsertNodeQuery($sim,$type_id,$node_label);
+            bdd::setData($req);
+
+            $node_id = self::getLastNode($sim)[0]["id"];
+
+            $req = bddQuery::InsertChildQuery($parent_id,$node_id,$max_power);
+            return bdd::setData($req);
+            
+        }
+
+        public static function getLastNode($sim){
+            $req = bddQuery::getLastNodeQuery($sim);
+            return bdd::getData($req);
+        }
 
     }
 ?>

@@ -5,7 +5,6 @@ let label = [0,0,0,0,0,0,0,0,0,0];
 array_graphID = [
     "cns_all",
     "prd_all_PWR",
-    "str_all",
     "mUP_all",
     "mSL_all",
     "prd_all_CO2"

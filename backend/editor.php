@@ -3,9 +3,9 @@
 
         public static function getTypeOption($sim){
             $data = simdataHandler::getNodeType($sim);
-
+            echo "<option value='0'>Node</option>";
             for($i = 0; $i < count($data);$i++){
-                echo "<option>".$data[$i]["label"]."</option>";
+                echo "<option value='".$data[$i]["id"]."'>".$data[$i]["label"]."</option>";
             }
 
         }
@@ -25,6 +25,11 @@
                 echo "</tr>";
             }
         }
+
+        public static function getNodeTree($sim){
+            return nodeHandler::getNodes($sim);
+        }
+
 
     }
 

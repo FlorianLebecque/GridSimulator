@@ -1,5 +1,4 @@
 //fill the node type in the correct select
-
 $("#prd_nodeType").html(setType_option(array_DataTypeField, "p"))
 $("#cns_nodeType").html(setType_option(array_DataTypeField, "c"))
 $("#prd_nodeType").change(array_DataTypeField,get_form_field);
@@ -46,6 +45,117 @@ function get_form_field(event){
         $("#cns_editor_"+this.id).html(html);
     }
 
+}
+
+//--------------------------------------------------------------------------------------
+
+chart = createTreantJs(nodeArray,"#tree-simple")
+$("#btn_rmv").hide();
+
+function createTreantJs(nodeArray,divId){
+    
+    let simple_chart_config = {
+        chart: {
+            container: divId,
+            animateOnInit: true,
+            node: {
+                collapsable: false,
+                HTMLclass:["btn"]
+            },
+            connectors: {
+                type: "step",
+                style: {
+                    'stroke': '#FF5555'
+                }
+            },
+            animation: {
+                nodeAnimation: "easeOutBounce",
+                nodeSpeed: 200,
+                connectorsAnimation: "easeOutBounce",
+                connectorsSpeed: 500
+            }
+        },
+        
+        nodeStructure: createNodeStructure(nodeArray,0)
+    };
+
+    return my_chart = new Treant(simple_chart_config);
+}
+
+function createNodeStructure(node){
+
+    let temp_array = {
+        text:{
+            name: node["label"]
+        },
+        link:{href:"javascript:nodeClick('"+node["id"]+"');"},
+        HTMLid:node["id"],
+        children:[]
+    }
+
+    node["child"].forEach(function(childNode){
+        temp_array["children"].push(createNodeStructure(childNode));
+    });
+
+    return temp_array;
+}
+
+function  getNode(node,id) {
+
+    if(node["id"]==id){
+        return node
+    }else{
+        let temp_node = []
+        let corNode = [];
+        
+        node["child"].forEach(function(childNode){
+
+            
+            temp_node = getNode(childNode,id)
+            if(temp_node["id"] == id){
+                corNode = temp_node;
+            }
+
+        });
+        return corNode;
+    }
+}
+
+function nodeClick(params) {
+    selectedNode = getNode(nodeArray,params)
     
 
+    if(selectedNode["type"] != "n"){
+        $("#btn_add").hide();
+        $("#btn_rmv").show();
+    }else{
+        $("#btn_add").show();
+
+        if(selectedNode["label"]=="N1"){
+            $("#btn_rmv").hide();
+        }else{
+            $("#btn_rmv").show();
+        }
+
+    }
+
+    $("#selectedNodeLabel").text(selectedNode["label"])
+    
+}
+
+function addNode(sim) {
+    let parentID = selectedNode["id"];
+    let label = $("#node_label").val();
+    let typeId = $("#node_typeID").val();
+    let max_pow = $("#node_power").val();
+
+    if(label != ""){
+        let param = sim+"_"+parentID+"_"+typeId+"_"+label+"_"+max_pow;
+        ajaxHandler.sendRequest("addNewNode",param,UpdatePage)
+    }
+}
+
+function UpdatePage(params) {
+    nodeArray = JSON.parse(params);
+    chart = createTreantJs(nodeArray,"#tree-simple")
 }

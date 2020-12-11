@@ -26,6 +26,7 @@
             //format the query result into an assoc array
         static private function format($data){
             $dt = [];
+            
             if(mysqli_num_rows($data)>0){
                 while($temp_data = mysqli_fetch_array($data,MYSQLI_ASSOC)){
                     array_push($dt,$temp_data);
@@ -39,6 +40,11 @@
             $raw_data = self::sendQuery($req);
             return self::format($raw_data);
         }
+
+        static public function setData($req){
+            return self::sendQuery($req);
+        }
+
     } 
 
         //class that create and return all the
@@ -80,10 +86,33 @@
             return 'INSERT INTO `pe_type_node`(`label`, `id_sim`, `type_simple`, `type`, `meta`) VALUES ("'.$label.'",'.$sim.',"'.$stype.'","'.$type.'",\''.$meta.'\')';
         }
 
-        public static function getNopeLabelQuery($id){
+        public static function getNodeLabelQuery($id){
             return 'SELECT `label` FROM `pe_node` WHERE `id` ='.$id;
         }
 
-    }
+        public static function getNodeQuery($id){
+            return 'SELECT node.`id`,node.`id_type`,node.`label` FROM `pe_node` AS node INNER JOIN pe_sim AS sim ON node.`id_sim` = sim.id WHERE node.`id_sim` = '.$id;
+        }
 
+        public static function getNodeChildQuery($id){
+            return 'SELECT child.`id_parent`,child.`id_child`,child.`max_pwr` FROM `pe_node_children` AS child INNER JOIN pe_node AS node ON child.`id_parent` = node.id WHERE node.id_sim = '.$id;
+        }
+
+        public static function getFirstNodeQuery($id){
+            return 'SELECT min(id) AS id FROM `pe_node` WHERE `id_sim` = '.$id;
+        }
+
+        public static function getLastNodeQuery($id){
+            return 'SELECT max(id) AS id FROM `pe_node` WHERE `id_sim` = '.$id;
+        }
+
+        public static function InsertNodeQuery($sim,$type_id,$node_label){
+            return 'INSERT INTO `pe_node`(`id_sim`, `id_type`, `label`) VALUES ('.$sim.','.$type_id.',"'.$node_label.'")';
+        }
+
+        public static function InsertChildQuery($parent_id,$node_id,$max_power){
+            return 'INSERT INTO `pe_node_children`(`id_parent`, `id_child`, `max_pwr`) VALUES ('.$parent_id.','.$node_id.','.$max_power.')';
+        }
+
+    }
 ?>

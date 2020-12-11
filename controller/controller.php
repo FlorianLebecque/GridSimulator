@@ -9,6 +9,7 @@
     include_once("backend\inc\javascriptInculder.php");
     include_once("backend\inc\database.php");
     include_once("backend\inc\simdata.php");
+    include_once("backend\inc\\node.php");
 
     class Controller {  
 

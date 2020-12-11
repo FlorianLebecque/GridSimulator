@@ -1,6 +1,12 @@
 
 <script>
+
     let array_DataTypeField = <?php echo json_encode(editorData::getTypeField()); ?>
+
+    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"])) ?>
+    
+    let selectedNode = nodeArray;
+
 </script>
 
 <div class="wideContainer">
@@ -12,22 +18,30 @@
                     <div class="col">
                         <div class="nav">
                     
-                            <select class="btn margR" name="" id="">
+                            <select class="btn margR" name="" id="node_typeID">
                                 <?php
                                     editorData::getTypeOption($_SESSION["simulation"]);
                                 ?>
                             </select>
-                            <input  class="inpt margR" type="text" placeholder="Label">
-                            <button class="btn margR">add</button>
-                            <button class="btn">remove</button>
+                            <input  class="inpt margR" type="text" placeholder="Label" id="node_label">
+                            <input  class="inpt margR" type="number" placeholder="Line power" min="0" id="node_power">
+                            <button class="btn margR" id="btn_add" onclick="addNode(<?php echo $_SESSION['simulation'] ?>)">add</button>
+                            <button class="btn margR" id="btn_rmv">remove</button>
+
+                            <h2 id="selectedNodeLabel">N1</h2>
+
                         </div>
     
                     </div>
                 </div><hr>
                 <div class="row">
                     <div class="col-12">
-                    
-                            <button class="btn selected">N1</button>
+                        <div id="tree-simple"> </div>
+                        <script>
+                            
+                            //var chart = new Treant(simple_chart_config, function() { alert( 'Tree Loaded' ) }, $ );
+                        </script>
+                            
 
                     </div>
                 </div>

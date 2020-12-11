@@ -5,18 +5,11 @@
             <button class="collapsible">Electrical data</button>
             <div class="collasibleContent"><hr>
                 <div class="row">
-                    <div class="col-lg-8 graphContainer" >
+                    <div class="col-lg-6 graphContainer" >
                         <h3>Production</h3>
                         <canvas id="prd_all_PWR"></canvas>
                     </div>
-                    
-                    <div class="col-lg-4 graphContainer" >
-                        <h3>Storage</h3>
-                        <canvas id="str_all"></canvas>
-                    </div>
-                </div><hr>
-                <div class="row">
-                    <div class="col graphContainer">
+                    <div class="col-lg-6 graphContainer">
                         <h3>Consumption</h3>
                         <canvas id="cns_all"></canvas>
                     </div>
@@ -24,25 +17,7 @@
             </div>  
         </div>
     </div>
-    <div class="col-lg-6">
-        <div class=" main">
-            <button class="collapsible">Money</button>
-            <div class="collasibleContent"><hr>
-                <div class="row">
-                    <div class="col graphContainer">
-                        <h3>Upkeep</h3>
-                        <canvas id="mUP_all"> </canvas>
-                    </div>
-                    
-                    <div class="col graphContainer">
-                        <h3>Sales</h3>
-                        <canvas id="mSL_all">  </canvas>
-                    </div>
-                </div>
-            </div>  
-        </div>
-    </div>
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class=" main">
             <button class="collapsible">CO2</button>
             <div class="collasibleContent"><hr>
@@ -55,4 +30,23 @@
             </div>  
         </div>
     </div>
+    <div class="col-lg-12">
+        <div class=" main">
+            <button class="collapsible">Money</button>
+            <div class="collasibleContent"><hr>
+                <div class="row">
+                    <div class="col-lg-6 graphContainer">
+                        <h3>Upkeep</h3>
+                        <canvas id="mUP_all"> </canvas>
+                    </div>
+                    
+                    <div class="col-lg-6 graphContainer">
+                        <h3>Sales</h3>
+                        <canvas id="mSL_all">  </canvas>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    
 </div>

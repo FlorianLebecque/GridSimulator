@@ -42,6 +42,7 @@
                     return self::generateAllData($str_id);
                     break;
                 default:        //here $id is the id of the node
+                    return self::generateData($str_id);
                     break;
             }
         }
@@ -64,6 +65,25 @@
             $data["data"] = $dt;
             return $data;        
         }    
+
+        private static function generateData($str_id){
+            $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
+
+            $data["id"] = $str_id;
+
+            if($array_idData[0]=="cns"){                            //if it's a cns (consumption)
+                $dt = simdataHandler::getALLCnsPWR();
+            }else{                                                  //if it's a production
+                if($array_idData[2]=="PWR"){                            //we want the power
+                    $dt = simdataHandler::getALLPrdPWR();
+                }else{                                                  //CO2 production
+                    $dt = simdataHandler::getALLPrdCO2();
+                }
+            }
+
+            $data["data"] = $dt;
+            return $data;        
+        }   
 
     }
 
@@ -200,9 +220,10 @@
 
             $set["label"] = $label[0]["label"];
 
-            $r = rand(100,255);
-            $g = rand(100,255);
-            $b = rand(100,255);
+                //generate random color for the charts
+            $r = rand(20,255);
+            $g = rand(20,255);
+            $b = rand(20,255);
 
             $set["borderColor"] = "rgb(".$r.", ".$g.", ".$b.")";
             $set["backgroundColor"] = "rgba(".$r.", ".$g.", ".$b.",0.2)";
@@ -214,7 +235,7 @@
             $data["id"] = $str_id;
             $data["set"][0] = $set;
 
-            //data is an array with [0] -> str_id (prd_all_PWR) and [1] -> the new generated set
+            //data is an array with [0] -> str_id (prd_1_PWR) and [1] -> the new generated set
 
             return $data;
         }
