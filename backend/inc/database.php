@@ -123,7 +123,7 @@
         }
 
         public static function DeleteChildQuery($id){
-            return 'DELETE FROM `pe_node_children` WHERE `id_parent` = '.$id.' OR `id_child` = '.$id;
+            return 'DELETE FROM `pe_node` WHERE `id` IN (SELECT `id_child` FROM `pe_node_children` WHERE `id_parent` = '.$id.')';
         }
 
         public static function rmvTypeQuery($sim,$id){
