@@ -129,6 +129,5 @@
         public static function rmvTypeQuery($sim,$id){
             return 'DELETE FROM `pe_type_node` WHERE `id` = '.$id.' AND `id_sim` ='.$sim;
         }
-
     }
 ?>
