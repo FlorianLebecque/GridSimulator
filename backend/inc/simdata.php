@@ -85,5 +85,15 @@
             return bdd::getData($req);
         }
 
+        public static function DeleteNode($id){
+            $req = bddQuery::DeleteNodeQuery($id);
+            return bdd::setData($req);
+        }
+
+        public static function rmvType($sim,$id){
+            $req = bddQuery::rmvTypeQuery($sim,$id);
+            return bdd::setData($req);
+        }
+
     }
 ?>

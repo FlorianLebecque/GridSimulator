@@ -26,7 +26,7 @@
                             <input  class="inpt margR" type="text" placeholder="Label" id="node_label">
                             <input  class="inpt margR" type="number" placeholder="Line power" min="0" id="node_power">
                             <button class="btn margR" id="btn_add" onclick="addNode(<?php echo $_SESSION['simulation'] ?>)">add</button>
-                            <button class="btn margR" id="btn_rmv">remove</button>
+                            <button class="btn margR" id="btn_rmv" onclick="rmvNode(<?php echo $_SESSION['simulation'] ?>)" >remove</button>
 
                             <h2 id="selectedNodeLabel">N1</h2>
 
@@ -37,12 +37,6 @@
                 <div class="row">
                     <div class="col-12">
                         <div id="tree-simple"> </div>
-                        <script>
-                            
-                            //var chart = new Treant(simple_chart_config, function() { alert( 'Tree Loaded' ) }, $ );
-                        </script>
-                            
-
                     </div>
                 </div>
             </div>  

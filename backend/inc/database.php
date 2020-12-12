@@ -118,5 +118,13 @@
             return 'SELECT max(id) AS id FROM `pe_sim` WHERE `name` = "'.$name.'"';
         }
 
+        public static function DeleteNodeQuery($id){
+            return 'DELETE FROM `pe_node` WHERE `id` = '.$id;
+        }
+
+        public static function rmvTypeQuery($sim,$id){
+            return 'DELETE FROM `pe_type_node` WHERE `id` = '.$id.' AND `id_sim` ='.$sim;
+        }
+
     }
 ?>

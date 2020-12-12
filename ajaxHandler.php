@@ -31,6 +31,14 @@
         case "addNewNode":
             echo nodeHandler::addNode($param);
             break;
+
+        case "rmvNode":
+            echo nodeHandler::rmvNode($param);
+            break;
+
+        case "rmvType":
+            echo nodeHandler::rmvType($param);
+            break;
         case "startSim":
             //start the sim
 

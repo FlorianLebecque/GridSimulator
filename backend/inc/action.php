@@ -19,8 +19,6 @@
                     $type_template = simdataHandler::getNodeTypeField_by_type($_POST["nodeType"]);                    
                     $meta_field = json_decode($type_template[0]["field"]);
 
-                    
-
                     $meta = [];
 
                     for($i = 0; $i < count($meta_field);$i++){

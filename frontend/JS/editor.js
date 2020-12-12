@@ -47,6 +47,17 @@ function get_form_field(event){
 
 }
 
+function rmvType(sim,typeID){
+
+    if(confirm("This action will remove a type and all the node associeted")){
+        let param = sim+"_"+typeID;
+        ajaxHandler.sendRequest("rmvType",param,reload)
+    }
+
+}
+
+
+
 //--------------------------------------------------------------------------------------
 
 chart = createTreantJs(nodeArray,"#tree-simple")
@@ -57,7 +68,7 @@ function createTreantJs(nodeArray,divId){
     let simple_chart_config = {
         chart: {
             container: divId,
-            animateOnInit: true,
+            
             node: {
                 collapsable: false,
                 HTMLclass:["btn"]
@@ -68,12 +79,7 @@ function createTreantJs(nodeArray,divId){
                     'stroke': '#FF5555'
                 }
             },
-            animation: {
-                nodeAnimation: "easeOutBounce",
-                nodeSpeed: 200,
-                connectorsAnimation: "easeOutBounce",
-                connectorsSpeed: 500
-            }
+            
         },
         
         nodeStructure: createNodeStructure(nodeArray,0)
@@ -88,6 +94,7 @@ function createNodeStructure(node){
         text:{
             name: node["label"]
         },
+        collapsable:false,
         link:{href:"javascript:nodeClick('"+node["id"]+"');"},
         HTMLid:node["id"],
         children:[]
@@ -155,7 +162,22 @@ function addNode(sim) {
     }
 }
 
+function  rmvNode(sim) {
+    let nodeId = selectedNode["id"];
+
+    if(confirm("You are going to delete a node and all of it children, THERE IS NO GOING BACK ?")){
+        ajaxHandler.sendRequest("rmvNode",sim+"_"+nodeId,UpdatePage)
+    }
+}
+
+
 function UpdatePage(params) {
+    console.log(params)
+
     nodeArray = JSON.parse(params);
     chart = createTreantJs(nodeArray,"#tree-simple")
+}
+
+function reload(){
+    location.reload();
 }
