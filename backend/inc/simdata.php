@@ -86,6 +86,10 @@
         }
 
         public static function DeleteNode($id){
+
+            $req = bddQuery::DeleteChildQuery($id);
+            bdd::setData($req);
+
             $req = bddQuery::DeleteNodeQuery($id);
             return bdd::setData($req);
         }

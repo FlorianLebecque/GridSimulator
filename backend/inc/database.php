@@ -122,6 +122,10 @@
             return 'DELETE FROM `pe_node` WHERE `id` = '.$id;
         }
 
+        public static function DeleteChildQuery($id){
+            return 'DELETE FROM `pe_node_children` WHERE `id_parent` = '.$id.' OR `id_child` = '.$id;
+        }
+
         public static function rmvTypeQuery($sim,$id){
             return 'DELETE FROM `pe_type_node` WHERE `id` = '.$id.' AND `id_sim` ='.$sim;
         }

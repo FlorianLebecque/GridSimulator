@@ -56,8 +56,6 @@ function rmvType(sim,typeID){
 
 }
 
-
-
 //--------------------------------------------------------------------------------------
 
 chart = createTreantJs(nodeArray,"#tree-simple")
@@ -130,7 +128,6 @@ function  getNode(node,id) {
 
 function nodeClick(params) {
     selectedNode = getNode(nodeArray,params)
-    
 
     if(selectedNode["type"] != "n"){
         $("#btn_add").hide();
@@ -147,7 +144,6 @@ function nodeClick(params) {
     }
 
     $("#selectedNodeLabel").text(selectedNode["label"])
-    
 }
 
 function addNode(sim) {
@@ -169,7 +165,6 @@ function  rmvNode(sim) {
         ajaxHandler.sendRequest("rmvNode",sim+"_"+nodeId,UpdatePage)
     }
 }
-
 
 function UpdatePage(params) {
     console.log(params)
