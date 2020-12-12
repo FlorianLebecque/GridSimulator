@@ -167,8 +167,6 @@ function  rmvNode(sim) {
 }
 
 function UpdatePage(params) {
-    console.log(params)
-
     nodeArray = JSON.parse(params);
     chart = createTreantJs(nodeArray,"#tree-simple")
 }
