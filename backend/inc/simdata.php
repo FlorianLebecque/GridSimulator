@@ -37,20 +37,20 @@
             return bdd::getData($req);
         }
 
-        static public function getALLPrdPWR(){
+        static public function getALLPrdPWR($sim){
             return [1,2,3,4,5,6,7,8,9,10];
         }
 
-        static public function getALLPrdCO2(){
+        static public function getALLPrdCO2($sim){
             return [10,9,8,7,6,5,4,3,2,1];
         }
 
-        static public function getALLCnsPWR(){
+        static public function getALLCnsPWR($sim){
             return [1,2,3,4,5,5,4,3,2,1];
         }
 
-        static public function getNodeData(){
-            return [1,2,3,4,5,6,7,8,9,10];
+        static public function getNodeData($id,$key){
+            return [1,2,3,4,45,6,7,8,9,10];
         }
 
         static public function addNewNodeType($label,$sim,$stype,$type,$meta){          //

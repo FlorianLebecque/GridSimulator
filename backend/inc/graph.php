@@ -72,12 +72,12 @@
             $data["id"] = $str_id;
 
             if($array_idData[0]=="cns"){                            //if it's a cns (consumption)
-                $dt = simdataHandler::getALLCnsPWR();
+                $dt = simdataHandler::getNodeData($array_idData[1],"PWR");
             }else{                                                  //if it's a production
                 if($array_idData[2]=="PWR"){                            //we want the power
-                    $dt = simdataHandler::getALLPrdPWR();
+                    $dt = simdataHandler::getNodeData($array_idData[1],"PWR");
                 }else{                                                  //CO2 production
-                    $dt = simdataHandler::getALLPrdCO2();
+                    $dt = simdataHandler::getNodeData($array_idData[1],"CO2");
                 }
             }
 
