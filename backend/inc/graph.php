@@ -166,7 +166,8 @@
                 //sort if we are looking for a specific node or not
             switch($id){
                 case "all":     //not a node
-                    return self::generateAllDataSet($str_id);
+
+                    return self::generateAllDataSet($str_id,5);
                     break;
                 default:        //here $id is the id of the node
                     return self::generateNodeDataSet($str_id);
@@ -177,7 +178,7 @@
         //------------------------------------------------
         //      function to generate the dataset array
         //------------------------------------------------
-        private static function generateAllDataSet($str_id){
+        private static function generateAllDataSet($str_id,$sim){
 
             $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
 
@@ -185,19 +186,21 @@
                 $set["label"] = "All power consumtion";
                 $set["borderColor"] = "rgb(0, 186, 219)";
                 $set["backgroundColor"] = "rgba(0, 186, 219,0.2)";
+                $set["data"] = simdataHandler::getALLCnsPWR($sim);
             }else{                                                  //if it's a production
                 if($array_idData[2]=="PWR"){                            //we want the power
                     $set["label"] = "All power production";
                     $set["borderColor"] = "rgb(44, 219, 0)";
                     $set["backgroundColor"] = "rgba(44, 219, 0,0.2)";
+                    $set["data"] = simdataHandler::getALLPrdPWR($sim);
                 }else{                                                  //CO2 production
                     $set["label"] = "All CO2 production";
                     $set["borderColor"] = "rgb(219, 0, 0)";
                     $set["backgroundColor"] = "rgba(219, 0, 0,0.2)";
-                }
+                    $set["data"] = simdataHandler::getALLPrdCO2($sim);
+                 }
             }
 
-            $set["data"] = [5,6,5,4,5,6,5,4,5,6];   //placeholder data (must be change by last availaible data)
             $set["lineTension"] = 0.2;              //make line smooth
             $set["fill"] = "origin";                //create an area under the line
             
@@ -214,7 +217,7 @@
         //------------------------------------------------
         private static function generateNodeDataSet($str_id){
 
-            $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
+            $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
             $label = simdataHandler::getNodeLabel($array_idData[1]);
 
@@ -228,7 +231,7 @@
             $set["borderColor"] = "rgb(".$r.", ".$g.", ".$b.")";
             $set["backgroundColor"] = "rgba(".$r.", ".$g.", ".$b.",0.2)";
 
-            $set["data"] = [5,6,5,4,5,6,5,4,5,6];   //placeholder data (must be change by last availaible data)
+            $set["data"] = simdataHandler::getNodeData($array_idData[1]);   //placeholder data (must be change by last availaible data)
             $set["lineTension"] = 0.2;              //make line smooth
             $set["fill"] = "origin";                //create an area under the line
             

@@ -49,6 +49,10 @@
             return [1,2,3,4,5,5,4,3,2,1];
         }
 
+        static public function getNodeData(){
+            return [1,2,3,4,5,6,7,8,9,10];
+        }
+
         static public function addNewNodeType($label,$sim,$stype,$type,$meta){          //
             $req = bddQuery::getAddNewNodeTypeQuery($label,$sim,$stype,$type,$meta);    //  Add a new node type in pe_node_type
             return bdd::setData($req);                                                  //

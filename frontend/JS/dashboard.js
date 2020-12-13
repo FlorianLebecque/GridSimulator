@@ -2,13 +2,7 @@ let graphMan = new graphManager();
 
 let label = [0,0,0,0,0,0,0,0,0,0];
 
-array_graphID = [
-    "cns_all",
-    "prd_all_PWR",
-    "mUP_all",
-    "mSL_all",
-    "prd_all_CO2"
-]
+
 
 graphMan.load_graph(array_graphID);
 
