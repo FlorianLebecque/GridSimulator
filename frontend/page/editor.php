@@ -6,7 +6,7 @@
     let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"])) ?>
     
     let selectedNode = nodeArray;
-
+    
 </script>
 
 <div class="wideContainer">

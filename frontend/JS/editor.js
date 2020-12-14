@@ -59,6 +59,7 @@ function rmvType(sim,typeID){
 //--------------------------------------------------------------------------------------
 
 chart = createTreantJs(nodeArray,"#tree-simple")
+$("#"+selectedNode["id"]).css("background-color", "var(--Accent)");
 $("#btn_rmv").hide();
 
 
@@ -67,7 +68,12 @@ $("#btn_rmv").hide();
 
 
 function nodeClick(params) {
+
+    $("#"+selectedNode["id"]).css("background-color", "var(--Accent)");
+
     selectedNode = getNode(nodeArray,params)
+
+    $("#"+params).css("background-color", "var(--Selected)");
 
     if(selectedNode["type"] != "n"){
         $("#btn_add").hide();
