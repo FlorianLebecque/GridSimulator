@@ -55,11 +55,11 @@
         }
             //get all the node type by simulation
         public static function getNodeTypeQuery($sim){
-            return 'SELECT tnode.`id`,tnode.label ,tnode.`type_simple`,tnode.`type`,tnode.`meta` FROM `pe_type_node` AS tnode INNER JOIN pe_sim AS sm ON tnode.`id_sim` = sm.id WHERE tnode.`id_sim` = '.$sim;
+            return 'SELECT tnode.`id`,tnode.label ,tnode.`type_simple`,tnode.`type`,tnode.`meta` FROM `pe_type_node` AS tnode WHERE tnode.`id_sim` = '.$sim;
         }
 
         public static function getNodeTypeQuery_by_simpleType($sim,$stype){
-            return 'SELECT tnode.`id`,tnode.label ,tnode.`type_simple`,tnode.`type`,tnode.`meta` FROM `pe_type_node` AS tnode INNER JOIN pe_sim AS sm ON tnode.`id_sim` = sm.id WHERE tnode.`type_simple`="'.$stype.'" and tnode.`id_sim` = '.$sim;
+            return 'SELECT tnode.`id`,tnode.label ,tnode.`type_simple`,tnode.`type`,tnode.`meta` FROM `pe_type_node` AS tnode WHERE tnode.`type_simple`="'.$stype.'" and tnode.`id_sim` = '.$sim;
         }
 
         public static function qetTestSimNameQuery($name){
