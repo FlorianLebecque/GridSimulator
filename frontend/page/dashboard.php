@@ -9,8 +9,24 @@
         "mSL_all_"+simId,
         "prd_all_CO2_"+simId
     ]   
+
+    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"])) ?>
 </script>
 <div class="row wideContainer">
+
+    <div class="col-sm-12">
+        <div class="main"> 
+            <button class="collapsible">Node grid</button>
+            <div class="collasibleContent"><hr>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="tree-simple"> </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+
     <div class="col-sm-12">
         <div class="main">
             <button class="collapsible">Electrical data</button>

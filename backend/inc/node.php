@@ -35,7 +35,8 @@
                     "id" => $id,
                     "type" => "n",
                     "label"=> $cur_node["label"],
-                    "child" => []
+                    "child" => [],
+                    "enable"=> 1
                 );
 
                 if(isset($child_array[$id])){
@@ -52,7 +53,8 @@
                     "id" => $id,
                     "type" => $node_type,
                     "label"=> $cur_node["label"],
-                    "child" => []
+                    "child" => [],
+                    "enable" => 1
                 );
 
             }

@@ -24,7 +24,7 @@
 
 			<a href="index.php?a=logoff" class="btn margR">Exit</a>
 
-			<button onclick="StartStop_Sim(1)" class="btn" id="status"><?php headerData::getSimState_icon();?></button>
+			<button onclick="StartStop_Sim(<?php echo $_SESSION['simulation'] ?>)" class="btn" id="status"><?php headerData::getSimState_icon();?></button>
 
 		</div>
 

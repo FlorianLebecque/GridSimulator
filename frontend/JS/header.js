@@ -1,8 +1,8 @@
 function StartStop_Sim(str) {
     if(status == 0){
-        ajaxHandler.sendRequest("startSim","a",updateButton);
+        ajaxHandler.sendRequest("startSim",str,updateButton);
     }else{
-        ajaxHandler.sendRequest("stopSim","a",updateButton);
+        ajaxHandler.sendRequest("stopSim",str,updateButton);
     }   
 }
 

@@ -16,8 +16,9 @@
         $param = "";
     }
 
-    //sort the ajax request by action
+    $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 
+    //sort the ajax request by action
     switch($action){
 
         case "getGraphDataSet":                             // action wich return the datasets for the given charts
@@ -39,6 +40,21 @@
         case "rmvType":
             echo nodeHandler::rmvType($param);
             break;
+
+        case "disable":
+            $data = "disable_".$param;
+            socket_sendto($socket,$data , strlen($data), 0, "127.0.0.1", 5005);
+
+            echo "ghe";
+            break;
+
+        case "enable":
+            $data = "enable_".$param;
+            socket_sendto($socket,$data , strlen($data), 0, "127.0.0.1", 5005);
+            echo "ok";
+            break;
+
+
         case "startSim":
             //start the sim
 
@@ -47,6 +63,11 @@
 
             $_SESSION["status"] = 1;
 
+            
+            $data = "startsim_".$_SESSION["simulation"];
+            socket_sendto($socket,$data , strlen($data), 0, "127.0.0.1", 5005);
+            
+
             echo  json_encode($a);
             break;
         case "stopSim":
@@ -54,9 +75,17 @@
             $a["1"] = 0;
             $a["2"] = file_get_contents("public/img/svgPlayIcon.html");
 
+            $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+            $data = "stopsim_".$_SESSION["simulation"];
+            socket_sendto($socket,$data , strlen($data), 0, "127.0.0.1", 5005);
+            socket_close($socket);
+
             $_SESSION["status"] = 0;
 
             echo json_encode($a);
             break;
     }
+
+
+    socket_close($socket);
 ?>

@@ -12,22 +12,9 @@
 
                 $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
-                switch($array_idData[0]){   //check the type of graph
-                    case "cns":             
-                        $dt[$index] = self::getDataNode($str_id,array_slice ($array_idData,1));
-                        $index++;
-                        break;
-                    case "prd":
-                        $dt[$index] = self::getDataNode($str_id,array_slice ($array_idData,1));
-                        $index++;
-                        break;
-                    case "str":
-                        break;
-                    case "mUP":
-                        break;
-                    case "mSL":
-                        break;
-                }
+                $dt[$index] = self::getDataNode($str_id,array_slice ($array_idData,1));
+                $index++;
+
             }
 
             return JSON_encode($dt);    //convert the array into json string for data transfer
@@ -57,6 +44,10 @@
 
             if($array_idData[0]=="cns"){                            //if it's a cns (consumption)
                 $dt = simdataHandler::getALL($sim_id,"c","PWR");
+            }elseif($array_idData[0]=="mUP"){
+                $dt = simdataHandler::getALL($sim_id,"p","price");
+            }elseif($array_idData[0]=="mSL"){
+                $dt = simdataHandler::getALL($sim_id,"c","price");
             }else{                                                  //if it's a production
                 if($array_idData[2]=="PWR"){                            //we want the power
                     $dt = simdataHandler::getALL($sim_id,"p","PWR");
@@ -140,22 +131,10 @@
 
                 $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
-                switch($array_idData[0]){   //check the type of graph
-                    case "cns":             
-                        $dt[$index] = self::getDataSetNode($str_id,array_slice ($array_idData,1));
-                        $index++;
-                        break;
-                    case "prd":
-                        $dt[$index] = self::getDataSetNode($str_id,array_slice ($array_idData,1));
-                        $index++;
-                        break;
-                    case "str":
-                        break;
-                    case "mUP":
-                        break;
-                    case "mSL":
-                        break;
-                }
+                $sim_id = $array_idData[count($array_idData)-1];
+
+                $dt[$index] = self::getDataSetNode($str_id,array_slice ($array_idData,1),$sim_id);
+                $index++;
             }
 
             return JSON_encode($dt);    //convert the array into json string for data transfer
@@ -163,14 +142,14 @@
         //-------------------------------------------------------------------------
         //      function that get the dataset for the correct type of node
         //-------------------------------------------------------------------------
-        private static function getDataSetNode($str_id,$idData){
+        private static function getDataSetNode($str_id,$idData,$sim){
             $id = $idData[0]; //all or the node id
 
                 //sort if we are looking for a specific node or not
             switch($id){
                 case "all":     //not a node
 
-                    return self::generateAllDataSet($str_id,5);
+                    return self::generateAllDataSet($str_id,$sim);
                     break;
                 default:        //here $id is the id of the node
                     return self::generateNodeDataSet($str_id);
@@ -190,6 +169,16 @@
                 $set["borderColor"] = "rgb(0, 186, 219)";
                 $set["backgroundColor"] = "rgba(0, 186, 219,0.2)";
                 $set["data"] = simdataHandler::getALL($sim,"c","PWR");
+            }elseif($array_idData[0]=="mUP"){
+                $set["label"] = "Production Cost";
+                $set["borderColor"] = "rgb(242, 66, 245)";
+                $set["backgroundColor"] = "rgba(242, 66, 245,0.2)";
+                $set["data"] = simdataHandler::getALL($sim,"p","price");
+            }elseif($array_idData[0]=="mSL"){
+                $set["label"] = "Money intake";
+                $set["borderColor"] = "rgb(255, 227, 46)";
+                $set["backgroundColor"] = "rgba(255, 227, 46,0.2)";
+                $set["data"] = simdataHandler::getALL($sim,"c","price");
             }else{                                                  //if it's a production
                 if($array_idData[2]=="PWR"){                            //we want the power
                     $set["label"] = "All power production";
