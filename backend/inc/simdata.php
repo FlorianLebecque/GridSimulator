@@ -37,20 +37,42 @@
             return bdd::getData($req);
         }
 
-        static public function getALLPrdPWR($sim){
-            return [1,2,3,4,5,6,7,8,9,10];
+        public static function getNodeID_by_st($sim,$simple_type){
+            $req = bddQuery::getNodeID_by_stQuery($sim,$simple_type);
+            return bdd::getData($req);
         }
 
-        static public function getALLPrdCO2($sim){
-            return [10,9,8,7,6,5,4,3,2,1];
-        }
+        static public function getALL($sim,$type,$key){
 
-        static public function getALLCnsPWR($sim){
-            return [1,2,3,4,5,5,4,3,2,1];
+            $nodes_id = (self::getNodeID_by_st($sim,$type));
+
+            //return $nodes_id;
+
+            $value = [0,0,0,0,0,0,0,0,0,0];
+            for($i = 0; $i < count($nodes_id);$i++){
+                $node_data = self::getNodeData($nodes_id[$i]["id"],$key);
+                
+                for($j = 0; $j < count($node_data);$j++){
+                    $value[$j] += $node_data[$j];
+                }
+
+            } 
+
+            return $value;
         }
 
         static public function getNodeData($id,$key){
-            return [1,2,3,4,45,6,7,8,9,10];
+            $req = bddQuery::getNodeDataQuery($id);
+            $data = bdd::getData($req);
+
+            $dt = [];
+            for($i = count($data)-1; $i >= 0 ;$i--){
+                $json_data = json_decode(($data[$i]["data"]),true);
+
+                array_push($dt,$json_data[$key]);
+            }
+
+            return $dt;
         }
 
         static public function addNewNodeType($label,$sim,$stype,$type,$meta){          //

@@ -91,7 +91,7 @@
         }
 
         public static function getNodeQuery($id){
-            return 'SELECT node.`id`,node.`id_type`,node.`label` FROM `pe_node` AS node INNER JOIN pe_sim AS sim ON node.`id_sim` = sim.id WHERE node.`id_sim` = '.$id;
+            return 'SELECT node.`id`,node.`id_type`,node.`label` FROM `pe_node` AS node WHERE node.`id_sim` = '.$id;
         }
 
         public static function getNodeChildQuery($id){
@@ -129,5 +129,20 @@
         public static function rmvTypeQuery($sim,$id){
             return 'DELETE FROM `pe_type_node` WHERE `id` = '.$id.' AND `id_sim` ='.$sim;
         }
+
+        public static function getNodeDataQuery($id){
+            return 'SELECT DAT.`data` FROM `pe_data` AS DAT INNER JOIN pe_node as NODE ON NODE.id = DAT.`node_id` WHERE NODE.id = '.$id.' AND DAT.`data` NOT LIKE "%MESS%" ORDER BY time DESC LIMIT 10';
+        }
+
+        public static function getNodeID_by_stQuery($sim,$simple_type){
+            return 'SELECT NODE.`id` FROM `pe_node` AS NODE INNER JOIN pe_type_node AS NTYPE ON NODE.`id_type` = NTYPE.id WHERE NTYPE.type_simple = "'.$simple_type.'" AND NODE.`id_sim` = '.$sim;
+        }
+
     }
+ 
+    // SELECT count(*) AS bite FROM `pe_node` WHERE `id_type` != 0
+    //SELECT MAX(DAT.time) as LASTTIME FROM `pe_data` AS DAT INNER JOIN pe_node as NODE ON NODE.id = DAT.`node_id` WHERE NODE.id_sim = 5
+
+    //SELECT NODE.`id` FROM `pe_node` AS NODE INNER JOIN pe_type_node AS NTYPE ON NODE.`id_type` = NTYPE.id WHERE NTYPE.type_simple = "p" AND NODE.`id_sim` = 5
+
 ?>

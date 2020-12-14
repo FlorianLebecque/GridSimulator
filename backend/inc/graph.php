@@ -52,13 +52,16 @@
 
             $data["id"] = $str_id;
 
+            $sim_id =$array_idData[count($array_idData)-1];
+
+
             if($array_idData[0]=="cns"){                            //if it's a cns (consumption)
-                $dt = simdataHandler::getALLCnsPWR();
+                $dt = simdataHandler::getALL($sim_id,"c","PWR");
             }else{                                                  //if it's a production
                 if($array_idData[2]=="PWR"){                            //we want the power
-                    $dt = simdataHandler::getALLPrdPWR();
+                    $dt = simdataHandler::getALL($sim_id,"p","PWR");
                 }else{                                                  //CO2 production
-                    $dt = simdataHandler::getALLPrdCO2();
+                    $dt = simdataHandler::getALL($sim_id,"p","CO2");
                 }
             }
 
@@ -186,18 +189,18 @@
                 $set["label"] = "All power consumtion";
                 $set["borderColor"] = "rgb(0, 186, 219)";
                 $set["backgroundColor"] = "rgba(0, 186, 219,0.2)";
-                $set["data"] = simdataHandler::getALLCnsPWR($sim);
+                $set["data"] = simdataHandler::getALL($sim,"c","PWR");
             }else{                                                  //if it's a production
                 if($array_idData[2]=="PWR"){                            //we want the power
                     $set["label"] = "All power production";
                     $set["borderColor"] = "rgb(44, 219, 0)";
                     $set["backgroundColor"] = "rgba(44, 219, 0,0.2)";
-                    $set["data"] = simdataHandler::getALLPrdPWR($sim);
+                    $set["data"] = simdataHandler::getALL($sim,"p","PWR");
                 }else{                                                  //CO2 production
                     $set["label"] = "All CO2 production";
                     $set["borderColor"] = "rgb(219, 0, 0)";
                     $set["backgroundColor"] = "rgba(219, 0, 0,0.2)";
-                    $set["data"] = simdataHandler::getALLPrdCO2($sim);
+                    $set["data"] = simdataHandler::getALL($sim,"p","CO2");
                  }
             }
 
@@ -231,7 +234,7 @@
             $set["borderColor"] = "rgb(".$r.", ".$g.", ".$b.")";
             $set["backgroundColor"] = "rgba(".$r.", ".$g.", ".$b.",0.2)";
 
-            $set["data"] = simdataHandler::getNodeData($array_idData[1]);   //placeholder data (must be change by last availaible data)
+            $set["data"] = simdataHandler::getNodeData($array_idData[1],$array_idData[2]);   //placeholder data (must be change by last availaible data)
             $set["lineTension"] = 0.2;              //make line smooth
             $set["fill"] = "origin";                //create an area under the line
             
