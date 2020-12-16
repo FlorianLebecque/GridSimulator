@@ -75,10 +75,8 @@
             $a["1"] = 0;
             $a["2"] = file_get_contents("public/img/svgPlayIcon.html");
 
-            $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
             $data = "stopsim_".$_SESSION["simulation"];
             socket_sendto($socket,$data , strlen($data), 0, "127.0.0.1", 5005);
-            socket_close($socket);
 
             $_SESSION["status"] = 0;
 
