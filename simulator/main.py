@@ -2,11 +2,13 @@ import time
 import pymysql.cursors 
 import json
 
-import classCreation as cc
+
 from Database import Db 
 from clientSocket import Socket as S
 
-
+from datalog import Datalog
+from classCreation import nodeCreator
+from node.node import Node
 
 
 #######################################   CREATION CONNECION DB   ####################################
@@ -49,8 +51,8 @@ while(state):
         #connDb.nprint(types)
         #connDb.nprint(childs)
     
-        simDatalog = cc.Datalog(connDb,id_sim)
-        nodeClass = cc.nodeCreator(nodes,types,childs)
+        simDatalog = Datalog(connDb,id_sim)
+        nodeClass = nodeCreator(nodes,types,childs)
         primaryNode = nodeClass.nodeCreation('null','null')
 
         last_time = connDb.getLastTime(id_sim)['LASTTIME']
