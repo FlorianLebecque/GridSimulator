@@ -67,7 +67,6 @@
             $data = "startsim_".$_SESSION["simulation"];
             socket_sendto($socket,$data , strlen($data), 0, "127.0.0.1", 5005);
             
-
             echo  json_encode($a);
             break;
         case "stopSim":

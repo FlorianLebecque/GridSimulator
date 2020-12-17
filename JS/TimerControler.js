@@ -1,6 +1,6 @@
 class timerHandler{
     constructor(){
-        setInterval(this.update,1000)
+        setInterval(this.update,50)
         console.log("timer started")
     }
 

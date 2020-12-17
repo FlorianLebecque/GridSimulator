@@ -1,4 +1,5 @@
-import pymysql.cursors  
+import pymysql.cursors
+import json
 
 class Db:
     def __init__(self,host,user,password,db,charset,cursorclass):
@@ -8,10 +9,10 @@ class Db:
         self.connection.close()  # Closez la connexion (Close connection).   
 
     def nprint(self,dictionaire):
+        print('-------------------------------------------------------')
         for keys,valeus in dictionaire.items() :
             print('{} :  {}'.format(keys, valeus))
 
-        
     def getNodes(self,id_sim):
 
         with self.connection.cursor() as nodes:
@@ -24,7 +25,6 @@ class Db:
             output[key] = dict_info
         return output
             
-        
     def getTypes(self,id_sim):
         
         with self.connection.cursor() as typs:
@@ -52,6 +52,15 @@ class Db:
                 output[key] = dict_info
         return output
 
-    def sentUpdate(self):
-        pass
-        
+    def sendUpdate(self,node_id,time,data):
+        with self.connection.cursor() as datas:
+            datas.execute('INSERT INTO `pe_data`( `node_id`, `time`, `data`) VALUES (%s,%s,%s)',(node_id,time,json.dumps(data)))
+
+        self.connection.commit()
+
+    def getLastTime(self,id_sim):
+        with self.connection.cursor() as times:
+            times.execute('SELECT MAX(DAT.time) as LASTTIME FROM `pe_data` AS DAT INNER JOIN pe_node as NODE ON NODE.id = DAT.`node_id` WHERE NODE.id_sim = %s',id_sim)
+        for time in times :
+            pass
+        return time
