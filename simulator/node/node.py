@@ -21,8 +21,12 @@ class Node:
 
         if int_p > int_c: #si on produit trop
 
-            #try to sale
-            node_id = self.trySale(bill)
+            #try to enable cns
+            node_id = self.enable_cons(bill)
+
+            if node_id == -1:
+                #try to sale
+                node_id = self.trySale(bill)
 
             #try to slow prod
             if node_id == -1:    
@@ -39,6 +43,10 @@ class Node:
         elif int_c > int_p:
             #try to max prod
             node_id = self.maximize_prod(bill)
+
+            if node_id == -1:
+                #try to enable prod
+                node_id = self.enable_prod(bill)
 
             #try to minimize sale and dissip
             if node_id == -1:
@@ -67,6 +75,23 @@ class Node:
                     return node_id
 
         return node_id
+
+    def enable_cons(self):
+        node_node,target_node = self.__getNodeArray("enable_cons")
+
+            #we first explore the rest of the node
+        node_id = -1
+        for Node in node_node:
+            node_id = Node.enable_cons()
+            if node_id != -1:
+                return node_id
+        
+        for child in target_node:
+            node_id = child.enable_cons()
+            if node_id != -1:
+                return node_id
+
+        return node_id        
 
     def disable_prod(self):
 
@@ -192,13 +217,13 @@ class Node:
 
         bill = int_p - int_c
 
-        if abs(bill) > self.ligne_power: #on depasse calbe
-            if bill < 0:        #désactive un consomateur
-                node_id = self.disable_cons(self.ligne_power - bill)
+#        if abs(bill) > self.ligne_power: #on depasse calbe
+#            if bill < 0:        #désactive un consomateur
+                #node_id = self.disable_cons(self.ligne_power - bill)
 
                 #datalog.update_datalog(node_id,puissance,price,temps)
-            else:               #désactive un producteur
-                node_id = self.disable_prod()
+#            else:               #désactive un producteur
+                #node_id = self.disable_prod()
 
 
         return int_p,int_c

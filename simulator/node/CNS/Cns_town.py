@@ -29,3 +29,10 @@ class Cns_town(Node):
             return self._id
         
         return -1
+
+    def enable_cons(self):
+        if self.enable == False:
+            self.enable = True
+            return self._id
+        
+        return -1

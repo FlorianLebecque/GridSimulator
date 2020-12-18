@@ -45,3 +45,10 @@ class Prd_gaz(Node):
             return self._id
 
         return -1
+
+    def enable_prod(self):
+        if self.enable == False:
+            self.enable = True
+            return self._id
+        
+        return -1
