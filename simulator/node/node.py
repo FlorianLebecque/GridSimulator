@@ -8,6 +8,9 @@ class Node:
         self.simpleType = "n"
         self.prior = 100
     
+    def __str__(self):
+        return str(self.id) + " - " + str(type(self))
+
     def firstUpdate(self,datalog,t):
         int_p = 0
         int_c = 0
@@ -43,18 +46,25 @@ class Node:
         elif int_c > int_p:
             #try to max prod
             node_id = self.maximize_prod(bill)
+            print("max_prod : ",node_id)
 
             #try to enable prod
             if node_id == -1:
                 node_id = self.enable_prod()
 
+            print("enable_prod : ",node_id)
+
             #try to minimize sale and dissip
             if node_id == -1:
                 node_id = self.minimize_cons(bill)
 
+            print("minimize_cons : ",node_id)
+
             #cut a building
             if node_id == -1:
                 node_id = self.disable_cons()
+
+            print("disable_cons : ",node_id)
 
     def trySale(self,target):
         node_id = -1
@@ -168,6 +178,8 @@ class Node:
 
         node_node,target_node = self.__getNodeArray("minimize_prod")
 
+        print(target_node)
+
             #we first explore the rest of the node
         node_id = -1
         for node in node_node:
@@ -185,6 +197,8 @@ class Node:
     def maximize_prod(self,target):
 
         node_node,target_node = self.__getNodeArray("maximize_prod")
+
+        
 
             #we first explore the rest of the node
         node_id = -1

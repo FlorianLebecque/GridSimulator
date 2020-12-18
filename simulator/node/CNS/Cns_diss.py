@@ -11,20 +11,20 @@ class Cns_diss(Node):
 
     def update(self,datalog,t):
 
+        temps = t
+
         if self.enable:
 
             cost = int(self.meta['cost'])
-
             price = 0
             puissance = self.max_power+random.randint(-1,1)
-            temps = t
-
-            datalog.update_datalog(self._id,puissance,price,temps)
-
-            return 0,puissance
-
+            
         else:
-            return 0,0
+            puissance = 0
+            price = 0
+
+        datalog.update_datalog(self._id,puissance,price,temps)
+        return 0,puissance
 
     def cns_minimize(self,target):
         if self.power_cursor >= 10:

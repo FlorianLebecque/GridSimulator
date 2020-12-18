@@ -10,21 +10,21 @@ class Prd_gaz(Node):
         super().__init__( _id, max_pwr)
 
     def update(self,datalog,t):
+
+        temps = t
+
         if self.enable:
             cost = int(self.meta['cost'])
 
-            
-
             puissance = self.max_power*(self.power_cursor/100)
-            price = puissance * cost
+            price = puissance * cost      
 
-            temps = t
-
-            datalog.update_data(self._id,puissance,price,10,temps)
-
-            return puissance, 0
         else:
-            return 0,0
+            puissance = 0
+            price = 0
+
+        datalog.update_data(self._id,puissance,price,10,temps)
+        return puissance,0
 
     def minimize_prod(self,target):
         if self.power_cursor >= 10:

@@ -11,6 +11,9 @@ class Prd_wind(Node):
         
 
     def update(self,datalog,t):
+
+        temps = t
+
         if self.enable:
             cost = int(self.meta['cost'])
             wind_eff = int(self.meta['eff'])/100
@@ -24,13 +27,12 @@ class Prd_wind(Node):
 
             puissance = puissance
 
-            temps = t
-
-            datalog.update_datalog(self._id,puissance,price,temps)
-
-            return puissance, 0
         else:
-            return 0,0
+            puissance = 0
+            price = 0
+
+        datalog.update_datalog(self._id,puissance,price,temps)
+        return puissance,0
 
     def minimize_prod(self,target):
         if self.power_cursor >= 10:

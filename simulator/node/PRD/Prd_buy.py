@@ -4,13 +4,16 @@ import random
 class Prd_buy(Node):
     def __init__(self,meta,_id, max_pwr):
         self.meta = meta
-        self.max_power = int(self.meta['power'])
-        self.power_cursor = 100
+        self.max_power = 15 #int(self.meta['power'])
+        self.power_cursor = 0
         self.prior = 1
         super().__init__( _id, max_pwr)
         
 
     def update(self,datalog,t):
+
+        temps = t
+
         if self.enable:
             cost = int(self.meta['cost'])
 
@@ -18,13 +21,12 @@ class Prd_buy(Node):
 
             price = cost*puissance
             
-            temps = t
-
-            datalog.update_datalog(self._id,puissance,price,temps)
-
-            return puissance, 0
         else:
-            return 0,0
+            puissance = 0
+            price = 0
+
+        datalog.update_datalog(self._id,puissance,price,temps)
+        return puissance,0
 
     def minimize_prod(self,target):
         if self.power_cursor >= 10:
