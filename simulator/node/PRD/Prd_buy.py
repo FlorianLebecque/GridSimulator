@@ -6,19 +6,43 @@ class Prd_buy(Node):
         self.meta = meta
         self.max_power = int(self.meta['power'])
         self.power_cursor = 100
+        self.prior = 1
         super().__init__( _id, max_pwr)
         
 
     def update(self,datalog,t):
+        if self.enable:
+            cost = int(self.meta['cost'])
 
-        cost = int(self.meta['cost'])
+            puissance = self.max_power * (self.power_cursor/100)
 
-        puissance = self.max_power * (self.power_cursor/100)
+            price = cost*puissance
+            
+            temps = t
 
-        price = cost*puissance
+            datalog.update_datalog(self._id,puissance,price,temps)
+
+            return puissance, 0
+        else:
+            return 0,0
+
+    def minimize_prod(self,target):
+        if self.power_cursor >= 10:
+            self.power_cursor -=10
+            return self._id
         
-        temps = t
+        return -1
+        
+    def maximize_prod(self,target):
+        if self.power_cursor <=90:
+            self.power_cursor +=10
+            return self._id
+            
+        return -1
 
-        datalog.update_datalog(self._id,puissance,price,temps)
+    def disable_prod(self):
+        if self.enable:
+            self.enable = False
+            return self._id
 
-        return puissance, 0
+        return -1

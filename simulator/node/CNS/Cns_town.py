@@ -9,12 +9,23 @@ class Cns_town(Node):
         
 
     def update(self,datalog,t):
-        cost = int(self.meta['cost'])
 
-        price = -cost*self.max_power
-        puissance = self.max_power+random.randint(-1,1)
-        temps = t
+        if self.enable:
+            cost = int(self.meta['cost'])
 
-        datalog.update_datalog(self._id,puissance,price,temps)
+            price = -cost*self.max_power
+            puissance = self.max_power+random.randint(-1,1)
+            temps = t
 
-        return 0,puissance
+            datalog.update_datalog(self._id,puissance,price,temps)
+
+            return 0,puissance
+        else:
+            return 0,0
+
+    def disable_cons(self):
+        if self.enable:
+            self.enable = False
+            return self._id
+        
+        return -1

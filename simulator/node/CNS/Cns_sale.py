@@ -10,12 +10,36 @@ class Cns_sale(Node):
         
     def update(self,datalog,t):
 
-        cost = int(self.meta['cost'])
+        if self.enable:
+            cost = int(self.meta['cost'])
 
-        price = -cost*max_power
-        puissance = self.max_power+random.randint(-1,1)
-        temps = t
+            price = -cost*max_power
+            puissance = self.max_power+random.randint(-1,1)
+            temps = t
 
-        datalog.update_datalog(self._id,puissance,price,temps)
+            datalog.update_datalog(self._id,puissance,price,temps)
 
-        return 0,puissance
+            return 0,puissance
+        else:
+            return 0,0
+
+    def trySale(self,target):
+        if(self.power_cursor <=90):
+            self.power_cursor += 10
+            return self._id
+        else:
+            return -1
+
+    def cns_minimize(self,target):
+        if(self.power_cursor >= 10):
+            self.power_cursor -= 10
+            return self._id
+        else:
+            return -1
+
+    def disable_cons(self):
+        if self.enable:
+            self.enable = False
+            return self._id
+        
+        return -1

@@ -1,12 +1,3 @@
-from node.CNS.Cns_diss import Cns_diss
-from node.CNS.Cns_enter import Cns_enter
-from node.CNS.Cns_sale import Cns_sale
-from node.CNS.Cns_town import Cns_town
-from node.PRD.Prd_buy import Prd_buy
-from node.PRD.Prd_gaz import Prd_gaz
-from node.PRD.Prd_nuck import Prd_nuck
-from node.PRD.Prd_sun import Prd_sun
-from node.PRD.Prd_wind import Prd_wind
 
 class Node:
     def __init__(self, _id , max_pwr):
@@ -15,6 +6,7 @@ class Node:
         self.childs = []
         self.enable = True
         self.simpleType = "n"
+        self.prior = 100
     
     def firstUpdate(self,datalog,t):
         int_p = 0
@@ -42,7 +34,7 @@ class Node:
 
             #try to shutdown prod
             if node_id == -1:       
-                node_id = self.disable_prod(bill)
+                node_id = self.disable_prod()
 
         elif int_c > int_p:
             #try to max prod
@@ -54,164 +46,139 @@ class Node:
 
             #cut a building
             if node_id == -1:
-                node_id = self.disable_cons(bill)
+                node_id = self.disable_cons()
 
-            
-    def disable_cons(self,target):
-        prior_type = [Cns_diss,Cns_sale,Cns_town,Cns_enter]
+    def trySale(self,target):
         node_id = -1
-        int_count = 0
-        while(node_id == -1) or (int_count == len(prior_type)):
-            node_id = self.disable_by_type(prior_type[int_count],target)
-            int_count += 1
-
-        return node_id
-    
-    def disable_prod(self,target):
-        prior_type = [Prd_buy,Prd_nuck,Prd_wind,Prd_gaz]
-        node_id = -1
-        int_count = 0
-        while(node_id == -1) or (int_count == len(prior_type)):
-            node_id = self.disable_by_type(prior_type[int_count],target)
-            int_count += 1
+        for child in self.childs:
+            if(hasattr(child,'trySale')):
+                node_id = child.trySale(target);
+                if node_id != -1:
+                    return node_id
 
         return node_id
 
-    def maximize_prod(self,target):
-        prior_type = [Prd_gaz,Prd_wind,Prd_buy]
+    def max_dissp(self,target):
         node_id = -1
-        int_count = 0
-        while(node_id == -1) or (int_count == len(prior_type)):
-            node_id = self.up_by_type(prior_type[int_count],target)
-            int_count += 1
+        for child in self.childs:
+            if(hasattr(child,'max_dissp')):
+                node_id = child.max_dissp(target);
+                if node_id != -1:
+                    return node_id
+
+        return node_id
+
+    def disable_prod(self):
+
+        node_node,target_node = self.__getNodeArray("disable_prod")
+
+            #we first explore the rest of the node
+        node_id = -1
+        for Node in node_node:
+            node_id = Node.disable_prod()
+            if node_id != -1:
+                return node_id
+        
+        for child in target_node:
+            node_id = child.disable_prod()
+            if node_id != -1:
+                return node_id
+
+        return node_id
+
+    def disable_cons(self):
+
+        node_node,target_node = self.__getNodeArray("disable_cons")
+
+            #we first explore the rest of the node
+        node_id = -1
+        for Node in node_node:
+            node_id = Node.disable_cons()
+            if node_id != -1:
+                return node_id
+        
+        for child in target_node:
+            node_id = child.disable_cons()
+            if node_id != -1:
+                return node_id
+
+        return node_id
+
+    def minimize_cons(self,target):
+
+        node_node,target_node = self.__getNodeArray("minimize_cons")
+
+            #we first explore the rest of the node
+        node_id = -1
+        for Node in node_node:
+            node_id = Node.minimize_cons(target)
+            if node_id != -1:
+                return node_id
+        
+        for child in target_node:
+            node_id = child.minimize_cons(target)
+            if node_id != -1:
+                return node_id
 
         return node_id
 
     def minimize_prod(self,target):
-        prior_type = [Prd_buy,Prd_gaz,Prd_wind]
+
+        node_node,target_node = self.__getNodeArray("minimize_prod")
+
+            #we first explore the rest of the node
         node_id = -1
-        int_count = 0
-        while(node_id == -1) or (int_count == len(prior_type)):
-            node_id = self.down_by_type(prior_type[int_count],target)
-            int_count += 1
+        for Node in node_node:
+            node_id = Node.minimize_prod(target)
+            if node_id != -1:
+                return node_id
+
+        for child in target_node:
+            node_id = child.minimize_prod(target)
+            if node_id != -1:
+                return node_id
 
         return node_id
 
-    def minimize_cons(self,node_type,target):
-        prior_type = [Cns_diss,Cns_sale]
-        node_id = -1
-        int_count = 0
-        while(node_id == -1) or (int_count == len(prior_type)):
-            node_id = self.down_by_type(prior_type[int_count],target)
-            int_count += 1
+    def maximize_prod(self,target):
 
-        return node_id
+        node_node,target_node = self.__getNodeArray("maximize_prod")
 
-    def trySale(self,target):
-        prior_type = [Cns_sale]
+            #we first explore the rest of the node
         node_id = -1
-        int_count = 0
-        while(node_id == -1) or (int_count == len(prior_type)):
-            node_id = self.up_by_type(prior_type[int_count],target)
-            int_count += 1
+        for Node in node_node:
+            node_id = Node.maximize_prod(target)
+            if node_id != -1:
+                return node_id
         
-        return node_id
-
-    def max_dissp(self,target):
-        prior_type = [Cns_diss]
-        node_id = -1
-        int_count = 0
-        while(node_id == -1) or (int_count == len(prior_type)):
-            node_id = self.up_by_type(prior_type[int_count],target)
-            int_count += 1
+        for child in reversed(target_node):        #we invert the list to get the priority right
+            node_id = child.maximize_prod(target)
+            if node_id != -1:
+                return node_id
 
         return node_id
 
-    def up_by_type(self,node_type,target):
-        node_child = []
-        node_corType = []
-        for child in self.childs :
-            if isinstance(child,node_type):
-                node_corType.append(child)
-            elif isinstance(child,Node):
-                node_child.append(child)
+    def __getNodeArray(self,attr):
+            #first we get all the child that can minimize their prod
+        int_maxPrior = 0
+        target_node = []
+        node_node = []
+        for child in self.childs:
+            if(hasattr(child,attr)):                    #check if we have the correct attribute
+                int_pos = 0
+                if child.prior == 100:                  #check if it's a node
+                    node_node.append(child)
+                else:
+                    if(len(target_node) > 0):           #we sort them by priority
+                        for c in target_node:
+                            if child.prior > c.prior:
+                                int_pos+=1
+                    else:
+                        int_pos = 0
 
-        value = -1
-        for child in node_child:
-            value = child.up_by_type(self,node_type,target)
-            if value == 1:
-                return child.id
+                    target_node.insert(int_pos,child)
 
-        if len(node_corType) == 0:
-            return -1
-
-        int_min = 1000000
-        node_MinStatPower = ""
-        for child in node_corType:
-            if child.power_cursor < int_min and child.power_cursor <= 90:
-                int_min = child.power_cursor
-                node_MinStatPower = child
-
-        node_MinStatPower.power_cursor += 10
-        
-        return child.id
-
-    def down_by_type(self,node_type,target):
-        node_child = []
-        node_corType = []
-        for child in self.childs :
-            if isinstance(child,node_type):
-                node_corType.append(child)
-            elif isinstance(child,Node):
-                node_child.append(child)
-
-        value = -1
-        for child in node_child:
-            value = child.up_by_type(self,node_type,target)
-            if value == 1:
-                return child.id
-
-        if len(node_corType) == 0:
-            return -1
-
-        int_max = 0
-        node_MaxStatPower = ""
-        for child in node_corType:
-            if child.power_cursor > int_max and child.power_cursor >= 10:
-                int_max = child.power_cursor
-                node_MaxStatPower = child
-
-        node_MaxStatPower.power_cursor -= 10
-        
-        return child.id
-
-    def disable_by_type(self,node_type,target):
-        node_child = []
-        node_corType = []
-        for child in self.childs :
-            if isinstance(child,node_type):
-                node_corType.append(child)
-            elif isinstance(child,Node):
-                node_child.append(child)
-
-        value = -1
-        for child in node_child:
-            value = child.disable_by_type(self,node_type,target)
-            if value == 1:
-                return child.id
-
-        if len(node_corType) == 0:
-            return -1
-
-        int_min = 1000000
-        node_MinPwrNode = ""
-        for child in node_corType:
-            if child.max_power < int_min:
-                int_min = child.max_power
-                node_MinPwrNode = child
-
-        node_MinPwrNode.enable = False
-        return child.id
+        return node_node,target_node
 
     def update(self,datalog,t):
 
@@ -231,11 +198,7 @@ class Node:
 
                 #datalog.update_datalog(node_id,puissance,price,temps)
             else:               #désactive un producteur
-                prior_type = [Prd_buy,Prd_nuck,Prd_wind,Prd_gaz]
-                node_id = -1
-                int_count = 0
-                while(node_id == -1):
-                    node_id = self.disable_by_type(prior_type[int_count],self.ligne_power - bill)
-                    int_count += 1
+                node_id = self.disable_prod()
+
 
         return int_p,int_c
