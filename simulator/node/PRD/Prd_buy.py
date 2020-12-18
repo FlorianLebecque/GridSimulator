@@ -1,4 +1,5 @@
 from node.node import Node
+import random
 
 class Prd_buy(Node):
     def __init__(self,meta,_id, max_pwr):
@@ -12,8 +13,12 @@ class Prd_buy(Node):
 
         cost = int(self.meta['cost'])
 
+        puissance = self.max_power * (self.power_cursor/100)
+
         price = cost*puissance
-        puissance = puissance
+        
         temps = t
 
         datalog.update_datalog(self._id,puissance,price,temps)
+
+        return puissance, 0

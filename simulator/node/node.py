@@ -1,3 +1,13 @@
+from node.CNS.Cns_diss import Cns_diss
+from node.CNS.Cns_enter import Cns_enter
+from node.CNS.Cns_sale import Cns_sale
+from node.CNS.Cns_town import Cns_town
+from node.PRD.Prd_buy import Prd_buy
+from node.PRD.Prd_gaz import Prd_gaz
+from node.PRD.Prd_nuck import Prd_nuck
+from node.PRD.Prd_sun import Prd_sun
+from node.PRD.Prd_wind import Prd_wind
+
 class Node:
     def __init__(self, _id , max_pwr):
         self._id = _id
@@ -175,33 +185,6 @@ class Node:
         
         return child.id
 
-    def update(self,datalog,t):
-
-        int_p = 0
-        int_c = 0
-
-        for child in self.childs :
-            int_np,int_nc = child.update(datalog,t)
-            int_p += int_np
-            int_c += int_nc
-
-        bill = int_p - int_c
-
-        if abs(bill) > self.ligne_power: #on depasse calbe
-            if bill < 0:        #désactive un consomateur
-                node_id = self.disable_cons(self.ligne_power - bill)
-
-                #datalog.update_datalog(node_id,puissance,price,temps)
-            else:               #désactive un producteur
-                prior_type = [Prd_buy,Prd_nuck,Prd_wind,Prd_gaz]
-                node_id = -1
-                int_count = 0
-                while(node_id == -1):
-                    node_id = self.disable_by_type(prior_type[int_count],self.ligne_power - bill)
-                    int_count += 1
-
-        return int_p,int_c
-
     def disable_by_type(self,node_type,target):
         node_child = []
         node_corType = []
@@ -229,3 +212,30 @@ class Node:
 
         node_MinPwrNode.enable = False
         return child.id
+
+    def update(self,datalog,t):
+
+        int_p = 0
+        int_c = 0
+
+        for child in self.childs :
+            int_np,int_nc = child.update(datalog,t)
+            int_p += int_np
+            int_c += int_nc
+
+        bill = int_p - int_c
+
+        if abs(bill) > self.ligne_power: #on depasse calbe
+            if bill < 0:        #désactive un consomateur
+                node_id = self.disable_cons(self.ligne_power - bill)
+
+                #datalog.update_datalog(node_id,puissance,price,temps)
+            else:               #désactive un producteur
+                prior_type = [Prd_buy,Prd_nuck,Prd_wind,Prd_gaz]
+                node_id = -1
+                int_count = 0
+                while(node_id == -1):
+                    node_id = self.disable_by_type(prior_type[int_count],self.ligne_power - bill)
+                    int_count += 1
+
+        return int_p,int_c

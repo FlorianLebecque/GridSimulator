@@ -1,4 +1,5 @@
 from node.node import Node
+import random
 
 class Cns_town(Node):
     def __init__(self,meta,_id, max_pwr):
@@ -10,8 +11,10 @@ class Cns_town(Node):
     def update(self,datalog,t):
         cost = int(self.meta['cost'])
 
-        price = -cost*max_power
-        puissance = max_power+random.randint(-1,1)
+        price = -cost*self.max_power
+        puissance = self.max_power+random.randint(-1,1)
         temps = t
 
         datalog.update_datalog(self._id,puissance,price,temps)
+
+        return 0,puissance

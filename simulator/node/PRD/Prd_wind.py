@@ -1,4 +1,5 @@
 from node.node import Node
+import random
 
 class Prd_wind(Node):
     def __init__(self,meta,_id, max_pwr):
@@ -15,8 +16,8 @@ class Prd_wind(Node):
         wind_meteo = int(300)
 
         puissance = wind_eff*wind_meteo
-        if puissance > max_power:
-            puissance =  max_power
+        if puissance > self.max_power:
+            puissance =  self.max_power
 
         price = cost*puissance
 
@@ -25,3 +26,5 @@ class Prd_wind(Node):
         temps = t
 
         datalog.update_datalog(self._id,puissance,price,temps)
+
+        return puissance, 0

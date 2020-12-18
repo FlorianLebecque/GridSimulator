@@ -1,6 +1,7 @@
 import random
 import datalog
 from node.node import Node
+
 from node.CNS.Cns_diss import Cns_diss
 from node.CNS.Cns_enter import Cns_enter
 from node.CNS.Cns_sale import Cns_sale
@@ -10,8 +11,6 @@ from node.PRD.Prd_gaz import Prd_gaz
 from node.PRD.Prd_nuck import Prd_nuck
 from node.PRD.Prd_sun import Prd_sun
 from node.PRD.Prd_wind import Prd_wind
-
-
 
 class nodeCreator:
     def __init__(self,nodes,types,childs):

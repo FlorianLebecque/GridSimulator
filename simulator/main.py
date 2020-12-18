@@ -78,7 +78,7 @@ while(state):
 
             if (t_inter >= 0.01):
                 t_inter2 = time.time()
-                primaryNode.update(simDatalog,t)
+                primaryNode.firstUpdate(simDatalog,t)
 
             else :
                 msg = cSocket.recvMessage()
