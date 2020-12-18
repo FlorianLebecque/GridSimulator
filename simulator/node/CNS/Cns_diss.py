@@ -15,7 +15,7 @@ class Cns_diss(Node):
 
             cost = int(self.meta['cost'])
 
-            price = -cost*max_power
+            price = 0
             puissance = self.max_power+random.randint(-1,1)
             temps = t
 

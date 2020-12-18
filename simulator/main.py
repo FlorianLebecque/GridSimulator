@@ -13,14 +13,11 @@ from node.node import Node
 
 #######################################   CREATION CONNECION DB   ####################################
 
-
 connDb = Db('localhost','root','','projet_poo','utf8mb4',pymysql.cursors.DictCursor)
-
 
 #######################################   CREATION CONNECION SOCKET   ################################
 
 cSocket = S("127.0.0.1",5005,1024)
-
 
 #######################################   DIFFERENTS CAS   ###########################################
 state = "WAIT"
@@ -67,8 +64,6 @@ while(state):
         i=0
 
         state = "RUNNING"
-
-        
         
     if (state == "RUNNING"):
 

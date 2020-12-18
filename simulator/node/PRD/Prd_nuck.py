@@ -24,7 +24,7 @@ class Prd_nuck(Node):
             else :
                 puissance = self.max_power
 
-            price = cost*puissance
+            price = cost*self.max_power
 
             puissance = puissance
 

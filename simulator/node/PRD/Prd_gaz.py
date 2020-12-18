@@ -13,13 +13,14 @@ class Prd_gaz(Node):
         if self.enable:
             cost = int(self.meta['cost'])
 
-            price = self.max_power * cost
+            
 
-            puissance = self.max_power+random.randint(-5,5)
+            puissance = self.max_power*(self.power_cursor/100)
+            price = puissance * cost
 
             temps = t
 
-            datalog.update_datalog(self._id,puissance,price,temps)
+            datalog.update_data(self._id,puissance,price,10,temps)
 
             return puissance, 0
         else:

@@ -20,7 +20,7 @@ class Prd_wind(Node):
             if puissance > self.max_power:
                 puissance =  self.max_power
 
-            price = cost*puissance
+            price = cost*self.max_power
 
             puissance = puissance
 

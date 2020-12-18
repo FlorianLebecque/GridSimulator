@@ -22,10 +22,10 @@ class Node:
         if int_p > int_c: #si on produit trop
 
             #try to enable cns
-            node_id = self.enable_cons(bill)
+            node_id = self.enable_cons()
 
+            #try to sale
             if node_id == -1:
-                #try to sale
                 node_id = self.trySale(bill)
 
             #try to slow prod
@@ -44,9 +44,9 @@ class Node:
             #try to max prod
             node_id = self.maximize_prod(bill)
 
+            #try to enable prod
             if node_id == -1:
-                #try to enable prod
-                node_id = self.enable_prod(bill)
+                node_id = self.enable_prod()
 
             #try to minimize sale and dissip
             if node_id == -1:
@@ -76,13 +76,30 @@ class Node:
 
         return node_id
 
+    def enable_prod(self):
+        node_node,target_node = self.__getNodeArray("enable_prod")
+
+            #we first explore the rest of the node
+        node_id = -1
+        for node in node_node:
+            node_id = node.enable_prod()
+            if node_id != -1:
+                return node_id
+        
+        for child in target_node:
+            node_id = child.enable_prod()
+            if node_id != -1:
+                return node_id
+
+        return node_id 
+
     def enable_cons(self):
         node_node,target_node = self.__getNodeArray("enable_cons")
 
             #we first explore the rest of the node
         node_id = -1
-        for Node in node_node:
-            node_id = Node.enable_cons()
+        for node in node_node:
+            node_id = node.enable_cons()
             if node_id != -1:
                 return node_id
         
@@ -99,8 +116,8 @@ class Node:
 
             #we first explore the rest of the node
         node_id = -1
-        for Node in node_node:
-            node_id = Node.disable_prod()
+        for node in node_node:
+            node_id = node.disable_prod()
             if node_id != -1:
                 return node_id
         
@@ -117,8 +134,8 @@ class Node:
 
             #we first explore the rest of the node
         node_id = -1
-        for Node in node_node:
-            node_id = Node.disable_cons()
+        for node in node_node:
+            node_id = node.disable_cons()
             if node_id != -1:
                 return node_id
         
@@ -135,8 +152,8 @@ class Node:
 
             #we first explore the rest of the node
         node_id = -1
-        for Node in node_node:
-            node_id = Node.minimize_cons(target)
+        for node in node_node:
+            node_id = node.minimize_cons(target)
             if node_id != -1:
                 return node_id
         
@@ -153,8 +170,8 @@ class Node:
 
             #we first explore the rest of the node
         node_id = -1
-        for Node in node_node:
-            node_id = Node.minimize_prod(target)
+        for node in node_node:
+            node_id = node.minimize_prod(target)
             if node_id != -1:
                 return node_id
 
@@ -171,8 +188,8 @@ class Node:
 
             #we first explore the rest of the node
         node_id = -1
-        for Node in node_node:
-            node_id = Node.maximize_prod(target)
+        for node in node_node:
+            node_id = node.maximize_prod(target)
             if node_id != -1:
                 return node_id
         

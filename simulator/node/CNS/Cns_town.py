@@ -13,8 +13,9 @@ class Cns_town(Node):
         if self.enable:
             cost = int(self.meta['cost'])
 
-            price = -cost*self.max_power
+            
             puissance = self.max_power+random.randint(-1,1)
+            price = cost*puissance
             temps = t
 
             datalog.update_datalog(self._id,puissance,price,temps)

@@ -18,7 +18,7 @@ class Prd_sun(Node):
         if puissance > self.max_power:
             puissance =  self.max_power
 
-        price = puissance*cost
+        price = self.max_power*cost
         puissance = puissance
         temps = t
 
