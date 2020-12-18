@@ -7,8 +7,9 @@ from Database import Db
 from clientSocket import Socket as S
 
 from datalog import Datalog
-from classCreation import nodeCreator
-from node.node import Node
+#from classCreation import nodeCreator
+#from node.node import Node
+from sim_time import s_stime
 
 
 #######################################   CREATION CONNECION DB   ####################################
@@ -43,47 +44,39 @@ while(state):
 
     if (state == "LOAD_SIM"):
         
-        nodes = connDb.getNodes(id_sim)
-        types = connDb.getTypes(id_sim)
-        childs = connDb.getChilds(id_sim)
+        nodes = connDb.getNodes(id_sim)     #Recuperations des Nodes 
+        types = connDb.getTypes(id_sim)     #Recuperations des Types
+        childs = connDb.getChilds(id_sim)   #Recuperations des Childs
 
         #connDb.nprint(nodes)
         #connDb.nprint(types)
         #connDb.nprint(childs)
     
-        simDatalog = Datalog(connDb,id_sim)
-        nodeClass = nodeCreator(nodes,types,childs)
-        primaryNode = nodeClass.nodeCreation('null','null')
+        #simDatalog = Datalog(connDb,id_sim)                 #Creation Datalog
+        #nodeClass = nodeCreator(nodes,types,childs)         #Création Classe Node
+        #primaryNode = nodeClass.nodeCreation('null','null') #Creation du tableau de nodes 
 
-        last_time = connDb.getLastTime(id_sim)['LASTTIME']
-
-        if (last_time is not None):
-            start_sim = time.time() - last_time
-
-        else :
-            start_sim = time.time()
+        T = s_stime()                                       #Creation de la classe qui gère le temps dans la simu
+        last_time = connDb.getLastTime(id_sim)['LASTTIME']  #Chercher la dernière valeur de la derniere simu si elle existe
+        start_sim,t_inter2 = T.init_time(last_time)         #Instantiation des deux var de temps
         
-        t_inter2 = time.time() - 1
-        i=0
 
         state = "RUNNING"
 
-        
-        
     if (state == "RUNNING"):
 
         while (state == "RUNNING"):
-            t = time.time() - start_sim 
-            t_inter = time.time() - t_inter2
+            t = T.diff_time(start_sim)
+            t_inter = T.diff_time(t_inter2)
 
             if (t_inter >= 0.01):
                 t_inter2 = time.time()
-                primaryNode.firstUpdate(simDatalog,t)
+                print(t_inter2)
+                #primaryNode.update(simDatalog,t)
 
             else :
                 msg = cSocket.recvMessage()
                 if msg is not None :
-                    print(msg)
                     s_msg = msg.split('_')
                     if (s_msg[0] == 'stopsim'):
                         state ="STOP"
