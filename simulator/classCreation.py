@@ -1,6 +1,9 @@
 import random
 import datalog
 from node.node import Node
+from node.AdjustableNodePrd import AdjustableNodePrd
+from node.AdjustableNodeCns import AdjustableNodeCns
+from node.NodeN import NodeN
 
 from node.CNS.Cns_diss import Cns_diss
 from node.CNS.Cns_enter import Cns_enter
@@ -29,7 +32,7 @@ class nodeCreator:
         id_type = str(self.nodes[_id]['id_type'])
 
         if (id_type == '0'):
-            temps_node = Node(_id,max_pwr)
+            temps_node = NodeN(_id,max_pwr)
 
             if _id in self.childs:
                 i=0

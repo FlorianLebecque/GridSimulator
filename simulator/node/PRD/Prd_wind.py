@@ -1,7 +1,7 @@
-from node.node import Node
+from node.AdjustableNodePrd import AdjustableNodePrd
 import random
 
-class Prd_wind(Node):
+class Prd_wind(AdjustableNodePrd):
     def __init__(self,meta,_id, max_pwr):
         self.meta = meta
         self.max_power = int(self.meta['power'])
@@ -33,20 +33,6 @@ class Prd_wind(Node):
 
         datalog.update_datalog(self._id,puissance,price,temps)
         return puissance,0
-
-    def minimize_prod(self,target):
-        if self.power_cursor >= 10:
-            self.power_cursor -=10
-            return self._id
-        
-        return -1
-
-    def maximize_prod(self,target):
-        if self.power_cursor <=90:
-            self.power_cursor +=10
-            return self._id
-            
-        return -1
 
     def disable_prod(self):
         if self.enable:

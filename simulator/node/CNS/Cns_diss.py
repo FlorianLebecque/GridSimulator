@@ -1,7 +1,7 @@
-from node.node import Node
+from node.AdjustableNodeCns import AdjustableNodeCns
 import random
 
-class Cns_diss(Node):
+class Cns_diss(AdjustableNodeCns):
     def __init__(self,meta,_id, max_pwr):
         self.meta = meta
         self.max_power = int(self.meta['power'])
@@ -26,13 +26,6 @@ class Cns_diss(Node):
         datalog.update_datalog(self._id,puissance,price,temps)
         return 0,puissance
 
-    def cns_minimize(self,target):
-        if self.power_cursor >= 10:
-            self.power_cursor -= 10
-            return self._id
-
-        return -1
-    
     def max_dissp(self,target):
         if self.power_cursor <= 90:
             self.power_cursor += 10

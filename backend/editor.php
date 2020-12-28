@@ -7,7 +7,6 @@
             for($i = 0; $i < count($data);$i++){
                 echo "<option value='".$data[$i]["id"]."'>".$data[$i]["label"]."</option>";
             }
-
         }
 
         public static function getTypeField(){
