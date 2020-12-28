@@ -1,7 +1,7 @@
 from node.node import Node
 class NodeP(Node):
-    def __init__(self, _id, max_pwr):
-        super().__init__( _id, max_pwr)    
+    def __init__(self, _id, ligne_pwr):
+        super().__init__( _id, ligne_pwr)    
 
 
     def disable_prod(self,b):

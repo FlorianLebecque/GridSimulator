@@ -2,11 +2,11 @@ from node.NodeC import NodeC
 import random
 
 class Cns_town(NodeC):
-    def __init__(self,meta,_id, max_pwr):
+    def __init__(self,meta,_id, ligne_pwr):
         self.meta = meta
         self.max_power = int(self.meta['power'])
-        self.prior = 2
-        super().__init__( _id, max_pwr)
+        self.prior = 10
+        super().__init__( _id, ligne_pwr)
         
 
     def update(self,datalog,t):
@@ -18,7 +18,6 @@ class Cns_town(NodeC):
                 print("bite")
             cost = int(self.meta['cost'])
 
-            
             puissance = self.max_power+random.randint(-1,1)
             price = cost*puissance
 

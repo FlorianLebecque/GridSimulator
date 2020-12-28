@@ -21,13 +21,13 @@ class NodeN(Node):
             print("To Much")
 
             strat = ["enable_cons","trySale","minimize_prod","max_dissp","disable_prod"]
-            TryStrat(strat)
+            self.TryStrat(strat,bill)
            
         elif int_c > int_p:
             print("Not Enought")
 
             strat = ["maximize_prod","enable_prod","minimize_cons","disable_cons"]
-            TryStrat(strat)
+            self.TryStrat(strat,bill)
  
         #function that find all the node wich have the selected attribute
     def getNodeArray(self,attr):
@@ -45,7 +45,7 @@ class NodeN(Node):
         #we need to sort by prior
         return sorted(result_node, key=lambda x: x.prior, reverse=False)
 
-    def TryStrat(self,strat):
+    def TryStrat(self,strat,bill):
         for s in strat:
             node_id = self.TryAttribute(s,bill)
             if node_id != -1:

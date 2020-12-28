@@ -2,10 +2,10 @@ from node.node import Node
 import random
 
 class Prd_sun(Node):
-    def __init__(self,meta,_id, max_pwr):
+    def __init__(self,meta,_id, ligne_pwr):
         self.meta = meta
         self.max_power = int(self.meta['power'])
-        super().__init__( _id, max_pwr)
+        super().__init__( _id, ligne_pwr)
         
 
     def update(self,datalog,t):
