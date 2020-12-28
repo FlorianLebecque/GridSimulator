@@ -5,7 +5,6 @@ class Prd_gaz(AdjustableNodePrd):
     def __init__(self,meta,_id, max_pwr):
         self.meta = meta
         self.max_power = int(self.meta['power'])
-        self.power_cursor = 100
         self.prior = 3
         super().__init__( _id, max_pwr)
 

@@ -1,7 +1,7 @@
-from node.node import Node
+from node.NodeP import NodeP
 import random
 
-class Prd_nuck(Node):
+class Prd_nuck(NodeP):
     def __init__(self,meta,_id, max_pwr):
         self.meta = meta
         self.max_power = int(self.meta['power'])

@@ -1,11 +1,12 @@
-from node.node import Node
+from node.NodeC import NodeC
 import random
 
-class Cns_enter(Node):
-    def __init__(self,meta,_id, max_pwr):
+class Cns_enter(NodeC):
+    def __init__(self,meta,_id, ligne_pwr):
         self.meta = meta
         self.max_power = int(self.meta['power'])
-        super().__init__( _id, max_pwr)
+        self.prior = 10
+        super().__init__( _id, ligne_pwr)
         
 
     def update(self,datalog,t):
@@ -25,16 +26,3 @@ class Cns_enter(Node):
         datalog.update_datalog(self._id,puissance,price,temps)
         return 0,puissance
 
-    def disable_cons(self):
-        if self.enable:
-            self.enable = False
-            return self._id
-        
-        return -1
-
-    def enable_cons(self):
-        if self.enable == False:
-            self.enable = True
-            return self._id
-        
-        return -1

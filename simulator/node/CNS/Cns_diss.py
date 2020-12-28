@@ -2,11 +2,11 @@ from node.AdjustableNodeCns import AdjustableNodeCns
 import random
 
 class Cns_diss(AdjustableNodeCns):
-    def __init__(self,meta,_id, max_pwr):
+    def __init__(self,meta,_id, ligne_pwr):
         self.meta = meta
         self.max_power = int(self.meta['power'])
-        self.power_cursor = 100
-        super().__init__( _id, max_pwr)
+        self.prior = 1
+        super().__init__( _id, ligne_pwr)
         
 
     def update(self,datalog,t):
@@ -31,18 +31,4 @@ class Cns_diss(AdjustableNodeCns):
             self.power_cursor += 10
             return self._id
 
-        return -1
-
-    def disable_cons(self):
-        if self.enable:
-            self.enable = False
-            return self._id
-        
-        return -1
-
-    def enable_cons(self):
-        if self.enable == False:
-            self.enable = True
-            return self._id
-        
         return -1

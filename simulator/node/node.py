@@ -1,12 +1,10 @@
 
 class Node:
-    def __init__(self, _id , max_pwr):
+    def __init__(self, _id , ligne_pwr):
         self._id = _id
-        self.ligne_power = max_pwr
+        self.ligne_power = ligne_pwr
         self.childs = []
         self.enable = True
-        self.simpleType = "n"
-        self.prior = 100
     
     def __str__(self):
         return str(self.id) + " - " + str(type(self))
