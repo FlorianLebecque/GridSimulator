@@ -3,7 +3,6 @@ class NodeC(Node):
     def __init__(self, _id, ligne_pwr):
         super().__init__( _id, ligne_pwr)    
 
-
     def disable_cons(self,b):
         if self.enable:
             self.enable = False

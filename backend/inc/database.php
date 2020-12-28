@@ -131,7 +131,7 @@
         }
 
         public static function getNodeDataQuery($id){
-            return 'SELECT DAT.`data` FROM `pe_data` AS DAT INNER JOIN pe_node as NODE ON NODE.id = DAT.`node_id` WHERE NODE.id = '.$id.' AND DAT.`data` NOT LIKE "%MESS%" ORDER BY time DESC LIMIT 10';
+            return 'SELECT DAT.`data` FROM `pe_data` AS DAT  WHERE DAT.`node_id` = '.$id.' AND DAT.`data` NOT LIKE "%MESS%" ORDER BY time DESC LIMIT 10';
         }
 
         public static function getNodeID_by_stQuery($sim,$simple_type){

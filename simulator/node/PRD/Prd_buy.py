@@ -17,7 +17,7 @@ class Prd_buy(AdjustableNodePrd):
         if self.enable:
             cost = int(self.meta['cost'])
 
-            puissance = self.max_power * (self.power_cursor/100)
+            puissance = self.getCurPower(t)
 
             price = cost*puissance
             
@@ -28,4 +28,5 @@ class Prd_buy(AdjustableNodePrd):
         datalog.update_datalog(self._id,puissance,price,temps)
         return puissance,0
 
-    
+    def getCurPower(self,t):
+        return self.max_power*(self.power_cursor/100)

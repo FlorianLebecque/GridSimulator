@@ -6,25 +6,23 @@ class AdjustableNodePrd(NodeP):
         super().__init__( _id, ligne_pwr)    
 
     def minimize_prod(self,target):
-        print("-------------------------")
-        print(self.max_power)
-        print("try min prd : ",self._id)
-        print(self.power_cursor)
-        print(self.prior)
-        if self.power_cursor >= 10:
-            self.power_cursor -=10
-            return self._id
-   
-        return -1
+        return self.adjust(target)
+
         
     def maximize_prod(self,target):
-        print("-------------------------")
-        print(self.max_power)
-        print("try max prd : ",self._id)
-        print(self.power_cursor)
-        print(self.prior)
-        if self.power_cursor <=90:
-            self.power_cursor +=10
-            return self._id
+        return self.adjust(target)
 
-        return -1
+    def adjust(self,bill):
+        cur_power = self.getCurPower(1)
+        target = abs(cur_power - (bill))
+
+        if target > self.max_power :
+            if self.power_cursor != 100:
+                self.power_cursor = 100
+                return self._id
+            return -1
+        else:
+
+            self.power_cursor = ((target)/self.max_power)*100
+
+            return self._id

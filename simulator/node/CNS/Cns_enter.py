@@ -16,7 +16,7 @@ class Cns_enter(NodeC):
         if self.enable:
             cost = int(self.meta['cost'])
 
-            puissance = self.max_power+random.randint(-1,1)
+            puissance = self.max_power+random.uniform(-self.max_power*0.10,self.max_power*0.10)
             price = cost*puissance
             
         else:

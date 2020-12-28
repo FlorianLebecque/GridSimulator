@@ -15,17 +15,18 @@ class NodeN(Node):
             int_p += int_np
             int_c += int_nc
         
+        
         bill = int_p-int_c
+        print("---------------SIM---------------")
+        print("time : ",t)
+        print("Prd : ",int_p," Cns : ",int_c)
+        print("Bill : ",bill)
 
         if int_p > int_c: #si on produit trop
-            print("To Much")
-
             strat = ["enable_cons","trySale","minimize_prod","max_dissp","disable_prod"]
             self.TryStrat(strat,bill)
            
         elif int_c > int_p:
-            print("Not Enought")
-
             strat = ["maximize_prod","enable_prod","minimize_cons","disable_cons"]
             self.TryStrat(strat,bill)
  
@@ -48,6 +49,7 @@ class NodeN(Node):
     def TryStrat(self,strat,bill):
         for s in strat:
             node_id = self.TryAttribute(s,bill)
+            print("strat : ",s, "node : ",node_id)
             if node_id != -1:
                 break
         

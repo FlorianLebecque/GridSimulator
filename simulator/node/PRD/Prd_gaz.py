@@ -15,7 +15,7 @@ class Prd_gaz(AdjustableNodePrd):
         if self.enable:
             cost = int(self.meta['cost'])
 
-            puissance = self.max_power*(self.power_cursor/100)
+            puissance = self.getCurPower(t)
             price = puissance * cost      
 
         else:
@@ -24,3 +24,6 @@ class Prd_gaz(AdjustableNodePrd):
 
         datalog.update_data(self._id,puissance,price,10,temps)
         return puissance,0
+
+    def getCurPower(self,t):
+        return self.max_power*(self.power_cursor/100)

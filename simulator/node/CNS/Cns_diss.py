@@ -17,7 +17,7 @@ class Cns_diss(AdjustableNodeCns):
 
             cost = int(self.meta['cost'])
             price = 0
-            puissance = self.max_power+random.randint(-1,1)
+            puissance = self.max_power*(self.power_cursor/100)
             
         else:
             puissance = 0

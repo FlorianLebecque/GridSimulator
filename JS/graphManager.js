@@ -11,7 +11,7 @@ class graphManager{
         ajaxHandler.sendRequest("getGraphDataSet",JSON.stringify(array_graphID),graphUpdater.setDataset,this);
     }
 
-    create_graph(str_PanelID,array_labels,array_data,int_axeMin=0,int_axeMax=10) {
+    create_graph(str_PanelID,array_labels,array_data,int_axeMin=0,int_axeMax=50) {
         let ctx = $('#'+str_PanelID);
 
         let myLineChart = new Chart(ctx, {

@@ -15,7 +15,7 @@ class Cns_sale(AdjustableNodeCns):
 
         if self.enable:
             cost = int(self.meta['cost'])
-            puissance = self.max_power+random.randint(-1,1)
+            puissance = self.max_power*(self.power_cursor/100)
             price = cost*puissance
             
         else:

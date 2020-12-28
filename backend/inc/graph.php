@@ -12,7 +12,7 @@
 
                 $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
-                $dt[$index] = self::getDataNode($str_id,array_slice ($array_idData,1));
+                $dt[$index] = self::getDataNode($str_id,array_slice($array_idData,1));
                 $index++;
 
             }
