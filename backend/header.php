@@ -14,10 +14,6 @@
         static private function formatData(){
             return array("Central 1","Central 2","Central 3");  
         }
-            //get the data from the database
-        static private function retreiveData(){
-            
-        }
 
         static public function getPageTitle(){
             if(isset($_GET["p"])){
