@@ -5,6 +5,7 @@ class Prd_sun(Node):
     def __init__(self,meta,_id, ligne_pwr):
         self.meta = meta
         self.max_power = int(self.meta['power'])
+        self.prior = 99
         super().__init__( _id, ligne_pwr)
         
 

@@ -27,7 +27,7 @@ class NodeN(Node):
             self.TryStrat(strat,bill)
            
         elif int_c > int_p:
-            strat = ["maximize_prod","enable_prod","minimize_cons","disable_cons"]
+            strat = ["minimize_cons","maximize_prod","enable_prod","disable_cons"]
             self.TryStrat(strat,bill)
  
         #function that find all the node wich have the selected attribute
