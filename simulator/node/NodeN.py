@@ -12,32 +12,47 @@ class NodeN(Node):
         super().__init__( _id, ligne_pwr)
 
     def firstUpdate(self,datalog,t):
-        int_p = 0
-        int_c = 0
+
+        bill = self.getCurPower(t)
+        
+        clear()
+        print("---------------SIM---------------")
+        meteoHandler.getSun(t)
+        print("Bill : ",bill)
+
+        nbrTry = 0
+        tested_strat = []
+
+        while abs(bill)>1 and nbrTry < 10:
+            nbrTry+=1
+            print("TRY  : ",nbrTry," BILL : ",bill)
+            if bill > 0: #si on produit trop
+
+                strat = [("enable_cons",t),("trySale",bill),("minimize_prod",bill),("max_dissp",bill),("disable_prod",t)]
+
+                res = self.TryStrat(strat,tested_strat)
+                if res != -1:
+                    tested_strat.append(res)
+
+            elif bill < 0:
+        
+                strat = [("minimize_cons",bill),("maximize_prod",bill),("enable_prod",t),("disable_cons",t)]
+                res = self.TryStrat(strat,tested_strat)
+                if res != -1:
+                    tested_strat.append(res)
+
+            else:
+                break
+        
+            bill = self.getCurPower(t)
 
         for child in self.childs :
             int_np,int_nc = child.callUpdate(datalog,t)
-            int_p += int_np
-            int_c += int_nc
-        
-        
-        bill = int_p-int_c
-        
+    
+    def getCurPower(self,t):
 
-        if int_p > int_c: #si on produit trop
-            clear()
-            print("---------------SIM---------------")
-            meteoHandler.getSun(t)
-            print("Prd : ",int_p," Cns : ",int_c)
-            print("Bill : ",bill)
-            strat = ["enable_cons","trySale","minimize_prod","max_dissp","disable_prod"]
-            self.TryStrat(strat,bill)
-            
-        elif int_c > int_p:
-            clear()
-            print("---------------SIM---------------")
-            meteoHandler.getSun(t)
-            print("Prd : ",int_p," Cns : ",int_c)
-            print("Bill : ",bill)
-            strat = ["minimize_cons","maximize_prod","enable_prod","disable_cons"]
-            self.TryStrat(strat,bill)
+        cur_power = 0
+        for child in self.childs:
+            cur_power += child.getCurPower(t)
+
+        return cur_power
