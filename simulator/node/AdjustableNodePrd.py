@@ -8,13 +8,16 @@ class AdjustableNodePrd(NodeP):
     def minimize_prod(self,target):
         return self.adjust(target)
 
-        
     def maximize_prod(self,target):
         return self.adjust(target)
 
     def adjust(self,bill):
         cur_power = self.getCurPower(1)
         target = abs(cur_power - (bill))
+
+        if self.power_cursor < 5:
+            self.enable = False
+            return -1
 
         if target > self.max_power :
             if self.power_cursor != 100:

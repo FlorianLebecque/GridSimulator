@@ -26,9 +26,5 @@ class Cns_diss(AdjustableNodeCns):
         datalog.update_datalog(self._id,puissance,price,temps)
         return 0,puissance
 
-    def max_dissp(self,target):
-        if self.power_cursor <= 90:
-            self.power_cursor += 10
-            return self._id
-
-        return -1
+    def max_dissp(self,bill):
+        return self.adjust(bill)

@@ -26,9 +26,5 @@ class Cns_sale(AdjustableNodeCns):
         return 0,puissance
 
 
-    def trySale(self,target):
-        if(self.power_cursor <=90):
-            self.power_cursor += 10
-            return self._id
-        else:
-            return -1
+    def trySale(self,bill):
+        return self.adjust(bill)

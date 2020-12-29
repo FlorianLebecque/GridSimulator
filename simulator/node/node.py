@@ -5,9 +5,16 @@ class Node:
         self.ligne_power = ligne_pwr
         self.childs = []
         self.enable = True
+        self.userEnable = True
     
     def __str__(self):
         return str(self.id) + " - " + str(type(self))
+
+    def callUpdate(self,datalog,t):
+        if self.userEnable:
+            return self.update(datalog,t)
+        else:
+            return 0,0
 
     def update(self,datalog,t):
 
@@ -15,19 +22,58 @@ class Node:
         int_c = 0
 
         for child in self.childs :
-            int_np,int_nc = child.update(datalog,t)
+            int_np,int_nc = child.callUpdate(datalog,t)
             int_p += int_np
             int_c += int_nc
 
         bill = int_p - int_c
 
-#        if abs(bill) > self.ligne_power: #on depasse calbe
-#            if bill < 0:        #désactive un consomateur
+        if abs(bill) > self.ligne_power: #on depasse calbe
+            if bill < 0:        #désactive un consomateur
                 #node_id = self.disable_cons(self.ligne_power - bill)
+                
 
+                strat = ["minimize_prod","max_dissp","disable_prod"]
+                #self.TryStrat(strat,bill)
                 #datalog.update_datalog(node_id,puissance,price,temps)
-#            else:               #désactive un producteur
+            #else:               #désactive un producteur
                 #node_id = self.disable_prod()
 
 
         return int_p,int_c
+
+            #function that find all the node wich have the selected attribute
+    
+
+    def TryStrat(self,strat,bill):
+        for s in strat:
+            node_id = self.TryAttribute(s,bill)
+            print("strat : ",s, "node : ",node_id)
+            if node_id != -1:
+                break
+        
+    def TryAttribute(self,attr,param):
+        target_node = self.getNodeArray(attr)
+        node_id = -1
+        for child in target_node:
+            attr_func = getattr(child,attr)
+            node_id = attr_func(param)
+            if node_id != -1:
+                return node_id
+
+        return node_id
+
+    def getNodeArray(self,attr):
+    
+        target_node = []
+        temp_node = []
+        for child in self.childs:
+            if child.prior == 100:          #check if it's a node
+                temp_node = child.getNodeArray(attr)
+            elif(hasattr(child,attr)):      #check if we have the correct attribute
+                target_node.append(child)
+
+        result_node = target_node + temp_node
+
+        #we need to sort by prior
+        return sorted(result_node, key=lambda x: x.prior, reverse=False)

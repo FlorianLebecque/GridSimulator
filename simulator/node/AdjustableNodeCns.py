@@ -4,9 +4,14 @@ class AdjustableNodeCns(NodeC):
         self.power_cursor = 100
         super().__init__( _id, ligne_pwr)
 
-    def cns_minimize(self,target):
+    def adjust(self,bill):
+
         cur_power = self.max_power*(self.power_cursor/100)
-        target = abs(cur_power - (bill))
+        target = abs(cur_power + (bill))
+
+        if self.power_cursor < 5:
+            self.enable = False
+            return -1
 
         if target > self.max_power :
             if self.power_cursor != 100:
@@ -18,3 +23,6 @@ class AdjustableNodeCns(NodeC):
             self.power_cursor = ((target)/self.max_power)*100
 
             return self._id
+
+    def minimize_cons(self,bill):
+        return self.adjust(bill)

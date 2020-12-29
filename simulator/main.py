@@ -3,6 +3,7 @@ import pymysql.cursors
 import json
 
 
+
 from Database import Db 
 from clientSocket import Socket as S
 
@@ -24,6 +25,7 @@ state = "WAIT"
 
 
 while(state):
+   
     if (state == "WAIT"):
         while (state == "WAIT"):
             msg = cSocket.recvMessage()
@@ -68,13 +70,14 @@ while(state):
     if (state == "RUNNING"):
 
         while (state == "RUNNING"):
+
             t = time.time() - start_sim 
             t_inter = time.time() - t_inter2
 
             if (t_inter >= 0.5):
                 t_inter2 = time.time()
                 primaryNode.firstUpdate(simDatalog,t)
-
+                
             else :
                 msg = cSocket.recvMessage()
                 if msg is not None :
@@ -84,7 +87,7 @@ while(state):
                         state ="STOP"
                     else :
                         state = "RUNNING"
-
+            
 
     if (state == "STOP"):
 
