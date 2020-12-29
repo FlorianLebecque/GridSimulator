@@ -1,6 +1,5 @@
 import random
 import datalog
-
 from node.NodeN import NodeN
 
 from node.CNS.Cns_diss import Cns_diss

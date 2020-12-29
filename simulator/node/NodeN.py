@@ -1,4 +1,5 @@
 from node.node import Node
+from meteo import meteoHandler
 import os
 
 def clear(): os.system('cls') #on Windows System
@@ -26,7 +27,7 @@ class NodeN(Node):
         if int_p > int_c: #si on produit trop
             clear()
             print("---------------SIM---------------")
-            print("time : ",t)
+            meteoHandler.getSun(t)
             print("Prd : ",int_p," Cns : ",int_c)
             print("Bill : ",bill)
             strat = ["enable_cons","trySale","minimize_prod","max_dissp","disable_prod"]
@@ -35,7 +36,7 @@ class NodeN(Node):
         elif int_c > int_p:
             clear()
             print("---------------SIM---------------")
-            print("time : ",t)
+            meteoHandler.getSun(t)
             print("Prd : ",int_p," Cns : ",int_c)
             print("Bill : ",bill)
             strat = ["minimize_cons","maximize_prod","enable_prod","disable_cons"]

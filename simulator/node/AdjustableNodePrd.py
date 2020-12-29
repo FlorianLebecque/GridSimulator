@@ -12,20 +12,23 @@ class AdjustableNodePrd(NodeP):
         return self.adjust(target)
 
     def adjust(self,bill):
-        cur_power = self.getCurPower(1)
-        target = abs(cur_power - (bill))
+        if(self.enable):
+            cur_power = self.getCurPower(1)
+            target = abs(cur_power - (bill))
 
-        if self.power_cursor < 5:
-            self.enable = False
-            return -1
 
-        if target > self.max_power :
-            if self.power_cursor != 100:
-                self.power_cursor = 100
+            if target > self.max_power :
+                if self.power_cursor != 100:
+                    self.power_cursor = 100
+                else:
+                    return -1
+            else:
+                self.power_cursor = ((target)/self.max_power)*100
+
+            if self.power_cursor < 5:
+                self.enable = False
+                return -1
+            else:
                 return self._id
-            return -1
-        else:
-
-            self.power_cursor = ((target)/self.max_power)*100
-
-            return self._id
+            
+        return -1

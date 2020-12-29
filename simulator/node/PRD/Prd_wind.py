@@ -1,4 +1,5 @@
 from node.AdjustableNodePrd import AdjustableNodePrd
+from meteo import meteoHandler
 import random
 
 class Prd_wind(AdjustableNodePrd):
@@ -8,7 +9,7 @@ class Prd_wind(AdjustableNodePrd):
         self.cost = int(self.meta['cost'])
         self.prior = 4
         self.wind_eff = int(self.meta['eff'])
-        self.wind_meteo = int(100)
+        
         
         super().__init__( _id, ligne_pwr)
 
@@ -31,4 +32,4 @@ class Prd_wind(AdjustableNodePrd):
         return puissance,0
     
     def getCurPower(self,t):
-        return (self.wind_eff/100)*(self.wind_meteo/100)*(self.power_cursor/100)*self.max_power
+        return (self.wind_eff/100)*(meteoHandler.getWind(t))*(self.power_cursor/100)*self.max_power

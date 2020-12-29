@@ -132,7 +132,12 @@
 
                 $sim_id = $array_idData[count($array_idData)-1];
 
-                $dt[$index] = self::getDataSetNode($str_id,array_slice ($array_idData,1),$sim_id);
+                if($array_idData[0]!="weath"){
+                    $dt[$index] = self::getDataSetNode($str_id,array_slice ($array_idData,1),$sim_id);
+                }else{
+                    $dt[$index] = self::getDataSetNode($str_id,array_slice ($array_idData,1),0);
+                }
+                
                 $index++;
             }
 
@@ -149,6 +154,9 @@
                 case "all":     //not a node
 
                     return self::generateAllDataSet($str_id,$sim);
+                    break;
+                case "weath":
+                    return self::generateWeathDataSet($str_id);
                     break;
                 default:        //here $id is the id of the node
                     return self::generateNodeDataSet($str_id);
@@ -191,6 +199,61 @@
                     $set["data"] = simdataHandler::getALL($sim,"p","CO2");
                  }
             }
+
+            $set["lineTension"] = 0.2;              //make line smooth
+            $set["fill"] = "origin";                //create an area under the line
+            
+            $data["id"] = $str_id;
+            $data["set"][0] = $set;
+
+            //data is an array with [0] -> str_id (prd_all_PWR) and [1] -> the new generated set
+
+            return $data;
+        }
+
+        //------------------------------------------------
+        //      function to generate the dataset array
+        //------------------------------------------------
+        private static function generateWeathDataSet($str_id){
+
+            $array_idData = preg_split ('/_/',$str_id,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
+
+            $set["data"] = [];
+            if($array_idData[2]=="sun"){
+                $set["label"] = "Sun weather";
+                $set["borderColor"] = "rgb(242, 85, 0)";
+                $set["backgroundColor"] = "rgba(242, 85, 0,0.2)";
+                
+
+                for($i = 0 ;$i <= 24;$i += 0.5){
+                    //m.exp((-1/2)*(((t-12)/5*m.sqrt(2))**2))
+                    $val = exp(
+                        (-1/2)*
+                        (($i-12)/(5*sqrt(2)))*(($i-12)/(5*sqrt(2)))
+                    );
+                    array_push($set["data"],$val);
+                }
+            }else{
+                $set["label"] = "Wind weather";
+                $set["borderColor"] = "rgb(0, 186, 219)";
+                $set["backgroundColor"] = "rgba(0, 186, 219,0.2)";
+                
+
+                for($i = 0 ;$i <= 24;$i += 0.5){
+                    //m.exp((-1/2)*((t-6.5)/3*m.sqrt(2))**2) + m.exp((-1/2)*((t-19)/3*m.sqrt(2))**2)
+                    $val = exp(
+                        (-1/2)*
+                        (($i-6)/(2.5*sqrt(2)))*(($i-6)/(2.5*sqrt(2)))
+                    )+exp(
+                        (-1/2)*
+                        (($i-18)/(2.5*sqrt(2)))*(($i-19)/(2.5*sqrt(2)))
+                    );
+                    array_push($set["data"],$val);
+                }
+            }
+
+            
+            
 
             $set["lineTension"] = 0.2;              //make line smooth
             $set["fill"] = "origin";                //create an area under the line
