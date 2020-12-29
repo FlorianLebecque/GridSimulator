@@ -6,6 +6,8 @@ class AdjustableNodeCns(NodeC):
 
     def adjust(self,bill):
         if self.enable:
+            old_cursor = self.power_cursor
+
             cur_power = self.max_power*(self.power_cursor/100)
             target = abs(cur_power + (bill))
 
@@ -20,6 +22,9 @@ class AdjustableNodeCns(NodeC):
             else:
                 self.power_cursor = ((target)/self.max_power)*100
 
+
+            if old_cursor == self.power_cursor:
+                return -1
 
             if self.power_cursor < 5:
                 self.enable = False
