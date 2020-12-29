@@ -13,3 +13,9 @@ class meteoHandler:
     def getWind(t):
         t = t % 24
         return (m.exp((-1/2)*((t-6)/2.5*m.sqrt(2))**2) + m.exp((-1/2)*((t-18)/2.5*m.sqrt(2))**2))/1.5
+    
+    @staticmethod
+    def getCns(t):
+        t = t % 24
+
+        return ((m.exp((-1/2)*((t-10.7)/(1.2*m.sqrt(2)))**2)+m.exp((-1/2)*((t-17)/(1.8*m.sqrt(2)))**2))+0.1)/1.3
