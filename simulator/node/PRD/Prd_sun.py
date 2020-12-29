@@ -17,17 +17,13 @@ class Prd_sun(Node):
 
     def update(self,datalog,t):
 
-        sun_meteo = meteoHandler.getSun(t)
-
-        puissance = (self.sun_eff/100)*sun_meteo*self.max_power
-        if puissance > self.max_power:
-            puissance =  self.max_power
-
+        puissance = self.getCurPower(t)
         price = self.max_power*self.cost
+
 
         datalog.update_datalog(self._id,puissance,price,t)
 
         return puissance, 0
 
     def getCurPower(self,t):
-        pass
+        return (self.sun_eff/100)*meteoHandler.getSun(t)*self.max_power

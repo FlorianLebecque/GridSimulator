@@ -3,7 +3,7 @@ import random
 
 class Prd_nuck(NodeP):
     def __init__(self,meta,_id, ligne_pwr):
-        self.max_power = int(self.meta['power'])
+        self.max_power = int(meta['power'])
         self.prior = 2
         self.start_time = int(meta['t1'])
         self.end_time = int(meta['t2'])
@@ -18,15 +18,22 @@ class Prd_nuck(NodeP):
             puissance = self.getCurPower(t)
 
         else:
-            puissance = 0
+            puissance = self.getCurPower(t)
             price = 0
 
         datalog.update_datalog(self._id,puissance,price,t)
         return puissance,0
 
-    def getCurPower(t):
-        temp_t = t
-        if (temp_t <= self.start_time):
-            return (temp_t*(self.max_power/self.start_time))
-        else :
-            return self.max_power
+    def getCurPower(self,t):
+        if self.enable:
+            temp_t = t-self.enableAtTime #get relatif time
+            if (temp_t <= self.start_time):
+                return (temp_t*(self.max_power/self.start_time))
+            else :
+                return self.max_power
+        else:
+            temp_t = t-self.disableAtTime
+            if (temp_t <= self.start_time):
+                return (self.max_power-temp_t*(self.max_power/self.end_time))
+            else :
+                return 0

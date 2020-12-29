@@ -3,27 +3,28 @@ import random
 
 class Prd_gaz(AdjustableNodePrd):
     def __init__(self,meta,_id, ligne_pwr):
-        self.meta = meta
-        self.max_power = int(self.meta['power'])
+        self.max_power = int(meta['power'])
         self.prior = 3
+        self.cost = int(meta['cost'])
+        self.CO2 = int(meta['co2'])
         super().__init__( _id, ligne_pwr)
 
     def update(self,datalog,t):
 
-        temps = t
-
         if self.enable:
-            cost = int(self.meta['cost'])
-
             puissance = self.getCurPower(t)
-            price = puissance * cost      
-
+            price = puissance * self.cost      
+            CO2 = self.CO2 * self.power_cursor
         else:
             puissance = 0
             price = 0
+            CO2 = 0
 
-        datalog.update_data(self._id,puissance,price,10,temps)
+        datalog.update_data(self._id,puissance,price,CO2,t)
         return puissance,0
 
     def getCurPower(self,t):
-        return self.max_power*(self.power_cursor/100)
+        if self.enable:
+            return self.max_power*(self.power_cursor/100)
+        else:
+            return 0
