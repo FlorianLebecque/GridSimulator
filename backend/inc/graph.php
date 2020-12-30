@@ -227,10 +227,7 @@
 
                 for($i = 0 ;$i <= 24;$i += 0.5){
                     //m.exp((-1/2)*(((t-12)/5*m.sqrt(2))**2))
-                    $val = exp(
-                        (-1/2)*
-                        (($i-12)/(5*sqrt(2)))*(($i-12)/(5*sqrt(2)))
-                    );
+                    $val = simdataHandler::getSun($i);
                     array_push($set["data"],$val);
                 }
             }else{
@@ -241,13 +238,7 @@
 
                 for($i = 0 ;$i <= 24;$i += 0.5){
                     //m.exp((-1/2)*((t-6.5)/3*m.sqrt(2))**2) + m.exp((-1/2)*((t-19)/3*m.sqrt(2))**2)
-                    $val = exp(
-                        (-1/2)*
-                        (($i-6)/(2.5*sqrt(2)))*(($i-6)/(2.5*sqrt(2)))
-                    )+exp(
-                        (-1/2)*
-                        (($i-18)/(2.5*sqrt(2)))*(($i-18)/(2.5*sqrt(2)))
-                    );
+                    $val = simdataHandler::getWind($i);
                     array_push($set["data"],$val);
                 }
             }
