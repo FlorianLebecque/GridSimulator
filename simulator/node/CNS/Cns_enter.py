@@ -1,12 +1,14 @@
 from node.NodeC import NodeC
 from meteo import meteoHandler
-import random
+
+import math as m
 
 class Cns_enter(NodeC):
     def __init__(self,meta,_id, ligne_pwr):
         self.max_power = int(meta['power'])
         self.cost = int(meta['cost'])
         self.prior = 2
+        self.randomArray = self.getRandomArray()
         super().__init__( _id, ligne_pwr)
         
 
@@ -23,8 +25,14 @@ class Cns_enter(NodeC):
         datalog.update_datalog(self._id,puissance,price,t)
         return 0,puissance
 
+    
+
     def getCurPower(self,t):
         if self.enable:
-            return -meteoHandler.getCns(t)*self.max_power
+            tmp_t = m.floor(t % 24)
+            if(tmp_t == 0):
+                self.randomArray = self.getRandomArray()
+
+            return -(meteoHandler.getCns(t)*self.max_power + self.randomArray[tmp_t])
         else:
             return 0
