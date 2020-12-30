@@ -23,10 +23,10 @@ class NodeN(Node):
         nbrTry = 0
         tested_strat = []
 
-        while abs(bill)>1 and nbrTry < 10:
+        while abs(bill)>0.01 and nbrTry < 15:
             print("_____________Tested strat______________")
             print(tested_strat)
-            print("_______________________________________")
+            
             nbrTry+=1
             print("TRY  : ",nbrTry,"START BILL : ",bill)
             if bill > 0: #si on produit trop
@@ -48,6 +48,7 @@ class NodeN(Node):
                 break
         
             bill = self.getCurPower(t)
+            print("_______________________________________")
 
         print("FINAL BILL : ",bill)
 
