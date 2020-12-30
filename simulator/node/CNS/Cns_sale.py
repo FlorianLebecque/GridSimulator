@@ -22,11 +22,12 @@ class Cns_sale(AdjustableNodeCns):
         datalog.update_datalog(self._id,puissance,price,t)
         return 0,puissance
 
-    def getCurPower(self,t):
-        return -self.max_power*(self.power_cursor/100)
-
     def trySale(self,bill):
+        return self.adjust(bill)
+
+    def getCurPower(self,t):
         if self.enable:
-            return self.adjust(bill)
+            return -self.max_power*(self.power_cursor/100)
         else:
             return 0
+

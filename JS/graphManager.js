@@ -28,7 +28,8 @@ class graphManager{
                 scales: {
                     yAxes: [{
                         ticks: {
-                            suggestedMin: int_axeMin
+                            suggestedMin: int_axeMin,
+                            suggestedMax: int_axeMax
                         }
                     }],
                     xAxes: [{
