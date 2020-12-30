@@ -8,9 +8,7 @@ class Cns_town(NodeC):
         self.max_power = int(meta['power'])
         self.cost = int(meta['cost'])
         self.prior = 3
-        self.randomArray = []
-        for i in range(0,48):
-            self.randomArray.append(random.uniform(-self.max_power*0.1,self.max_power*0.1))
+        self.randomArray = self.getRandomArray()
        
         super().__init__( _id, ligne_pwr)
         

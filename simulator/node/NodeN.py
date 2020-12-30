@@ -52,8 +52,7 @@ class NodeN(Node):
 
         print("FINAL BILL : ",bill)
 
-        for child in self.childs :
-            int_np,int_nc = child.callUpdate(datalog,t)
+        self.update(datalog,t)
     
     def getCurPower(self,t):
 
