@@ -18,7 +18,8 @@ class Node:
 
     def update(self,datalog,t):
 
-
+        nbrTry = 0
+        tested_strat = []
         bill = self.getCurPower(t)
 
         while abs(bill) > self.ligne_power and nbrTry < 15:
