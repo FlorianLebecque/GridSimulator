@@ -17,7 +17,7 @@ class NodeN(Node):
         
         clear()
         print("___________________________SIM___________________________")
-        print("time : ",t%24)
+        print("Time : ",t," hour : ",t%24)
         print("sun : ",meteoHandler.getSun(t)," wind : ", meteoHandler.getWind(t))
 
         nbrTry = 0
@@ -52,7 +52,7 @@ class NodeN(Node):
 
         print("FINAL BILL : ",bill)
 
-        self.update(datalog,t)
+        self.callUpdate(datalog,t)
     
     def getCurPower(self,t):
 
