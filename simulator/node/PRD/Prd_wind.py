@@ -6,7 +6,7 @@ class Prd_wind(AdjustableNodePrd):
     def __init__(self,meta,_id, ligne_pwr):
         self.max_power = int(meta['power'])
         self.cost = int(meta['cost'])
-        self.prior = 3
+        self.prior = 4
         self.wind_eff = int(meta['eff'])
         
         
