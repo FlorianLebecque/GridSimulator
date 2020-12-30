@@ -23,7 +23,7 @@ class NodeN(Node):
         nbrTry = 0
         tested_strat = []
 
-        while abs(bill)>0.01 and nbrTry < 15:
+        while abs(bill)>0.5 and nbrTry < 15:
             print("_____________Tested strat______________")
             print(tested_strat)
             

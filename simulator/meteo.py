@@ -5,12 +5,13 @@ class meteoHandler:
     def getSun(t):
         t = t % 24      #cylce the time on a 24 periode
 
-        return m.exp((-1/2)*(((t-12)/5*m.sqrt(2))**2)) #normal distribution center on 12
+        return m.exp((-1/2)*(((t-12)/(5*m.sqrt(2)))**2)) #normal distribution center on 12
 
     @staticmethod
     def getWind(t):
         t = t % 24
-        return (m.exp((-1/2)*((t-6)/2.5*m.sqrt(2))**2) + m.exp((-1/2)*((t-18)/2.5*m.sqrt(2))**2))/1.5
+
+        return (m.exp((-1/2)*(((t-6)/(2.5*m.sqrt(2)))**2))+m.exp((-1/2)*(((t-18)/(2.5*m.sqrt(2)))**2)))
     
     @staticmethod
     def getCns(t):

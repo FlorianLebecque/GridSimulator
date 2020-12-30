@@ -26,6 +26,9 @@ class Prd_wind(AdjustableNodePrd):
         datalog.update_datalog(self._id,puissance,price,t)
         return puissance,0
     
+    def getMaxPower(self,t):
+        return self.max_power * meteoHandler.getWind(t)*(self.wind_eff/100)
+
     def getCurPower(self,t):
         if self.enable:
             return (self.wind_eff/100)*(meteoHandler.getWind(t))*(self.power_cursor/100)*self.max_power

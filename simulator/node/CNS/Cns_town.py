@@ -6,7 +6,7 @@ class Cns_town(NodeC):
     def __init__(self,meta,_id, ligne_pwr):
         self.max_power = int(meta['power'])
         self.cost = int(meta['cost'])
-        self.prior = 10
+        self.prior = 1
         super().__init__( _id, ligne_pwr)
         
 
