@@ -60,7 +60,8 @@ class Db:
 
     def getLastTime(self,id_sim):
         with self.connection.cursor() as times:
-            times.execute('SELECT MAX(DAT.time) as LASTTIME FROM `pe_data` AS DAT INNER JOIN pe_node as NODE ON NODE.id = DAT.`node_id` WHERE NODE.id_sim = %s',id_sim)
+            #SELECT MAX(`time`) AS LASTTIME FROM `pe_data` WHERE `sim_id` = %s
+            times.execute('SELECT MAX(`time`) AS LASTTIME FROM `pe_data` WHERE `sim_id` = %s',id_sim)
         for time in times :
             pass
         return time
