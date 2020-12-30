@@ -23,6 +23,26 @@ class Prd_nuck(NodeP):
         datalog.update_datalog(self._id,puissance,price,t)
         return puissance,0
 
+    def disable_prod(self,t):
+        if self.enable:
+            temp_t = t - self.enableAtTime
+            if temp_t > self.start_time:
+                self.enable = False
+                self.disableAtTime = t
+                return self._id
+
+        return -1
+
+    def enable_prod(self,t):
+        if self.enable == False:
+            temp_t = t - self.disableAtTime
+            if temp_t > self.end_time:
+                self.enable = True
+                self.enableAtTime = t
+                return self._id
+        
+        return -1
+
     def getCurPower(self,t):
         if self.enable:
             temp_t = t-self.enableAtTime #get relatif time
