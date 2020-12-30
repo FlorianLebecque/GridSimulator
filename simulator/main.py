@@ -56,14 +56,15 @@ while(state):
 
         last_time = connDb.getLastTime(id_sim)['LASTTIME']
 
-        if (last_time is not None):
-            start_sim = time.time() - last_time
-
-        else :
-            start_sim = time.time()
+        if (last_time is None):
+            start_sim = 0
+        else:
+            start_sim = last_time
         
         t_inter2 = time.time() - 1
         i=0
+
+        t = start_sim
 
         state = "RUNNING"
         
@@ -71,13 +72,13 @@ while(state):
 
         while (state == "RUNNING"):
 
-            t = time.time() - start_sim 
             t_inter = time.time() - t_inter2
 
-            if (t_inter >= 0.5):
+            if (t_inter >= 1):
                 t_inter2 = time.time()
                 primaryNode.firstUpdate(simDatalog,t)
-                
+                t+=0.5
+
             else :
                 msg = cSocket.recvMessage()
                 if msg is not None :
