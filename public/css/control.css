@@ -89,3 +89,41 @@
 .Treant .collapse-switch { width: 100%; height: 100%; border: none; }
 .Treant .node.collapsed { background-color: var(--Selected); }
 .Treant .node.collapsed .collapse-switch { background: none; }
+
+
+.logPanel{
+    padding: 0.5em;
+    margin-top: 0.5em;
+    border: var(--backColor) solid 1px;
+    border-radius: 0.5em;
+    max-height: 15em;
+    overflow-y: auto;
+}
+
+.logPanel::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+}
+.logPanel::-webkit-scrollbar-track {
+    background: var(--backColor);        /* color of the tracking area */
+}
+.logPanel::-webkit-scrollbar-thumb {
+    background-color: var(--ContainerColor);    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 3px solid var(--backColor);  /* creates padding around scroll thumb */
+}
+
+
+
+body::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+}
+  
+body::-webkit-scrollbar-track {
+background: var(--backColor);        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+background-color: var(--ContainerColor);    /* color of the scroll thumb */
+border-radius: 20px;       /* roundness of the scroll thumb */
+border: 3px solid var(--backColor);  /* creates padding around scroll thumb */
+}

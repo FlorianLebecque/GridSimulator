@@ -41,6 +41,14 @@
             echo nodeHandler::rmvType($param);
             break;
 
+        case "getSummary":
+            echo json_encode(simdataHandler::getSummary($param));
+            break;
+
+        case "getLog":
+            echo json_encode(simdataHandler::getLog($param));
+            break;
+
         case "disable":
             $data = "disable_".$param;
             socket_sendto($socket,$data , strlen($data), 0, "127.0.0.1", 5005);
@@ -54,7 +62,6 @@
             echo "ok";
             break;
 
-
         case "startSim":
             //start the sim
 
@@ -63,7 +70,6 @@
 
             $_SESSION["status"] = 1;
 
-            
             $data = "startsim_".$_SESSION["simulation"];
             socket_sendto($socket,$data , strlen($data), 0, "127.0.0.1", 5005);
             
@@ -74,10 +80,10 @@
             $a["1"] = 0;
             $a["2"] = file_get_contents("public/img/svgPlayIcon.html");
 
+            $_SESSION["status"] = 0;
+
             $data = "stopsim_".$_SESSION["simulation"];
             socket_sendto($socket,$data , strlen($data), 0, "127.0.0.1", 5005);
-
-            $_SESSION["status"] = 0;
 
             echo json_encode($a);
             break;

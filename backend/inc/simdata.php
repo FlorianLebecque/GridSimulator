@@ -13,7 +13,7 @@
         }
 
         static public function getNodeType_by_simpleType($sim,$stype){      //
-            $req = bddQuery::getNodeTypeQuery_by_simpleType($sim,$stype);   //  get the node type for the simulation but sort on the simple type
+            $req = bddQuery::getNodeTypeQuery_by_simpleType($sim,$stype);   //  get the node type for the simulation but filter on the simple type
             return bdd::getData($req);                                      //
         }
 
@@ -69,7 +69,11 @@
             for($i = count($data)-1; $i >= 0 ;$i--){
                 $json_data = json_decode(($data[$i]["data"]),true);
 
-                array_push($dt,$json_data[$key]);
+                if(isset($json_data[$key])){
+                    array_push($dt,$json_data[$key]);
+                }
+
+                
             }
 
             return $dt;
@@ -123,6 +127,52 @@
         public static function rmvType($sim,$id){
             $req = bddQuery::rmvTypeQuery($sim,$id);
             return bdd::setData($req);
+        }
+
+        public static function getWind($t){
+            return exp(
+                (-1/2)*
+                (($t-6)/(2.5*sqrt(2)))*(($t-6)/(2.5*sqrt(2)))
+            )+exp(
+                (-1/2)*
+                (($t-18)/(2.5*sqrt(2)))*(($t-18)/(2.5*sqrt(2)))
+            );
+        }
+
+        public static function getSun($t){
+            return exp(
+                (-1/2)*
+                (($t-12)/(5*sqrt(2)))*(($t-12)/(5*sqrt(2)))
+            );
+        }
+
+        public static function getLastTime($sim){
+            $req = bddQuery::getLastTimeQuery($sim);
+            return bdd::getData($req)[0]['TIME'];
+        }
+
+        public static function getSummary($sim){
+                //get the last time of the sim
+            $lastTimeResult = self::getLastTime($sim);
+
+                //compute the hour
+            $hour = $lastTimeResult % 24;
+
+                //get wind and sun
+            $wind = self::getWind($hour)*100;
+            $sun = self::getSun($hour)*100;
+
+            $res = [$lastTimeResult, $hour,$sun,$wind];
+
+            return $res;
+        }
+
+        public static function getLog($sim){
+            $t = self::getLastTime($sim);
+
+            $req = bddQuery::getLogQuery($sim,$t);
+            return bdd::getdata($req);
+
         }
 
     }

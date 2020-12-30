@@ -138,6 +138,19 @@
             return 'SELECT NODE.`id` FROM `pe_node` AS NODE INNER JOIN pe_type_node AS NTYPE ON NODE.`id_type` = NTYPE.id WHERE NTYPE.type_simple = "'.$simple_type.'" AND NODE.`id_sim` = '.$sim;
         }
 
+        public static function getLastTimeQuery($sim){
+            return 'SELECT MAX(`time`) AS TIME FROM `pe_data` WHERE `sim_id` = '.$sim;
+        }
+
+
+        public static function getData_by_time_and_sim_and_simpleType($sim,$sp,$t){
+            return 'SELECT `data` FROM `pe_data` AS NDATA INNER JOIN pe_node as NODE ON NDATA.`node_id` = NODE.id INNER JOIN pe_type_node AS NTYPE ON NODE.id_type = NTYPE.id WHERE `sim_id` = '.$sim.' AND `data` NOT LIKE "%MESS%" AND NTYPE.type_simple = "'.$sp.'" AND`time` = '.$t;
+        }
+
+        public static function getLogQuery($sim,$t){
+            return 'SELECT `data`, NODE.id FROM `pe_data` AS NDATA WHERE `sim_id` = '.$sim.' AND `data` LIKE "%MESS%" AND`time` = '.$t.' ORDER BY time DESC LIMIT 10';
+        }
+
     }
  
     // SELECT count(*) AS bite FROM `pe_node` WHERE `id_type` != 0
