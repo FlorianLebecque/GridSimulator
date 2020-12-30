@@ -7,7 +7,6 @@ class AdjustableNodeCns(NodeC):
     def enable_cons(self,param):    #param : (bill,t)
         if self.enable == False:
             self.enable = True
-            
             return self.adjust(param[0])
         
         return -1
