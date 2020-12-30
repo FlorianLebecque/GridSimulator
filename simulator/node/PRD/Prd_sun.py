@@ -26,4 +26,7 @@ class Prd_sun(Node):
         return puissance, 0
 
     def getCurPower(self,t):
-        return (self.sun_eff/100)*meteoHandler.getSun(t)*self.max_power
+        if self.enable:
+            return (self.sun_eff/100)*meteoHandler.getSun(t)*self.max_power
+        else:
+            return 0

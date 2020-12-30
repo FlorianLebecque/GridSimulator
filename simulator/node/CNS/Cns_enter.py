@@ -24,4 +24,7 @@ class Cns_enter(NodeC):
         return 0,puissance
 
     def getCurPower(self,t):
-        return -meteoHandler.getCns(t)*self.max_power
+        if self.enable:
+            return -meteoHandler.getCns(t)*self.max_power
+        else:
+            return 0

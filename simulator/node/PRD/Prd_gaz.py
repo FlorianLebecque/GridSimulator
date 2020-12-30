@@ -4,7 +4,7 @@ import random
 class Prd_gaz(AdjustableNodePrd):
     def __init__(self,meta,_id, ligne_pwr):
         self.max_power = int(meta['power'])
-        self.prior = 3
+        self.prior = 4
         self.cost = int(meta['cost'])
         self.CO2 = int(meta['co2'])
         super().__init__( _id, ligne_pwr)
@@ -14,7 +14,7 @@ class Prd_gaz(AdjustableNodePrd):
         if self.enable:
             puissance = self.getCurPower(t)
             price = puissance * self.cost      
-            CO2 = self.CO2 * self.power_cursor
+            CO2 = self.CO2 * self.power_cursor/100
         else:
             puissance = 0
             price = 0

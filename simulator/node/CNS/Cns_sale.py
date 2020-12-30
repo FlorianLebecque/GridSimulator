@@ -26,4 +26,7 @@ class Cns_sale(AdjustableNodeCns):
         return -self.max_power*(self.power_cursor/100)
 
     def trySale(self,bill):
-        return self.adjust(bill)
+        if self.enable:
+            return self.adjust(bill)
+        else:
+            return 0

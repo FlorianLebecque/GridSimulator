@@ -6,7 +6,7 @@ class Prd_wind(AdjustableNodePrd):
     def __init__(self,meta,_id, ligne_pwr):
         self.max_power = int(meta['power'])
         self.cost = int(meta['cost'])
-        self.prior = 4
+        self.prior = 3
         self.wind_eff = int(meta['eff'])
         
         
@@ -27,4 +27,7 @@ class Prd_wind(AdjustableNodePrd):
         return puissance,0
     
     def getCurPower(self,t):
-        return (self.wind_eff/100)*(meteoHandler.getWind(t))*(self.power_cursor/100)*self.max_power
+        if self.enable:
+            return (self.wind_eff/100)*(meteoHandler.getWind(t))*(self.power_cursor/100)*self.max_power
+        else:
+            return 0

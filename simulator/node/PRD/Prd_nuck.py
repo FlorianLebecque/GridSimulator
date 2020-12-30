@@ -33,7 +33,7 @@ class Prd_nuck(NodeP):
                 return self.max_power
         else:
             temp_t = t-self.disableAtTime
-            if (temp_t <= self.start_time):
+            if (temp_t <= self.end_time):
                 return (self.max_power-temp_t*(self.max_power/self.end_time))
             else :
                 return 0

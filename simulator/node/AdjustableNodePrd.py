@@ -11,12 +11,14 @@ class AdjustableNodePrd(NodeP):
     def maximize_prod(self,target):
         return self.adjust(target)
 
-    def adjust(self,bill):
+    def adjust(self,param):     #param : (bill,t)
+        bill = param[0]
+        t = param[1]
+        
         if(self.enable):
-            old_cursor = self.power_cursor
-            cur_power = self.getCurPower(1)
-            target = abs(cur_power - (bill))
 
+            cur_power = self.getCurPower(t)
+            target = abs(cur_power - (bill))
 
             if target > self.max_power :
                 if self.power_cursor != 100:
@@ -26,8 +28,6 @@ class AdjustableNodePrd(NodeP):
             else:
                 self.power_cursor = ((target)/self.max_power)*100
 
-            if old_cursor == self.power_cursor:
-                return -1
 
             if self.power_cursor < 5:
                 self.enable = False

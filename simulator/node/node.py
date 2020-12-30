@@ -22,9 +22,10 @@ class Node:
         int_c = 0
 
         for child in self.childs :
-            int_np,int_nc = child.callUpdate(datalog,t)
-            int_p += int_np
-            int_c += int_nc
+            if child.userEnable:
+                int_np,int_nc = child.callUpdate(datalog,t)
+                int_p += int_np
+                int_c += int_nc
 
         bill = int_p - int_c
 
@@ -60,19 +61,21 @@ class Node:
         node_id = -1
         
         for child in target_node:
-            alreadytry = False
-            
-            for ex in excepts:
-                if ex[0] == attr and child._id == ex[1]:
-                    alreadytry = True
-            
-            if not alreadytry:
-                attr_func = getattr(child,attr)
-                node_id = attr_func(param)
-                if node_id != -1:
-                    return node_id
+            if child.userEnable:
+                alreadytry = False
+                
+                if len(excepts)>0:
+                    for ex in excepts:
+                        if ex[0] == attr and child._id == ex[1]:
+                            alreadytry = True
+                
+                if alreadytry == False:
+                    attr_func = getattr(child,attr)
+                    node_id = attr_func(param)
+                    if node_id != -1:
+                        return node_id
 
-        return node_id
+        return -1
 
     def getNodeArray(self,attr):
     

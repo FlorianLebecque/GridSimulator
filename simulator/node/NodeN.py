@@ -16,27 +16,30 @@ class NodeN(Node):
         bill = self.getCurPower(t)
         
         clear()
-        print("---------------SIM---------------")
-        meteoHandler.getSun(t)
-        print("Bill : ",bill)
+        print("___________________________SIM___________________________")
+        print("time : ",t%24)
+        print("sun : ",meteoHandler.getSun(t)," wind : ", meteoHandler.getWind(t))
 
         nbrTry = 0
         tested_strat = []
 
         while abs(bill)>1 and nbrTry < 10:
+            print("_____________Tested strat______________")
+            print(tested_strat)
+            print("_______________________________________")
             nbrTry+=1
-            print("TRY  : ",nbrTry," BILL : ",bill)
+            print("TRY  : ",nbrTry,"START BILL : ",bill)
             if bill > 0: #si on produit trop
 
-                strat = [("enable_cons",t),("trySale",bill),("minimize_prod",bill),("max_dissp",bill),("disable_prod",t)]
+                strat = [("enable_cons",t),("trySale",bill),("minimize_prod",(bill,t)),("max_dissp",bill),("disable_prod",t)]
 
                 res = self.TryStrat(strat,tested_strat)
                 if res != -1:
                     tested_strat.append(res)
 
-            elif bill < 0:
+            elif bill < 0: #si on consome trop
         
-                strat = [("minimize_cons",bill),("maximize_prod",bill),("enable_prod",t),("disable_cons",t)]
+                strat = [("minimize_cons",bill),("maximize_prod",(bill,t)),("enable_prod",t),("disable_cons",t)]
                 res = self.TryStrat(strat,tested_strat)
                 if res != -1:
                     tested_strat.append(res)
@@ -46,6 +49,8 @@ class NodeN(Node):
         
             bill = self.getCurPower(t)
 
+        print("FINAL BILL : ",bill)
+
         for child in self.childs :
             int_np,int_nc = child.callUpdate(datalog,t)
     
@@ -53,6 +58,7 @@ class NodeN(Node):
 
         cur_power = 0
         for child in self.childs:
-            cur_power += child.getCurPower(t)
+            if child.userEnable:
+                cur_power += child.getCurPower(t)
 
         return cur_power

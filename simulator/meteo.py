@@ -5,8 +5,6 @@ class meteoHandler:
     def getSun(t):
         t = t % 24      #cylce the time on a 24 periode
 
-        print("time : ",t%24," sun : ",m.exp((-1/2)*(((t-12)/5*m.sqrt(2))**2)))
-
         return m.exp((-1/2)*(((t-12)/5*m.sqrt(2))**2)) #normal distribution center on 12
 
     @staticmethod

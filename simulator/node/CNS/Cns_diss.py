@@ -22,7 +22,10 @@ class Cns_diss(AdjustableNodeCns):
         return 0,puissance
 
     def getCurPower(self,t):
-        return -self.max_power*(self.power_cursor/100)
+        if self.enable:
+            return -self.max_power*(self.power_cursor/100)
+        else:
+            return 0
 
     def max_dissp(self,bill):
         return self.adjust(bill)
