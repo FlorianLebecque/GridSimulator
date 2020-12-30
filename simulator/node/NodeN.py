@@ -31,16 +31,16 @@ class NodeN(Node):
             print("TRY  : ",nbrTry,"START BILL : ",bill)
             if bill > 0: #si on produit trop
 
-                strat = [("enable_cons",t),("trySale",bill),("minimize_prod",(bill,t)),("max_dissp",bill),("disable_prod",t)]
+                strat = [("enable_cons",(bill,t)),("trySale",bill),("minimize_prod",(bill,t)),("max_dissp",bill),("disable_prod",t)]
 
-                res = self.TryStrat(strat,tested_strat)
+                res = self.tryStrat(strat,tested_strat,False)
                 if res != -1:
                     tested_strat.append(res)
 
             elif bill < 0: #si on consome trop
         
                 strat = [("minimize_cons",bill),("maximize_prod",(bill,t)),("enable_prod",t),("disable_cons",t)]
-                res = self.TryStrat(strat,tested_strat)
+                res = self.tryStrat(strat,tested_strat,True)
                 if res != -1:
                     tested_strat.append(res)
 

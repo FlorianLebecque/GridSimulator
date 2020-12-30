@@ -5,7 +5,7 @@ class Cns_diss(AdjustableNodeCns):
     def __init__(self,meta,_id, ligne_pwr):
         self.cost = 0
         self.max_power = int(meta['power'])
-        self.prior = 3
+        self.prior = 4
         super().__init__( _id, ligne_pwr)
         
 

@@ -18,8 +18,38 @@ class Node:
 
     def update(self,datalog,t):
 
-        int_p = 0
-        int_c = 0
+
+        bill = self.getCurPower(t)
+
+        while abs(bill) > self.ligne_power and nbrTry < 15:
+            print("***************LIGNE POWER EXCEDEED***************")
+            print("ID : ",self._id)
+            print("LIGNE PWR : ", self.ligne_power," BILL :",abs(bill))
+            print(tested_strat)
+            
+            nbrTry+=1
+            print("TRY  : ",nbrTry,"START BILL : ",bill)
+            if bill > 0: #si on produit trop
+
+                strat = [("minimize_prod",(bill,t)),("disable_prod",t)]
+
+                res = self.tryStrat(strat,tested_strat,False)
+                if res != -1:
+                    tested_strat.append(res)
+
+            elif bill < 0: #si on consome trop
+        
+                strat = [("minimize_cons",bill),("disable_cons",t)]
+                res = self.tryStrat(strat,tested_strat,True)
+                if res != -1:
+                    tested_strat.append(res)
+
+            else:
+                break
+        
+            bill = self.getCurPower(t)
+             
+        int_c = int_p = 0
 
         for child in self.childs :
             if child.userEnable:
@@ -27,37 +57,26 @@ class Node:
                 int_p += int_np
                 int_c += int_nc
 
-        bill = int_p - int_c
-
-        if abs(bill) > self.ligne_power: #on depasse calbe
-            if bill < 0:        #désactive un consomateur
-                #node_id = self.disable_cons(self.ligne_power - bill)
-                
-
-                strat = ["minimize_prod","max_dissp","disable_prod"]
-                #self.TryStrat(strat,bill)
-                #datalog.update_datalog(node_id,puissance,price,temps)
-            #else:               #désactive un producteur
-                #node_id = self.disable_prod()
-
-
         return int_p,int_c
 
             #function that find all the node wich have the selected attribute
     
+    def sendMsg(self,act,node_id):
+        pass
 
-    def TryStrat(self,strat,excepts):
+    def tryStrat(self,strat,excepts,needReverse):
 
         for s in strat:
-            node_id = self.TryAttribute(s[0],s[1],excepts)
-            print("strat : ",s, "node : ",node_id)
+            node_id = self.tryAttribute(s[0],s[1],excepts,needReverse)
+            print("      - strat : ",s, "node : ",node_id)
             if node_id != -1:
+                self.sendMsg(s[0],node_id)
                 return (s[0],node_id)
         
         return -1
 
-    def TryAttribute(self,attr,param,excepts):
-        target_node = self.getNodeArray(attr)
+    def tryAttribute(self,attr,param,excepts,needReverse):
+        target_node = self.getNodeArray(attr,needReverse)
         node_id = -1
         
         for child in target_node:
@@ -77,20 +96,20 @@ class Node:
 
         return -1
 
-    def getNodeArray(self,attr):
+    def getNodeArray(self,attr,needReverse):
     
         target_node = []
         temp_node = []
         for child in self.childs:
             if child.prior == 100:          #check if it's a node
-                temp_node = child.getNodeArray(attr)
+                temp_node = child.getNodeArray(attr,needReverse)
             elif(hasattr(child,attr)):      #check if we have the correct attribute
                 target_node.append(child)
 
         result_node = target_node + temp_node
 
         #we need to sort by prior
-        return sorted(result_node, key=lambda x: x.prior, reverse=False)
+        return sorted(result_node, key=lambda x: x.prior, reverse=needReverse)
 
     def setUserEnable(self,node_id,en):
         if self._id == node_id:

@@ -4,6 +4,14 @@ class AdjustableNodeCns(NodeC):
         self.power_cursor = 100
         super().__init__( _id, ligne_pwr)
 
+    def enable_cons(self,param):    #param : (bill,t)
+        if self.enable == False:
+            self.enable = True
+            
+            return self.adjust(param[0])
+        
+        return -1
+
     def adjust(self,bill):
         if self.enable:
             cur_power = abs(self.getCurPower(1))

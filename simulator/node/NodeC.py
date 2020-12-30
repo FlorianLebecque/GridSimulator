@@ -10,8 +10,9 @@ class NodeC(Node):
         
         return -1
 
-    def enable_cons(self,b):
+    def enable_cons(self,param):    #param : (bill,t)
         if self.enable == False:
+
             self.enable = True
             return self._id
         

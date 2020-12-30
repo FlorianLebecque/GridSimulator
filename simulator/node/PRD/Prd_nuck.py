@@ -10,7 +10,6 @@ class Prd_nuck(NodeP):
         self.cost = int(meta['cost'])
         super().__init__( _id, ligne_pwr)
         
-
     def update(self,datalog,t):
 
         if self.enable: 
