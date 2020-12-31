@@ -74,7 +74,7 @@ while(state):
 
             t_inter = time.time() - t_inter2
 
-            if (t_inter >= 1):
+            if (t_inter >= 0.2):
                 t_inter2 = time.time()
                 primaryNode.firstUpdate(simDatalog,t)
                 t+=0.5

@@ -19,15 +19,9 @@ class webSocketHandler{
             // Errorhandling
         }
 
-        this.websocket_server.onmessage = function(e)
-        {
-            var json = JSON.parse(e.data);
-            switch(json.type) {
-                case 'chat':
-                    $('#chat_output').append(json.msg);
-                    break;
-            }
-        }
+        
+
+        
     }
 
 }

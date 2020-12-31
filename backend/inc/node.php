@@ -2,11 +2,11 @@
 
     class nodeHandler{
 
-        public static function getNodes($sim){
+        public static function getNodes($sim,$BDD){
 
-            $nodes_array = simdataHandler::getNode($sim);
-            $type_array = simdataHandler::getNodeType($sim);
-            $child_array = simdataHandler::getNodeChild($sim);
+            $nodes_array = simdataHandler::getNode($sim,$BDD);
+            $type_array = simdataHandler::getNodeType($sim,$BDD);
+            $child_array = simdataHandler::getNodeChild($sim,$BDD);
 
             
 
@@ -17,14 +17,14 @@
 
             //find the n1 node id
 
-            $int_FirstNodeID = simdataHandler::getFirstNode($sim)[0]["id"];
+            $int_FirstNodeID = simdataHandler::getFirstNode($sim,$BDD)[0]["id"];
 
             //$int_fistNodeID = ;
-            return self::createNode($int_FirstNodeID,$nodes_array,$type_array,$child_array);
+            return self::createNode($int_FirstNodeID,$nodes_array,$type_array,$child_array,$BDD);
         }
 
             //recursive function that create a node based on it's type
-        private static function createNode($id,$nodes_array,$type_array,$child_array){
+        private static function createNode($id,$nodes_array,$type_array,$child_array,$BDD){
 
             $cur_node = $nodes_array[$id];
             $temp_node = [];
@@ -41,7 +41,7 @@
 
                 if(isset($child_array[$id])){
                     for($i = 0;$i < count($child_array[$id]);$i++){
-                        array_push($temp_node["child"],self::createNode($child_array[$id][$i]["id_child"],$nodes_array,$type_array,$child_array));    
+                        array_push($temp_node["child"],self::createNode($child_array[$id][$i]["id_child"],$nodes_array,$type_array,$child_array,$BDD));    
                     }
                 }
 
@@ -119,7 +119,7 @@
             return $new_ChildArray;
         }
 
-        public static function addNode($param){
+        public static function addNode($param,$BDD){
             $array_param = preg_split ('/_/',$param,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the param (idSim_idParent_typeID_label)
 
             $sim = $array_param[0];
@@ -128,23 +128,23 @@
             $node_label = $array_param[3];
             $link_power = $array_param[4];
 
-            simdataHandler::InsertNode($sim,$parent_id,$type_id,$node_label,$link_power);
+            simdataHandler::InsertNode($sim,$parent_id,$type_id,$node_label,$link_power,$BDD);
 
-            echo json_encode(self::getNodes($sim));
+            return json_encode(self::getNodes($sim));
         }
 
-        public static function rmvNode($param){
+        public static function rmvNode($param,$BDD){
 
             $array_param = preg_split ('/_/',$param,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the param (idSim_idParent_typeID_label)
-            simdataHandler::DeleteNode($array_param[1]);
-            echo json_encode(self::getNodes($array_param[0]));
+            simdataHandler::DeleteNode($array_param[1],$BDD);
+            return json_encode(self::getNodes($array_param[0]));
 
         }
 
-        public static function rmvType($param){
+        public static function rmvType($param,$BDD){
             $array_param = preg_split ('/_/',$param,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-            simdataHandler::rmvType($array_param[0],$array_param[1]);
-            echo json_encode(self::getNodes($array_param[0]));
+            simdataHandler::rmvType($array_param[0],$array_param[1],$BDD);
+            return json_encode(self::getNodes($array_param[0]));
         }
 
     }

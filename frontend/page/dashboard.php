@@ -8,7 +8,7 @@
         "prd_all_CO2_"+simId
     ]   
 
-    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"])) ?>
+    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"],$this->BDD)) ?>
 </script>
 <div class="row wideContainer">
 

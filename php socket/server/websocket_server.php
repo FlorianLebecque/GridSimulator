@@ -8,12 +8,18 @@ use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 require_once '../vendor/autoload.php';
 
+include_once '../../ajaxHandler.php';
+include_once '../../backend/inc/database.php';
+
 class Chat implements MessageComponentInterface {
 	protected $clients;
 	protected $users;
 
+	public $BDD;
+
 	public function __construct() {
 		$this->clients = new \SplObjectStorage;
+		$this->BDD = bdd::getBDD();
 	}
 
 	public function onOpen(ConnectionInterface $conn) {
@@ -34,17 +40,26 @@ class Chat implements MessageComponentInterface {
 			case 'chat':
 				$user_id = $data->user_id;
 				$chat_msg = $data->chat_msg;
-				$response_from = "<span style='color:#999'><b>".$user_id.":</b> ".$chat_msg."</span><br><br>";
-				$response_to = "<b>".$user_id."</b>: ".$chat_msg."<br><br>";
+
+				$array_msg = preg_split ('/-/',$chat_msg,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
+
+				$t0 = microtime(True);
+				$response_from = ajaxQueryHandler::getResult($array_msg[0],$array_msg[1],$this->BDD)."-".$array_msg[2];
+				$t1 = microtime(True);
+
+				//echo $array_msg[0]." : ".($t1-$t0)."\n";
+
+				$response_to = "<b>".$user_id."</b>: ".$chat_msg." - ".$response_from." - ".$array_msg[0]." - ".$array_msg[1]."<br><br>";
 				// Output
 				$from->send(json_encode(array("type"=>$type,"msg"=>$response_from)));
+				/*
 				foreach($this->clients as $client)
 				{
 					if($from!=$client)
 					{
 						$client->send(json_encode(array("type"=>$type,"msg"=>$response_to)));
 					}
-				}
+				}*/
 				break;
 		}
 	}

@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col">
                         <?php
-                            graphArray::createGraphArray("p","PWR");
+                            graphArray::createGraphArray("p","PWR",$this->BDD);
                         ?>
                     </div>
                 </div> 
@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col">
                     <?php
-                        graphArray::createGraphArray("p","CO2");
+                        graphArray::createGraphArray("p","CO2",$this->BDD);
                     ?>
                 </div>
             </div> 
@@ -34,7 +34,7 @@
 
 <?php
 
-    $data = simdataHandler::getNode_by_type($_SESSION["simulation"],"p");
+    $data = simdataHandler::getNode_by_type($_SESSION["simulation"],"p",$this->BDD);
 
     $array_graphID = [];
     for($i = 0; $i < count($data); $i++){
