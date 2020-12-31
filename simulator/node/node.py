@@ -63,6 +63,7 @@ class Node:
     
     def sendMsg(self,act,node_id):
         pass
+        #return update_log(act,node_id)
 
     def tryStrat(self,strat,excepts,needReverse):
 

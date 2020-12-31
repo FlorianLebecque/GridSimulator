@@ -51,6 +51,7 @@ class NodeN(Node):
             print("_______________________________________")
 
         print("FINAL BILL : ",bill)
+        #mettre le bill final 
 
         for child in self.childs :
             int_np,int_nc = child.callUpdate(datalog,t)

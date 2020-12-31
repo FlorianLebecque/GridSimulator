@@ -5,20 +5,20 @@ class Datalog:
         self.id_sim = id_sim
 
     def update_datalog(self,_id,power,price,t):
-        self.datalog["PWR"] = power
-        self.datalog["price"] = price
-
-        self.db.sendUpdate(self.id_sim,_id,t,self.datalog)
+        CO2=0
+        self.db.sendUpdate(self.id_sim,_id,t,power,price,CO2)
 
     def update_data(self,_id,power,price,CO2,t):
-        self.datalog["PWR"] = power
-        self.datalog["price"] = price
-        self.datalog["CO2"] = CO2
+        self.db.sendUpdate(self.id_sim,_id,t,power,price,CO2)
 
-        self.db.sendUpdate(self.id_sim,_id,t,self.datalog)
+    def update_log(self,t,name,_id):
+        mess = ''
+        if (name == 'disable_cons'):
+            return 'Blackout on ({})'.format(_id)
 
-    def update_log(self,name,_id):
-
+        if (name == 'disable_prod'):
+            return 'Désactivation du producteur {}'.format(_id)
+        
         if (name == 'surProd'):
             return 'Sur-production du circuit'
         
@@ -26,8 +26,8 @@ class Datalog:
             return 'Sous-production du circuit'
         
         if (name == 'surCharge'):
-            return 'Surchange de {} ({})'.format(name,_id)
+            return 'Surchange sur ({})'.format(_id)
         
-        if (name == 'blackOut'):
-            return 'Blackout de ({})'.format(_id)
+        else:
+            pass
          
