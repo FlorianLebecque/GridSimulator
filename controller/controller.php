@@ -14,7 +14,7 @@
     class Controller {  
 
         public function __construct(){    
-
+            $this->BDD = bdd::getBDD();
         } 
 
 

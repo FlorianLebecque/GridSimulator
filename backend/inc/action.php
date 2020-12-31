@@ -16,7 +16,7 @@
                 if(isset($_POST["nodeType"])){
 
                     $label = $_POST["nodeLabel"];
-                    $type_template = simdataHandler::getNodeTypeField_by_type($_POST["nodeType"]);                    
+                    $type_template = simdataHandler::getNodeTypeField_by_type($_POST["nodeType"],$BDD);                    
                     $meta_field = json_decode($type_template[0]["field"]);
 
                     $meta = [];
@@ -35,7 +35,7 @@
                         }
                     }
 
-                    simdataHandler::addNewNodeType($label,$_SESSION["simulation"],$_POST["nodeType"][0],$_POST["nodeType"],json_encode($meta));
+                    simdataHandler::addNewNodeType($label,$_SESSION["simulation"],$_POST["nodeType"][0],$_POST["nodeType"],json_encode($meta),$BDD);
                 }
 
             }

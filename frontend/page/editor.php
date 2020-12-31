@@ -1,9 +1,9 @@
 
 <script>
 
-    let array_DataTypeField = <?php echo json_encode(editorData::getTypeField()); ?>
+    let array_DataTypeField = <?php echo json_encode(editorData::getTypeField($this->BDD)); ?>
 
-    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"])) ?>
+    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"],$this->BDD)) ?>
     
     let selectedNode = nodeArray;
     
@@ -20,7 +20,7 @@
                     
                             <select class="btn margR" name="" id="node_typeID">
                                 <?php
-                                    editorData::getTypeOption($_SESSION["simulation"]);
+                                    editorData::getTypeOption($_SESSION["simulation"],$this->BDD);
                                 ?>
                             </select>
                             <input  class="inpt margR" type="text" placeholder="Label" id="node_label">
@@ -89,7 +89,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    editorData::get_TypeTable($_SESSION["simulation"],"p");
+                                    editorData::get_TypeTable($_SESSION["simulation"],"p",$this->BDD);
                                 ?>
                             </tbody>
                         </table>
@@ -146,7 +146,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    editorData::get_TypeTable($_SESSION["simulation"],"c");
+                                    editorData::get_TypeTable($_SESSION["simulation"],"c",$this->BDD);
                                 ?>
                             </tbody>
                         </table>

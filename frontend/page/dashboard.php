@@ -1,7 +1,5 @@
 <script>
 
-    let simId = <?php echo $_SESSION["simulation"] ?>
-
     let array_graphID = [
         "cns_all_"+simId,
         "prd_all_PWR_"+simId,
@@ -10,9 +8,46 @@
         "prd_all_CO2_"+simId
     ]   
 
-    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"])) ?>
+    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"],$this->BDD)) ?>
 </script>
 <div class="row wideContainer">
+
+    <div class="col-sm-12">
+        <div class="main"> 
+            <div class="row">
+                <div class="col-12">
+                    <h2>Essential</h2>
+                </div>
+            </div><hr>
+            <div class="row">
+                <div class="col-12">
+                    <h3>Summary</h3>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td id="time_field">Time : </td>
+                                <td id="hour_field">Hour : </td>
+                            </tr>
+                            <tr>
+                                <td id="sun_field">Sun : </td>
+                                <td id="wind_field">Wind : </td>
+                            </tr>
+                            <tr>
+                                <td id="bill_field">Bill : </td>
+                                <td id="prd_field">Production :  </td>
+                                <td id="cns_field">Consumption : </td>
+                            </tr>
+                        </tbody>
+                        
+                    </table>
+                    <h3>Log</h3>
+                    <div class="logPanel" id="logPanel">
+                        
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="col-sm-12">
         <div class="main"> 
