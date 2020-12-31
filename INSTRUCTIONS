@@ -1,0 +1,56 @@
+CAHIER DES CHARGES
+
+-Mise a jour chaque secondes
+
+-Modeliser type de production :
+    - Centrale au gaz: production flexible
+    - Centrale nucléaire: production constante, chère et lente à démarrer et à stopper,
+    - Parc éolien: production dépendant de la météo pouvant être réduite en cas de besoin,
+    - Centrale solaire: production dépendant de la météo ne pouvant pas être réduite,.achat d'électricité à l'étranger,
+    - D'autres types de centrales devraient pouvoir être ajouter à l'avenir.
+
+    -Caracteristiques par secondes:
+        - quantitée d'energie produite
+        - Cout de production
+        - Quantitée de CO2 produite
+
+
+-Modeliser type de consommateurs :
+    - Ville
+    - Entreprise
+    - Vente electricitée a l'étranger
+    - Dissipateur pour eviter les surcharges
+    - D'autres types de consommateurs devraient pouvoir être ajouter à l'avenir.
+
+    -Caracteristiques par secondes:
+        - Quantité d'énergie électrique consommée
+        - Prix auquel il l'a payé
+
+Modéliser l'infrastructure du réseau:
+    - Lignes électriques: caractérisées par la puissance maximale qu'elles peuvent véhiculer
+    - Noeuds de concentration: recevant de l'energie de plusieurs lignes et l'envoyant sur une ligne de sortie
+    - Noeuds de distribution: recevant de l'energie d'une ligne et la distribuant entre plusieurs lignes de sorties dans des proportions contrôlable
+    - Les centrales et les consommateurs ne sont reliés qu'à un seule ligne
+
+
+La plateforme devra pouvoir s'interfacer avec:
+
+    - Une plateforme de simulation de la météo pouvant donner:
+        - Le niveau d'ensoleillement
+        - La force du vent et la température pour un point géographique donné
+
+    - Une plateforme de simulation des marchés pouvant donner à chaque instant :
+        - Les prix d'achat et de vente d'électricité à l'étranger 
+        - Les prix des combustibles
+
+La plateforme devra permettre aux chercheurs de:
+
+    - Construire un réseaux
+    - Implémenter les différents type de centrale et de consommateur
+    - Implémenter une simulation de météo
+    - Implémenter une simulation des marchés
+    - Implémenter un centre de contrôle permettant d'agir sur la production des centrales et sur la distribution des noeuds de distribution.
+    - Obtenir le coût de production, les revenus et la quantité de CO2 produite à chaque seconde.
+    - Obtenir des messages d'alerte: lignes surchargées, surproduction, sous-production, blackout, ...
+    
+Pensez également au stockage d'energie.

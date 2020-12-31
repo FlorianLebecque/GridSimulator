@@ -1,24 +1,30 @@
-from node.node import Node
+from node.AdjustableNodePrd import AdjustableNodePrd
 import random
 
-class Prd_buy(Node):
-    def __init__(self,meta,_id, max_pwr):
-        self.meta = meta
-        self.max_power = int(self.meta['power'])
-        self.power_cursor = 100
-        super().__init__( _id, max_pwr)
+class Prd_buy(AdjustableNodePrd):
+    def __init__(self,meta,_id, ligne_pwr):
+        self.max_power = int(meta['power'])
+        self.cost = int(meta['cost'])
+        self.prior = 1
+        super().__init__( _id, ligne_pwr)
         
+        self.power_cursor = 0
 
     def update(self,datalog,t):
-
-        cost = int(self.meta['cost'])
-
-        puissance = self.max_power * (self.power_cursor/100)
-
-        price = cost*puissance
         
-        temps = t
+        if self.enable:
+            puissance = self.getCurPower(t)
+            price = self.cost*puissance
+            
+        else:
+            puissance = 0
+            price = 0
 
-        datalog.update_datalog(self._id,puissance,price,temps)
+        datalog.update_datalog(self._id,puissance,price,t)
+        return puissance,0
 
-        return puissance, 0
+    def getCurPower(self,t):
+        if self.enable:
+            return self.max_power*(self.power_cursor/100)
+        else:
+            return 0

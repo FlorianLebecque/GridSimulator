@@ -71,6 +71,7 @@
 .collasibleContent {
     max-height: 0;
     overflow: hidden;
+    padding-bottom: 2em;
     transition: max-height 0.2s ease-out;
 }
 

@@ -1,21 +1,33 @@
-from node.node import Node
+from node.AdjustableNodeCns import AdjustableNodeCns
 import random
 
-class Cns_sale(Node):
-    def __init__(self,meta,_id, max_pwr):
-        self.meta = meta
-        self.max_power = int(self.meta['power'])
+class Cns_sale(AdjustableNodeCns):
+    def __init__(self,meta,_id, ligne_pwr):
+        self.max_power = ligne_pwr
         self.power_cursor = 100
-        super().__init__( _id, max_pwr)
+        self.cost = int(meta['cost'])
+        self.prior = 1
+        super().__init__( _id, ligne_pwr)
         
     def update(self,datalog,t):
 
-        cost = int(self.meta['cost'])
+        if self.enable:
+            puissance = abs(self.getCurPower(t))
+            price = self.cost*puissance
+            
+        else:
+            puissance = 0
+            price = 0
 
-        price = -cost*max_power
-        puissance = self.max_power+random.randint(-1,1)
-        temps = t
-
-        datalog.update_datalog(self._id,puissance,price,temps)
-
+        datalog.update_datalog(self._id,puissance,price,t)
         return 0,puissance
+
+    def trySale(self,bill):
+        return self.adjust(bill)
+
+    def getCurPower(self,t):
+        if self.enable:
+            return -self.max_power*(self.power_cursor/100)
+        else:
+            return 0
+
