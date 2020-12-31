@@ -1,7 +1,5 @@
 <script>
 
-    let simId = <?php echo $_SESSION["simulation"] ?>
-
     let array_graphID = [
         "cns_all_"+simId,
         "prd_all_PWR_"+simId,
@@ -10,7 +8,7 @@
         "prd_all_CO2_"+simId
     ]   
 
-    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"])) ?>
+    let nodeArray = <?php echo json_encode(editorData::getNodeTree($_SESSION["simulation"],$this->BDD)) ?>
 </script>
 <div class="row wideContainer">
 

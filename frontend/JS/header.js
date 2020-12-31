@@ -7,6 +7,7 @@ function StartStop_Sim(str) {
 }
 
 function updateButton(data){
+    
     let dt = JSON.parse(data)
     status = dt["1"]
     $("#status").html(dt["2"])

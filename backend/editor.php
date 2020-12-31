@@ -1,20 +1,20 @@
 <?php
     class editorData{
 
-        public static function getTypeOption($sim){
-            $data = simdataHandler::getNodeType($sim);
+        public static function getTypeOption($sim,$BDD){
+            $data = simdataHandler::getNodeType($sim,$BDD);
             echo "<option value='0'>Node</option>";
             for($i = 0; $i < count($data);$i++){
                 echo "<option value='".$data[$i]["id"]."'>".$data[$i]["label"]."</option>";
             }
         }
 
-        public static function getTypeField(){
-            return simdataHandler::getNodeTypeField();
+        public static function getTypeField($BDD){
+            return simdataHandler::getNodeTypeField($BDD);
         }
 
-        public static function get_TypeTable($sim,$stype){
-            $data = simdataHandler::getNodeType_by_simpleType($sim,$stype);
+        public static function get_TypeTable($sim,$stype,$BDD){
+            $data = simdataHandler::getNodeType_by_simpleType($sim,$stype,$BDD);
 
             for($i = 0; $i < count($data);$i++){
                 echo "<tr>";
@@ -25,8 +25,8 @@
             }
         }
 
-        public static function getNodeTree($sim){
-            return nodeHandler::getNodes($sim);
+        public static function getNodeTree($sim,$BDD){
+            return nodeHandler::getNodes($sim,$BDD);
         }
     }
 ?>

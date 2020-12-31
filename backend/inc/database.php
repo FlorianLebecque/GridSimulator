@@ -18,8 +18,7 @@
         }
 
             //function to send a query, return the result
-        static public function sendQuery($req){
-            $BDD = self::getBDD();
+        static public function sendQuery($req,$BDD){
             return mysqli_query($BDD,$req);
         }
 
@@ -36,12 +35,12 @@
         }
 
             //retreive the data base en the query ($req)
-        static public function getData($req){
-            $raw_data = self::sendQuery($req);
+        static public function getData($req,$BDD){
+            $raw_data = self::sendQuery($req,$BDD);
             return self::format($raw_data);
         }
 
-        static public function setData($req){
+        static public function setData($req,$BDD){
             return self::sendQuery($req);
         }
 
@@ -130,8 +129,8 @@
             return 'DELETE FROM `pe_type_node` WHERE `id` = '.$id.' AND `id_sim` ='.$sim;
         }
 
-        public static function getNodeDataQuery($id){
-            return 'SELECT DAT.`data` FROM `pe_data` AS DAT  WHERE DAT.`node_id` = '.$id.' AND DAT.`data` NOT LIKE "%MESS%" ORDER BY time DESC LIMIT 10';
+        public static function getNodeDataQuery($id,$key){
+            return 'SELECT DAT.`'.$key.'` FROM `pe_data` AS DAT  WHERE DAT.`node_id` = '.$id.' ORDER BY time DESC LIMIT 10';
         }
 
         public static function getNodeID_by_stQuery($sim,$simple_type){
@@ -148,7 +147,7 @@
         }
 
         public static function getLogQuery($sim,$t){
-            return 'SELECT `data`, NODE.id FROM `pe_data` AS NDATA WHERE `sim_id` = '.$sim.' AND `data` LIKE "%MESS%" AND`time` = '.$t.' ORDER BY time DESC LIMIT 10';
+            return 'SELECT `message` FROM `pe_data` AS NDATA WHERE `sim_id` = '.$sim.' AND`time` = '.$t.' ORDER BY time DESC LIMIT 10';
         }
 
     }
