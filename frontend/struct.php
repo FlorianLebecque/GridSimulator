@@ -6,7 +6,13 @@
     <script>
         let status = <?php echo $_SESSION["status"] ?>;
         let timerFunction = [];
+        
+        let simId = <?php echo $_SESSION["simulation"] ?>
+
+        let wb = new webSocketHandler() 
+
         let timerHDL = new timerHandler();
+
     </script>
     <body>
 

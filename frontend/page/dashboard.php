@@ -1,7 +1,5 @@
 <script>
 
-    let simId = <?php echo $_SESSION["simulation"] ?>
-
     let array_graphID = [
         "cns_all_"+simId,
         "prd_all_PWR_"+simId,
