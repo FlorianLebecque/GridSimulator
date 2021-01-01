@@ -8,7 +8,7 @@ use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 require_once '../vendor/autoload.php';
 
-include_once '../../ajaxHandler.php';
+include_once '../../queryHandler.php';
 include_once '../../backend/inc/database.php';
 
 class Chat implements MessageComponentInterface {
@@ -20,16 +20,20 @@ class Chat implements MessageComponentInterface {
 	public function __construct() {
 		$this->clients = new \SplObjectStorage;
 		$this->BDD = bdd::getBDD();
+		echo "connected to BDD";
+		echo "Socket created";
 	}
 
 	public function onOpen(ConnectionInterface $conn) {
 		$this->clients->attach($conn);
 		// $this->users[$conn->resourceId] = $conn;
+		echo "Client connected";
 	}
 
 	public function onClose(ConnectionInterface $conn) {
 		$this->clients->detach($conn);
 		// unset($this->users[$conn->resourceId]);
+		echo "Client disconnected";
 	}
 
 	public function onMessage(ConnectionInterface $from,  $data) {
@@ -44,7 +48,7 @@ class Chat implements MessageComponentInterface {
 				$array_msg = preg_split ('/-/',$chat_msg,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the str_id (prd_all_PWR)
 
 				$t0 = microtime(True);
-				$response_from = ajaxQueryHandler::getResult($array_msg[0],$array_msg[1],$this->BDD)."-".$array_msg[2];
+				$response_from = QueryHandler::getResult($array_msg[0],$array_msg[1],$this->BDD)."-".$array_msg[2];
 				$t1 = microtime(True);
 
 				//echo $array_msg[0]." : ".($t1-$t0)."\n";

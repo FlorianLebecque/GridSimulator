@@ -5,13 +5,13 @@
     include_once("backend\inc\database.php");
     include_once("backend\inc\\node.php");
     
-    class ajaxQueryHandler{
+    class QueryHandler{
 
         public static function getResult($action,$param,$BDD){
             //action requested
             $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 
-            //sort the ajax request by action
+            //sort the query request by action
             switch($action){
 
                 case "getGraphDataSet":                                     // action wich return the datasets for the given charts
