@@ -4,16 +4,16 @@ import random
 import math as m
 
 class Cns_town(NodeC):
-    def __init__(self,meta,_id, ligne_pwr):
+    def __init__(self,meta,_id, ligne_pwr,datalog):
         self.max_power = int(meta['power'])
         self.cost = int(meta['cost'])
         self.prior = 3
         self.randomArray = self.getRandomArray()
        
-        super().__init__( _id, ligne_pwr)
+        super().__init__( _id, ligne_pwr,datalog)
         
 
-    def update(self,datalog,t):
+    def update(self,t):
 
         if self.enable:
             
@@ -24,7 +24,7 @@ class Cns_town(NodeC):
             puissance = 0
             price = 0
 
-        datalog.update_datalog(self._id,puissance,price,t)
+        self.datalog.update_datalog(self._id,puissance,price,t)
         return 0,puissance
 
     def getCurPower(self,t):

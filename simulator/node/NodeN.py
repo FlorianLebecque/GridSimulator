@@ -1,3 +1,4 @@
+
 from node.node import Node
 from meteo import meteoHandler
 import os
@@ -6,18 +7,18 @@ def clear(): os.system('cls') #on Windows System
 
 class NodeN(Node):
 
-    def __init__(self, _id , ligne_pwr):
+    def __init__(self, _id , ligne_pwr,datalog):
         self.simpleType = "n"
         self.prior = 100
-        super().__init__( _id, ligne_pwr)
+        super().__init__(_id, ligne_pwr,datalog)
 
-    def firstUpdate(self,datalog,t):
+    def firstUpdate(self,t):
 
         bill = self.getCurPower(t)
         
         clear()
         print("___________________________SIM___________________________")
-        print("Time : ",t," hour : ",t%24)
+        print("time : ",t,' hour : ',t%24)
         print("sun : ",meteoHandler.getSun(t)," wind : ", meteoHandler.getWind(t))
 
         nbrTry = 0
@@ -31,16 +32,16 @@ class NodeN(Node):
             print("TRY  : ",nbrTry,"START BILL : ",bill)
             if bill > 0: #si on produit trop
 
-                strat = [("enable_cons",(bill,t)),("trySale",bill),("minimize_prod",(bill,t)),("max_dissp",bill),("disable_prod",t)]
+                strat = [("enable_cons",(bill,t)),("trySale",(bill,t)),("minimize_prod",(bill,t)),("max_dissp",(bill,t)),("disable_prod",t)]
 
-                res = self.tryStrat(strat,tested_strat,False)
+                res = self.tryStrat(strat,tested_strat,False,t)
                 if res != -1:
                     tested_strat.append(res)
 
             elif bill < 0: #si on consome trop
         
-                strat = [("minimize_cons",bill),("maximize_prod",(bill,t)),("enable_prod",t),("disable_cons",t)]
-                res = self.tryStrat(strat,tested_strat,True)
+                strat = [("minimize_cons",(bill,t)),("maximize_prod",(bill,t)),("enable_prod",t),("disable_cons",t)]
+                res = self.tryStrat(strat,tested_strat,True,t)
                 if res != -1:
                     tested_strat.append(res)
 
@@ -52,7 +53,14 @@ class NodeN(Node):
 
         print("FINAL BILL : ",bill)
 
-        self.callUpdate(datalog,t)
+        if abs(bill)>1:            #send log message 
+            if bill > 0:
+                self.datalog.update_log(self._id,t,'posBill')    
+            else:
+                self.datalog.update_log(self._id,t,'negBill')    
+
+        for child in self.childs :
+            int_np,int_nc = child.callUpdate(t)
     
     def getCurPower(self,t):
 

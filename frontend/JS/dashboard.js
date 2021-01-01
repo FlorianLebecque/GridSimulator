@@ -41,7 +41,18 @@ function setSummary(data){
 }
 
 function addLog(data){
+    data = JSON.parse(data)
 
+    let cur_text = $("#logPanel").html()
+
+    for(let i = 0; i < data.length;i++){
+        cur_text += "<p>" + data[i]["message"] + "</p>";
+    }
+
+    $("#logPanel").html(cur_text)
+    $("#logPanel").animate({ scrollTop: $('#logPanel').prop("scrollHeight")}, 100);
+
+    //console.log(data)
 }
 
 timerFunction.push(getDashboardData);

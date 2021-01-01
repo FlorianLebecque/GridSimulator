@@ -2,14 +2,14 @@ from node.AdjustableNodeCns import AdjustableNodeCns
 import random
 
 class Cns_diss(AdjustableNodeCns):
-    def __init__(self,meta,_id, ligne_pwr):
+    def __init__(self,meta,_id, ligne_pwr,datalog):
         self.cost = 0
         self.max_power = int(meta['power'])
         self.prior = 4
-        super().__init__( _id, ligne_pwr)
+        super().__init__( _id, ligne_pwr,datalog)
         
 
-    def update(self,datalog,t):
+    def update(self,t):
         if self.enable:
 
             puissance = abs(self.getCurPower(t))
@@ -18,11 +18,11 @@ class Cns_diss(AdjustableNodeCns):
             puissance = 0
   
 
-        datalog.update_datalog(self._id,puissance,self.cost,t)
+        self.datalog.update_datalog(self._id,puissance,self.cost,t)
         return 0,puissance
 
-    def max_dissp(self,bill):
-        return self.adjust(bill)
+    def max_dissp(self,param):
+        return self.adjust(param)
 
     def getCurPower(self,t):
         if self.enable:

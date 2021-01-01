@@ -13,10 +13,11 @@ from node.PRD.Prd_sun import Prd_sun
 from node.PRD.Prd_wind import Prd_wind
 
 class nodeCreator:
-    def __init__(self,nodes,types,childs):
+    def __init__(self,nodes,types,childs,datalog):
         self.nodes = nodes
         self.types = types
         self.childs = childs
+        self.datalog = datalog
 
     def nodeCreation(self,_id,ligne_pwr):
         #Creation des instances de nodes
@@ -29,7 +30,7 @@ class nodeCreator:
         id_type = str(self.nodes[_id]['id_type'])
 
         if (id_type == '0'):
-            temps_node = NodeN(_id,ligne_pwr)
+            temps_node = NodeN(_id,ligne_pwr,self.datalog)
 
             if _id in self.childs:
                 i=0
@@ -43,31 +44,31 @@ class nodeCreator:
         else :
 
             if (self.types[id_type]['type'] == 'prd_gaz'):
-                return Prd_gaz(self.types[id_type]['meta'],_id,ligne_pwr)
+                return Prd_gaz(self.types[id_type]['meta'],_id,ligne_pwr,self.datalog)
 
             if (self.types[id_type]['type'] == 'prd_nuck'):
-                return Prd_nuck(self.types[id_type]['meta'],_id,ligne_pwr)
+                return Prd_nuck(self.types[id_type]['meta'],_id,ligne_pwr,self.datalog)
 
             if (self.types[id_type]['type'] == 'prd_wind'):
-                return Prd_wind(self.types[id_type]['meta'],_id,ligne_pwr)
+                return Prd_wind(self.types[id_type]['meta'],_id,ligne_pwr,self.datalog)
 
             if (self.types[id_type]['type'] == 'prd_sun'):
-                return Prd_sun(self.types[id_type]['meta'],_id,ligne_pwr)
+                return Prd_sun(self.types[id_type]['meta'],_id,ligne_pwr,self.datalog)
 
             if (self.types[id_type]['type'] == 'prd_buy'):
-                return Prd_buy(self.types[id_type]['meta'],_id,ligne_pwr)
+                return Prd_buy(self.types[id_type]['meta'],_id,ligne_pwr,self.datalog)
 
             if (self.types[id_type]['type'] == 'cns_town'):
-                return Cns_town(self.types[id_type]['meta'],_id,ligne_pwr)
+                return Cns_town(self.types[id_type]['meta'],_id,ligne_pwr,self.datalog)
 
             if (self.types[id_type]['type'] == 'cns_enter'):
-                return Cns_enter(self.types[id_type]['meta'],_id,ligne_pwr)
+                return Cns_enter(self.types[id_type]['meta'],_id,ligne_pwr,self.datalog)
 
             if (self.types[id_type]['type'] == 'cns_diss'):
-                return Cns_diss(self.types[id_type]['meta'],_id,ligne_pwr)
+                return Cns_diss(self.types[id_type]['meta'],_id,ligne_pwr,self.datalog)
 
             if (self.types[id_type]['type'] == 'cns_sale'):
-                return Cns_sale(self.types[id_type]['meta'],_id,ligne_pwr)
+                return Cns_sale(self.types[id_type]['meta'],_id,ligne_pwr,self.datalog)
 
             else :
                 print('error')

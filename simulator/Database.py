@@ -54,8 +54,13 @@ class Db:
 
     def sendUpdate(self,sim_id,node_id,time,power,price,CO2):
         with self.connection.cursor() as datas:
-            message = ''
-            datas.execute('INSERT INTO `pe_data`(`sim_id`,`node_id`, `time`, `PWR`, `price`, `CO2`, `message`) VALUES (%s,%s,%s,%s,%s,%s,%s)',(sim_id,node_id,time,power,price,CO2,message))
+            datas.execute('INSERT INTO `pe_data`(`sim_id`,`node_id`, `time`, `PWR`, `price`, `CO2`) VALUES (%s,%s,%s,%s,%s,%s)',(sim_id,node_id,time,power,price,CO2))
+
+        self.connection.commit()
+
+    def sendUpdateMessage(self,sim_id,node_id,time,message):
+        with self.connection.cursor() as datas:
+            datas.execute('INSERT INTO `pe_data`(`sim_id`,`node_id`, `time`, `message`) VALUES (%s,%s,%s,%s)',(sim_id,node_id,time,message))
 
         self.connection.commit()
 

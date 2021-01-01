@@ -11,31 +11,31 @@ class Datalog:
     def update_data(self,_id,power,price,CO2,t):
         self.db.sendUpdate(self.id_sim,_id,t,power,price,CO2)
 
-    def update_log(self,name,_id):
-        if (name == 'minimize_cons'):
-            return 'Sur-production du circuit'
-        
-        if (name == 'disable_cons'):
-            return 'Sur-production du circuit'
+    def update_log(self,_id,time,name):
 
-        if (name == 'minimize_prod'):
-            return 'Sur-production du circuit'
+        if (name == 'disable_cons'):
+            message = '[{}] Blackout on the node {} '.format(time,_id)
+            self.db.sendUpdateMessage(self.id_sim,_id,time,message)
         
-        if (name == 'disable_prod'):
-            return 'Sur-production du circuit'
+        elif (name == 'disable_prod'):
+            message = '[{}] Overload! shutdown the node {} '.format(time,_id)
+            self.db.sendUpdateMessage(self.id_sim,_id,time,message)
+
+        elif (name == 'enable_cons'):
+            message = '[{}] Enable consumer with the node {} '.format(time,_id)
+            self.db.sendUpdateMessage(self.id_sim,_id,time,message)
+
+        elif (name == 'enable_prod'):
+            message = '[{}] Enable production with the node {} '.format(time,_id)
+            self.db.sendUpdateMessage(self.id_sim,_id,time,message)
+
+        elif (name == 'negBill'):
+            message = '[{}] Not enough power for the circuit'.format(time)
+            self.db.sendUpdateMessage(self.id_sim,_id,time,message)
         
-        if (name == 'surProd'):
-            return 'Sur-production du circuit'
-        
-        if (name == 'sousProd'):
-            return 'Sous-production du circuit'
-        
-        if (name == 'surCharge'):
-            return 'Surchange sur ({})'.format(_id)
-        
-        if (name == 'blackOut'):
-            return 'Blackout sur ({})'.format(_id)
+        elif (name == 'posBill'):
+            message = '[{}] To much power for the circuit'.format(time)
+            self.db.sendUpdateMessage(self.id_sim,_id,time,message)
 
         else:
             pass
-         

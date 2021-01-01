@@ -8,7 +8,7 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col">
+                    <div class="col weathPanel">
                         <canvas id="weath_weath_sun"></canvas>
                     </div>
                 </div> 
@@ -21,7 +21,7 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col">
+                    <div class="col weathPanel">
                         <canvas id="weath_weath_wind"></canvas>
                     </div>
                 </div> 

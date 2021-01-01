@@ -41,7 +41,7 @@
         }
 
         static public function setData($req,$BDD){
-            return self::sendQuery($req);
+            return self::sendQuery($req,$BDD);
         }
 
     } 
@@ -130,7 +130,7 @@
         }
 
         public static function getNodeDataQuery($id,$key){
-            return 'SELECT DAT.`'.$key.'` FROM `pe_data` AS DAT  WHERE DAT.`node_id` = '.$id.' ORDER BY time DESC LIMIT 10';
+            return 'SELECT DAT.`'.$key.'` FROM `pe_data` AS DAT  WHERE DAT.`node_id` = '.$id.' AND `message` IS NULL ORDER BY time DESC LIMIT 10';
         }
 
         public static function getNodeID_by_stQuery($sim,$simple_type){
@@ -147,7 +147,7 @@
         }
 
         public static function getLogQuery($sim,$t){
-            return 'SELECT `message` FROM `pe_data` AS NDATA WHERE `sim_id` = '.$sim.' AND`time` = '.$t.' ORDER BY time DESC LIMIT 10';
+            return 'SELECT `message` FROM `pe_data` AS NDATA WHERE `sim_id` = '.$sim.' AND`time` = '.$t.' AND `message` IS NOT NULL ORDER BY time DESC LIMIT 10';
         }
 
     }

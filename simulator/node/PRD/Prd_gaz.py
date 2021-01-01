@@ -2,14 +2,14 @@ from node.AdjustableNodePrd import AdjustableNodePrd
 import random
 
 class Prd_gaz(AdjustableNodePrd):
-    def __init__(self,meta,_id, ligne_pwr):
+    def __init__(self,meta,_id, ligne_pwr,datalog):
         self.max_power = int(meta['power'])
-        self.prior = 3
+        self.prior = 4
         self.cost = int(meta['cost'])
         self.CO2 = int(meta['co2'])
-        super().__init__( _id, ligne_pwr)
+        super().__init__( _id, ligne_pwr,datalog)
 
-    def update(self,datalog,t):
+    def update(self,t):
 
         if self.enable:
             puissance = self.getCurPower(t)
@@ -20,7 +20,7 @@ class Prd_gaz(AdjustableNodePrd):
             price = 0
             CO2 = 0
 
-        datalog.update_data(self._id,puissance,price,CO2,t)
+        self.datalog.update_data(self._id,puissance,price,CO2,t)
         return puissance,0
 
     def getCurPower(self,t):

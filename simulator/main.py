@@ -3,7 +3,6 @@ import pymysql.cursors
 import json
 
 
-
 from Database import Db 
 from clientSocket import Socket as S
 
@@ -27,31 +26,27 @@ state = "WAIT"
 while(state):
    
     if (state == "WAIT"):
-        while (state == "WAIT"):
-            msg = cSocket.recvMessage()
-            if msg is not None :
-                print(msg)
-                s_msg = msg.split('_')
-                if (s_msg[0] == 'startsim'):
-                    id_sim = s_msg[1]
-                    state ="LOAD_SIM"
-                else :
-                    state = "WAIT"
+        #while (state == "WAIT"):
+        msg = cSocket.recvMessage()
+        if msg is not None :
+            print(msg)
+            s_msg = msg.split('_')
+            if (s_msg[0] == 'startsim'):
+                id_sim = s_msg[1]
+                state ="LOAD_SIM"
+            else :
+                state = "WAIT"
 
-        state = "LOAD_SIM"
+        #state = "LOAD_SIM"
 
     if (state == "LOAD_SIM"):
         
         nodes = connDb.getNodes(id_sim)
         types = connDb.getTypes(id_sim)
         childs = connDb.getChilds(id_sim)
-
-        #connDb.nprint(nodes)
-        #connDb.nprint(types)
-        #connDb.nprint(childs)
     
         simDatalog = Datalog(connDb,id_sim)
-        nodeClass = nodeCreator(nodes,types,childs)
+        nodeClass = nodeCreator(nodes,types,childs,simDatalog)
         primaryNode = nodeClass.nodeCreation('null','null')
 
         last_time = connDb.getLastTime(id_sim)['LASTTIME']
@@ -70,24 +65,24 @@ while(state):
         
     if (state == "RUNNING"):
 
-        while (state == "RUNNING"):
+        #while (state == "RUNNING"):
 
-            t_inter = time.time() - t_inter2
+        t_inter = time.time() - t_inter2
 
-            if (t_inter >= 0.2):
-                t_inter2 = time.time()
-                primaryNode.firstUpdate(simDatalog,t)
-                t+=0.5
+        if (t_inter >= 0.2):
+            t_inter2 = time.time()
+            primaryNode.firstUpdate(t)
+            t+=0.5
 
-            else :
-                msg = cSocket.recvMessage()
-                if msg is not None :
-                    print(msg)
-                    s_msg = msg.split('_')
-                    if (s_msg[0] == 'stopsim'):
-                        state ="STOP"
-                    else :
-                        state = "RUNNING"
+        else :
+            msg = cSocket.recvMessage()
+            if msg is not None :
+                print(msg)
+                s_msg = msg.split('_')
+                if (s_msg[0] == 'stopsim'):
+                    state ="STOP"
+                else :
+                    state = "RUNNING"
             
 
     if (state == "STOP"):

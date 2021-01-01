@@ -3,16 +3,15 @@ from meteo import meteoHandler
 import random
 
 class Prd_wind(AdjustableNodePrd):
-    def __init__(self,meta,_id, ligne_pwr):
+    def __init__(self,meta,_id, ligne_pwr,datalog):
         self.max_power = int(meta['power'])
         self.cost = int(meta['cost'])
-        self.prior = 4
+        self.prior = 3
         self.wind_eff = int(meta['eff'])
-        
-        
-        super().__init__( _id, ligne_pwr)
 
-    def update(self,datalog,t):
+        super().__init__( _id, ligne_pwr,datalog)
+
+    def update(self,t):
 
         if self.enable:
            
@@ -23,7 +22,7 @@ class Prd_wind(AdjustableNodePrd):
             puissance = 0
             price = 0
 
-        datalog.update_datalog(self._id,puissance,price,t)
+        self.datalog.update_datalog(self._id,puissance,price,t)
         return puissance,0
     
     def getMaxPower(self,t):

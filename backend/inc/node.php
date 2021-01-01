@@ -130,21 +130,21 @@
 
             simdataHandler::InsertNode($sim,$parent_id,$type_id,$node_label,$link_power,$BDD);
 
-            return json_encode(self::getNodes($sim));
+            return json_encode(self::getNodes($sim,$BDD));
         }
 
         public static function rmvNode($param,$BDD){
 
             $array_param = preg_split ('/_/',$param,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);   //decompose the param (idSim_idParent_typeID_label)
             simdataHandler::DeleteNode($array_param[1],$BDD);
-            return json_encode(self::getNodes($array_param[0]));
+            return json_encode(self::getNodes($array_param[0],$BDD));
 
         }
 
         public static function rmvType($param,$BDD){
             $array_param = preg_split ('/_/',$param,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
             simdataHandler::rmvType($array_param[0],$array_param[1],$BDD);
-            return json_encode(self::getNodes($array_param[0]));
+            return json_encode(self::getNodes($array_param[0]),$BDD);
         }
 
     }
