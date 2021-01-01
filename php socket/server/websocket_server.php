@@ -11,6 +11,7 @@ require_once '../vendor/autoload.php';
 include_once '../../queryHandler.php';
 include_once '../../backend/inc/database.php';
 
+
 class Chat implements MessageComponentInterface {
 	protected $clients;
 	protected $users;
@@ -20,20 +21,21 @@ class Chat implements MessageComponentInterface {
 	public function __construct() {
 		$this->clients = new \SplObjectStorage;
 		$this->BDD = bdd::getBDD();
-		echo "connected to BDD";
-		echo "Socket created";
+		echo "connected to BDD \n";
+		echo "Socket created \n";
+		
 	}
 
 	public function onOpen(ConnectionInterface $conn) {
 		$this->clients->attach($conn);
 		// $this->users[$conn->resourceId] = $conn;
-		echo "Client connected";
+		echo "Client connected \n";
 	}
 
 	public function onClose(ConnectionInterface $conn) {
 		$this->clients->detach($conn);
 		// unset($this->users[$conn->resourceId]);
-		echo "Client disconnected";
+		echo "Client disconnected \n";
 	}
 
 	public function onMessage(ConnectionInterface $from,  $data) {
@@ -51,19 +53,10 @@ class Chat implements MessageComponentInterface {
 				$response_from = QueryHandler::getResult($array_msg[0],$array_msg[1],$this->BDD)."-".$array_msg[2];
 				$t1 = microtime(True);
 
-				//echo $array_msg[0]." : ".($t1-$t0)."\n";
-
-				$response_to = "<b>".$user_id."</b>: ".$chat_msg." - ".$response_from." - ".$array_msg[0]." - ".$array_msg[1]."<br><br>";
+				
 				// Output
 				$from->send(json_encode(array("type"=>$type,"msg"=>$response_from)));
-				/*
-				foreach($this->clients as $client)
-				{
-					if($from!=$client)
-					{
-						$client->send(json_encode(array("type"=>$type,"msg"=>$response_to)));
-					}
-				}*/
+
 				break;
 		}
 	}

@@ -9,7 +9,7 @@ setTimeout(
 )
 
 function getDashboardData(){
-    ajaxHandler.sendRequest("getGraphData",JSON.stringify(array_graphID),graphUpdater.update,graphMan);
+    queryHandler.sendRequest("getGraphData",JSON.stringify(array_graphID),graphUpdater.update,graphMan);
 }
 
 timerFunction.push(getDashboardData);

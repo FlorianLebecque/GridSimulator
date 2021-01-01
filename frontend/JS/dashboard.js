@@ -13,9 +13,9 @@ setTimeout(
 
 
 function getDashboardData(){
-    ajaxHandler.sendRequest("getGraphData",JSON.stringify(array_graphID),graphUpdater.update,graphMan);
-    ajaxHandler.sendRequest("getSummary",simId,setSummary);
-    ajaxHandler.sendRequest("getLog",simId,addLog);
+    queryHandler.sendRequest("getGraphData",JSON.stringify(array_graphID),graphUpdater.update,graphMan);
+    queryHandler.sendRequest("getSummary",simId,setSummary);
+    queryHandler.sendRequest("getLog",simId,addLog);
 }
 
 function setSummary(data){
@@ -57,12 +57,12 @@ function nodeClick(params) {
 
         $("#"+params).css("background-color", "var(--Accent)");
 
-        ajaxHandler.sendRequest("enable",params,callback);
+        queryHandler.sendRequest("enable",params,callback);
     }else{
         cur_node["enable"] = 0;
         $("#"+params).css("background-color", "var(--Selected)");
 
-        ajaxHandler.sendRequest("disable",params,callback);
+        queryHandler.sendRequest("disable",params,callback);
     }
 
 }

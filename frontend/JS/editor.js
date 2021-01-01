@@ -51,7 +51,7 @@ function rmvType(sim,typeID){
 
     if(confirm("This action will remove a type and all the node associeted")){
         let param = sim+"_"+typeID;
-        ajaxHandler.sendRequest("rmvType",param,reload)
+        queryHandler.sendRequest("rmvType",param,reload)
     }
 
 }
@@ -100,7 +100,7 @@ function addNode(sim) {
 
     if(label != ""){
         let param = sim+"_"+parentID+"_"+typeId+"_"+label+"_"+max_pow;
-        ajaxHandler.sendRequest("addNewNode",param,UpdatePage)
+        queryHandler.sendRequest("addNewNode",param,UpdatePage)
     }
 }
 
@@ -108,7 +108,7 @@ function  rmvNode(sim) {
     let nodeId = selectedNode["id"];
 
     if(confirm("You are going to delete a node and all of it children, THERE IS NO GOING BACK ?")){
-        ajaxHandler.sendRequest("rmvNode",sim+"_"+nodeId,UpdatePage)
+        queryHandler.sendRequest("rmvNode",sim+"_"+nodeId,UpdatePage)
     }
 }
 

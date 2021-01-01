@@ -8,7 +8,7 @@ class graphManager{
         for(let i = 0; i < array_graphID.length;i++){
             this.create_graph(array_graphID[i],label,[],0,10);
         }
-        ajaxHandler.sendRequest("getGraphDataSet",JSON.stringify(array_graphID),graphUpdater.setDataset,this);
+        queryHandler.sendRequest("getGraphDataSet",JSON.stringify(array_graphID),graphUpdater.setDataset,this);
     }
 
     create_graph(str_PanelID,array_labels,array_data,int_axeMin=0,int_axeMax=50) {

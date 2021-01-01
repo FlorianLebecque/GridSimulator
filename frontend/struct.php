@@ -4,13 +4,12 @@
         include_once("public/html/head.html");
     ?>
     <script>
+        let simId = <?php echo $_SESSION["simulation"] ."\n" ?>
         let status = <?php echo $_SESSION["status"] ?>;
+
         let timerFunction = [];
         
-        let simId = <?php echo $_SESSION["simulation"] ?>
-
         let wb = new webSocketHandler() 
-
         let timerHDL = new timerHandler();
 
     </script>
