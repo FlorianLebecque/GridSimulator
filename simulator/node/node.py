@@ -12,10 +12,9 @@ class Node:
         return str(self.id) + " - " + str(type(self))
 
     def callUpdate(self,t):
-        if self.userEnable:
-            return self.update(t)
-        else:
-            return 0,0
+        
+        return self.update(t)
+        
 
     def update(self,t):
 
@@ -53,10 +52,9 @@ class Node:
         int_c = int_p = 0
 
         for child in self.childs :
-            if child.userEnable:
-                int_np,int_nc = child.callUpdate(t)
-                int_p += int_np
-                int_c += int_nc
+            int_np,int_nc = child.callUpdate(t)
+            int_p += int_np
+            int_c += int_nc
 
         return int_p,int_c
 
@@ -112,14 +110,19 @@ class Node:
         #we need to sort by prior
         return sorted(result_node, key=lambda x: x.prior, reverse=needReverse)
 
-    def setUserEnable(self,node_id,en):
+    def setUserEnable(self,node_id,en,time):
         if self._id == node_id:
             self.userEnable = en
+            
+            for child in self.childs:
+                child.setUserEnable(child._id,en,time)
+
             return self._id
         else:
             for child in self.childs:
-                node = child.setUserEnable(node_id,en)
+                node = child.setUserEnable(node_id,en,time)
                 if node != -1:
+                    self.datalog.update_log((node,en),time,"USERACTION")    
                     return node
         
         return -1

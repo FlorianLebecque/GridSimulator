@@ -37,5 +37,8 @@ class Datalog:
             message = '[{}] To much power for the circuit'.format(time)
             self.db.sendUpdateMessage(self.id_sim,_id,time,message)
 
+        elif (name == 'USERACTION'):
+            message = '[{}] *****************DISABLE OR ENABLE : {} -> {} *******************'.format(time,_id[0],_id[1])
+            self.db.sendUpdateMessage(self.id_sim,_id[0],time,message)
         else:
             pass

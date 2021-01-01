@@ -24,7 +24,7 @@ class Prd_gaz(AdjustableNodePrd):
         return puissance,0
 
     def getCurPower(self,t):
-        if self.enable:
+        if self.enable and self.userEnable:
             return self.max_power*(self.power_cursor/100)
         else:
             return 0

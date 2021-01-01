@@ -28,7 +28,7 @@ class Cns_enter(NodeC):
     
 
     def getCurPower(self,t):
-        if self.enable:
+        if self.enable and self.userEnable:
             tmp_t = m.floor(t % 24)
             if(tmp_t == 0):
                 self.randomArray = self.getRandomArray()

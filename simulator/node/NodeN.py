@@ -63,10 +63,10 @@ class NodeN(Node):
             int_np,int_nc = child.callUpdate(t)
     
     def getCurPower(self,t):
-
+        
         cur_power = 0
         for child in self.childs:
-            if child.userEnable:
-                cur_power += child.getCurPower(t)
+            cur_power += child.getCurPower(t)
 
         return cur_power
+        

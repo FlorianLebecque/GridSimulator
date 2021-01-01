@@ -44,15 +44,17 @@ class Prd_nuck(NodeP):
         return -1
 
     def getCurPower(self,t):
-        if self.enable:
+        if self.enable and self.userEnable:
             temp_t = t-self.enableAtTime #get relatif time
             if (temp_t <= self.start_time):
                 return (temp_t*(self.max_power/self.start_time))
             else :
                 return self.max_power
-        else:
+        elif self.userEnable:
             temp_t = t-self.disableAtTime
             if (temp_t <= self.end_time):
                 return (self.max_power-temp_t*(self.max_power/self.end_time))
             else :
                 return 0
+        else:
+            return 0

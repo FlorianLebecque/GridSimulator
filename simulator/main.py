@@ -81,6 +81,10 @@ while(state):
                 s_msg = msg.split('_')
                 if (s_msg[0] == 'stopsim'):
                     state ="STOP"
+                elif (s_msg[0] == 'enable'):
+                    primaryNode.setUserEnable(s_msg[1],True,t)
+                elif (s_msg[0] == 'disable'):
+                    primaryNode.setUserEnable(s_msg[1],False,t)
                 else :
                     state = "RUNNING"
             

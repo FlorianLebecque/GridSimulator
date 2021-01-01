@@ -26,7 +26,7 @@ class Cns_sale(AdjustableNodeCns):
         return self.adjust(param)
 
     def getCurPower(self,t):
-        if self.enable:
+        if self.enable and self.userEnable:
             return -self.max_power*(self.power_cursor/100)
         else:
             return 0

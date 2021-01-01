@@ -138,7 +138,7 @@
         }
 
         public static function getLastTimeQuery($sim){
-            return 'SELECT MAX(`time`) AS TIME FROM `pe_data` WHERE `sim_id` = '.$sim;
+            return 'SELECT `time` AS TIME FROM `pe_data` WHERE `sim_id` = '.$sim.' ORDER BY time DESC LIMIT 1';
         }
 
 

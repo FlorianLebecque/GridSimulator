@@ -53,6 +53,7 @@ class Chat implements MessageComponentInterface {
 				$response_from = QueryHandler::getResult($array_msg[0],$array_msg[1],$this->BDD)."-".$array_msg[2];
 				$t1 = microtime(True);
 
+				echo $array_msg[0] ." ) ".($t1-$t0)."s\n";
 				
 				// Output
 				$from->send(json_encode(array("type"=>$type,"msg"=>$response_from)));
