@@ -27,8 +27,10 @@
 
                     $name = htmlspecialchars($_POST["sim"]);
 
+                    $BDD = bdd::getBDD();
+
                     $req = bddQuery::getCountSimQuery($name);
-                    $count = mysqli_fetch_array(bdd::sendQuery($req),MYSQLI_ASSOC);
+                    $count = mysqli_fetch_array(bdd::sendQuery($req,$BDD),MYSQLI_ASSOC);
 
 
                     if($count["count"]==0){
@@ -37,15 +39,15 @@
 
                             //create new sim
                         $req = bddQuery::getAddSimQuery($_POST["sim"],$_POST["pass1"]);
-                        $res = bdd::sendQuery($req);
+                        $res = bdd::sendQuery($req,$BDD);
 
                             //get sim id
                         $req = bddQuery::getLastSimQuery($name);
-                        $LastSimId = bdd::getData($req)[0]["id"];
+                        $LastSimId = bdd::getData($req,$BDD)[0]["id"];
 
                             //insert node N1
-                        $req = bddQuery::InsertNodeQuery($LastSimId,0,"N1");
-                        bdd::setData($req);
+                        $req = bddQuery::InsertNodeQuery($LastSimId,0,"N1",$BDD);
+                        bdd::setData($req,$BDD);
 
                         $err=10;
                     }else{

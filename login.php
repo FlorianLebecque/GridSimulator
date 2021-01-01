@@ -11,7 +11,7 @@
                 
                 $req = bddQuery::qetTestSimNameQuery($name);
                 $BDD = bdd::getBDD();
-                $data = bdd::sendQuery($req);
+                $data = bdd::sendQuery($req,$BDD);
                 $pass = mysqli_fetch_array($data,MYSQLI_ASSOC);
 
                 if(md5($testPass)==$pass["psw"]){
