@@ -92,18 +92,5 @@ Affiche toute les données climatiques en fonction de l'heure.
 ![Simu](https://user-images.githubusercontent.com/60986993/103457673-88c74980-4d01-11eb-9dfd-0bca800bc591.png)
 
 
-You can render UML diagrams using [Mermaid](https://mermaidjs.github.io/). For example, this will produce a sequence diagram:
-
-sequence diagram:
-
-```mermaid
-sequenceDiagram
-Alice ->> Bob: Hello Bob, how are you?
-Bob-->>John: How about you John?
-Bob--x Alice: I am good thanks!
-Bob-x John: I am good thanks!
-Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
-
-Bob-->Alice: Checking with John...
-Alice->John: Yes... John, how are you?
+[![](https://mermaid.ink/img/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5cblxuXG4gICAgVXNlci0-V2ViOiBBdXRoZW50aWNhdGlvbiBSZXF1ZXN0XG4gICAgV2ViLT5EYXRhYmFzZTogZ2V0IGxvZ2luIGluZm9cbiAgICBEYXRhYmFzZS0-V2ViOiBzZW5kIGxvZ2luIGluZm9cbiAgICBub3RlIG92ZXIgV2ViOiBWZXJpZnkgbG9naW4gaW5mb1xuICAgIFdlYi0-VXNlcjogQXV0aGVudGljYXRpb24gUmVzcG9uY2VcbiAgICBub3RlIG92ZXIgVXNlcjogcmVkaXJlY3QgdG8gZGFzaGJvYXJkXG4gICAgVXNlci0-UEhQV2ViU29ja2V0OiBjcmVhdGUgY29ubmVjdGlvbiAoVENQL0lQKVxuICAgIFBIUFdlYlNvY2tldC0-IFVzZXI6IGNvbm5lY3Rpb24gdmFsaWRhdGVkXG5cbiAgICBub3RlIG92ZXIgVXNlcjpDbGljayBwbGF5IGJ1dHRvblxuXG4gICAgVXNlci0-IFBIUFdlYlNvY2tldDpTZW50IFN0YXJ0c2ltXyhpZCkgcmVxdWVzdFxuXG4gICAgbm90ZSBvdmVyIFBIUFdlYlNvY2tldCxQeXRob25TZXJ2ZXI6Q3JlYXRlIFVEUCBzb2NrZXQgd2l0aCBweXRob24gc2VydmVyXG5cbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)](https://mermaid-js.github.io/mermaid-live-editor/#/edit/eyJjb2RlIjoic2VxdWVuY2VEaWFncmFtXG5cblxuXG4gICAgVXNlci0-V2ViOiBBdXRoZW50aWNhdGlvbiBSZXF1ZXN0XG4gICAgV2ViLT5EYXRhYmFzZTogZ2V0IGxvZ2luIGluZm9cbiAgICBEYXRhYmFzZS0-V2ViOiBzZW5kIGxvZ2luIGluZm9cbiAgICBub3RlIG92ZXIgV2ViOiBWZXJpZnkgbG9naW4gaW5mb1xuICAgIFdlYi0-VXNlcjogQXV0aGVudGljYXRpb24gUmVzcG9uY2VcbiAgICBub3RlIG92ZXIgVXNlcjogcmVkaXJlY3QgdG8gZGFzaGJvYXJkXG4gICAgVXNlci0-UEhQV2ViU29ja2V0OiBjcmVhdGUgY29ubmVjdGlvbiAoVENQL0lQKVxuICAgIFBIUFdlYlNvY2tldC0-IFVzZXI6IGNvbm5lY3Rpb24gdmFsaWRhdGVkXG5cbiAgICBub3RlIG92ZXIgVXNlcjpDbGljayBwbGF5IGJ1dHRvblxuXG4gICAgVXNlci0-IFBIUFdlYlNvY2tldDpTZW50IFN0YXJ0c2ltXyhpZCkgcmVxdWVzdFxuXG4gICAgbm90ZSBvdmVyIFBIUFdlYlNvY2tldCxQeXRob25TZXJ2ZXI6Q3JlYXRlIFVEUCBzb2NrZXQgd2l0aCBweXRob24gc2VydmVyXG5cbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
 ```
