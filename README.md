@@ -10,9 +10,7 @@ Le programme permet aux utilisateurs de:
     - Obtenir le coût de production, les revenus et la quantité de CO2 produite à chaque seconde.
     - Obtenir des messages d'alerte: lignes surchargées, surproduction, sous-production, blackout, ...
 
-**Table of Contents**
 
-[TOCM]
 
 
 # Installation
@@ -97,12 +95,3 @@ Affiche toute les données climatiques en fonction de l'heure.
 You can render UML diagrams using [Mermaid](https://mermaidjs.github.io/). For example, this will produce a sequence diagram:
 
 
-And this will produce a flow chart:
-
-```mermaid
-graph LR
-A[Square Rect] -- Link text --> B((Circle))
-A --> C(Round Rect)
-B --> D{Rhombus}
-C --> D
-```
