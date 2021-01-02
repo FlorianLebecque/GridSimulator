@@ -16,6 +16,7 @@
                 if(isset($_POST["nodeType"])){
 
                     $label = $_POST["nodeLabel"];
+                    $BDD = bdd::getBDD();
                     $type_template = simdataHandler::getNodeTypeField_by_type($_POST["nodeType"],$BDD);                    
                     $meta_field = json_decode($type_template[0]["field"]);
 
