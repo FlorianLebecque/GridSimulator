@@ -14,6 +14,13 @@ Le programme permet aux utilisateurs de:
 
 
 # Installation
+
+- Telecharger et mettre le dossier dans une plate-forme de développement Web dynamiques (WAMP)
+- Lancer le main.py 
+- Lancer path//GridSimulator/php socket/server/websocket_server.php
+- Démarrer la page web index.php
+
+
 # Utilisation
 
 ## 1. Créer une nouvelle simulation / charger ancienne
