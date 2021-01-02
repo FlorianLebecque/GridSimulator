@@ -144,7 +144,15 @@
 
         public static function getLastTime($sim,$BDD){
             $req = bddQuery::getLastTimeQuery($sim);
-            return bdd::getData($req,$BDD)[0]['TIME'];
+            $res = bdd::getData($req,$BDD)[0]['TIME'];
+
+            echo $res;
+
+            if($res != null){
+                return $res;
+            }else{
+                return 0;
+            }
         }
 
         public static function getSummary($sim,$BDD){

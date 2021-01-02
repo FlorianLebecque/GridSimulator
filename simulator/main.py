@@ -14,11 +14,11 @@ from node.node import Node
 #######################################   CREATION CONNECION DB   ####################################
 
 connDb = Db('localhost','root','','projet_poo','utf8mb4',pymysql.cursors.DictCursor)
-
+print("Database connected")
 #######################################   CREATION CONNECION SOCKET   ################################
 
 cSocket = S("127.0.0.1",5005,1024)
-
+print("Socked created")
 #######################################   DIFFERENTS CAS   ###########################################
 state = "WAIT"
 
