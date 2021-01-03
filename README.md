@@ -71,13 +71,13 @@ Vous avez plusieurs onglet disponibles contenant différentes informations
 ### 3.1 Onglet Dashboard 
 La partie Essentials qui résume toute les infos et affiche les log d'erreur.
 ![1 1](https://user-images.githubusercontent.com/60986993/103456259-c8d3ff80-4cf4-11eb-9e3e-e49481889cce.PNG)
-La Node grid qui représente le système 
+Node grid représente le système (Vous pouvez activer ou désactiver une node en cliquant dessus (il faut que la simulation tourne))
 ![1 2](https://user-images.githubusercontent.com/60986993/103456263-ca052c80-4cf4-11eb-9059-a88f939d8ca9.PNG)
 La puissance électrique produite et consommée 
 ![1 3](https://user-images.githubusercontent.com/60986993/103456267-cb365980-4cf4-11eb-875b-7d10537213c9.PNG)
 Les émissions de CO2
 ![1 4](https://user-images.githubusercontent.com/60986993/103456269-cc678680-4cf4-11eb-95e6-a7fad0116b27.PNG)
-L'argent dépensé pas le circuit 
+L'argent dépensé par le circuit 
 ![1 5](https://user-images.githubusercontent.com/60986993/103456270-cd98b380-4cf4-11eb-8d34-1426b52eaff9.PNG)
 
 ### 3.2 Onglet Production
@@ -86,7 +86,7 @@ Affiche les producteurs et leurs émission de CO2
 ![2 1](https://user-images.githubusercontent.com/60986993/103456335-60395280-4cf5-11eb-84cf-fcc079432ec7.PNG)
 
 ### 3.3 Onglet Consommation
-Affiche les producteurs et leurs émission de CO2
+Affiche les consommateur
 ![3 1](https://user-images.githubusercontent.com/60986993/103456372-ac849280-4cf5-11eb-8d3d-081f1eb80c6a.PNG)
 
 ### 3.4 Onglet Weathers
