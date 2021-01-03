@@ -20,7 +20,8 @@ class Node:
 
 
         bill = self.getCurPower(t)
-
+        nbrTry = 0
+        tested_strat = []
         while abs(bill) > self.ligne_power and nbrTry < 15:
             print("***************LIGNE POWER EXCEDEED***************")
             print("ID : ",self._id)

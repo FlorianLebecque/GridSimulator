@@ -4,10 +4,10 @@ import random
 
 class Prd_wind(AdjustableNodePrd):
     def __init__(self,meta,_id, ligne_pwr,datalog):
-        self.max_power = int(meta['power'])
-        self.cost = int(meta['cost'])
+        self.max_power = float(meta['power'])
+        self.cost = float(meta['cost'])
         self.prior = 3
-        self.wind_eff = int(meta['eff'])
+        self.wind_eff = float(meta['eff'])
 
         super().__init__( _id, ligne_pwr,datalog)
 

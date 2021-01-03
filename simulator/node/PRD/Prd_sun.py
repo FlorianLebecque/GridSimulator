@@ -4,11 +4,11 @@ import random
 
 class Prd_sun(Node):
     def __init__(self,meta,_id, ligne_pwr,datalog):
-        self.max_power = int(meta['power'])
+        self.max_power = float(meta['power'])
         self.prior = 99
 
-        self.sun_eff = int(meta['eff'])
-        self.cost = int(meta['cost'])
+        self.sun_eff = float(meta['eff'])
+        self.cost = float(meta['cost'])
 
         super().__init__( _id, ligne_pwr,datalog)
 

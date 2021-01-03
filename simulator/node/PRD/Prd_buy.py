@@ -3,8 +3,8 @@ import random
 
 class Prd_buy(AdjustableNodePrd):
     def __init__(self,meta,_id, ligne_pwr,datalog):
-        self.max_power = int(meta['power'])
-        self.cost = int(meta['cost'])
+        self.max_power = float(ligne_pwr)
+        self.cost = float(meta['cost'])
         self.prior = 1
         super().__init__( _id, ligne_pwr,datalog)
         

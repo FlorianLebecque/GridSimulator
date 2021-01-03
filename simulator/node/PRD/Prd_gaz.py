@@ -3,10 +3,10 @@ import random
 
 class Prd_gaz(AdjustableNodePrd):
     def __init__(self,meta,_id, ligne_pwr,datalog):
-        self.max_power = int(meta['power'])
+        self.max_power = float(meta['power'])
         self.prior = 4
-        self.cost = int(meta['cost'])
-        self.CO2 = int(meta['co2'])
+        self.cost = float(meta['cost'])
+        self.CO2 = float(meta['co2'])
         super().__init__( _id, ligne_pwr,datalog)
 
     def update(self,t):

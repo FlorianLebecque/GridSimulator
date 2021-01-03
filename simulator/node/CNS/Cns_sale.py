@@ -5,7 +5,7 @@ class Cns_sale(AdjustableNodeCns):
     def __init__(self,meta,_id, ligne_pwr,datalog):
         self.max_power = ligne_pwr
         self.power_cursor = 100
-        self.cost = int(meta['cost'])
+        self.cost = float(meta['cost'])
         self.prior = 1
         super().__init__( _id, ligne_pwr,datalog)
         

@@ -144,7 +144,7 @@
         public static function rmvType($param,$BDD){
             $array_param = preg_split ('/_/',$param,-1,PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
             simdataHandler::rmvType($array_param[0],$array_param[1],$BDD);
-            return json_encode(self::getNodes($array_param[0]),$BDD);
+            return json_encode(self::getNodes($array_param[0],$BDD));
         }
 
     }

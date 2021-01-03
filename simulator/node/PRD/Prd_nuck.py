@@ -3,11 +3,11 @@ import random
 
 class Prd_nuck(NodeP):
     def __init__(self,meta,_id, ligne_pwr,datalog):
-        self.max_power = int(meta['power'])
+        self.max_power = float(meta['power'])
         self.prior = 2
-        self.start_time = int(meta['t1'])
-        self.end_time = int(meta['t2'])
-        self.cost = int(meta['cost'])
+        self.start_time = float(meta['t1'])
+        self.end_time = float(meta['t2'])
+        self.cost = float(meta['cost'])
         super().__init__( _id, ligne_pwr,datalog)
         
     def update(self,t):

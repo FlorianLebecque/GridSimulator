@@ -4,7 +4,7 @@ import random
 class Cns_diss(AdjustableNodeCns):
     def __init__(self,meta,_id, ligne_pwr,datalog):
         self.cost = 0
-        self.max_power = int(meta['power'])
+        self.max_power = float(meta['power'])
         self.prior = 4
         super().__init__( _id, ligne_pwr,datalog)
         
