@@ -8,6 +8,7 @@ class NodeP(Node):
         super().__init__( _id, ligne_pwr,datalog)    
 
     def disable_prod(self,t):
+        print(self)
         if self.enable:
             self.enable = False
             self.disableAtTime = t

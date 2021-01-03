@@ -14,31 +14,31 @@ class Datalog:
     def update_log(self,_id,time,name):
 
         if (name == 'disable_cons'):
-            message = '[{}] Blackout on the node {} '.format(time,_id)
+            message = '[{}] Blackout on the node {} at {}h'.format(time,_id,time%24)
             self.db.sendUpdateMessage(self.id_sim,_id,time,message)
         
         elif (name == 'disable_prod'):
-            message = '[{}] Overload! shutdown the node {} '.format(time,_id)
+            message = '[{}] Overload! shutdown the node {} at {}h'.format(time,_id,time%24)
             self.db.sendUpdateMessage(self.id_sim,_id,time,message)
 
         elif (name == 'enable_cons'):
-            message = '[{}] Enable consumer with the node {} '.format(time,_id)
+            message = '[{}] Enable consumer node {} at {}h'.format(time,_id,time%24)
             self.db.sendUpdateMessage(self.id_sim,_id,time,message)
 
         elif (name == 'enable_prod'):
-            message = '[{}] Enable production with the node {} '.format(time,_id)
+            message = '[{}] Enable production node {} at {}h'.format(time,_id,time%24)
             self.db.sendUpdateMessage(self.id_sim,_id,time,message)
 
         elif (name == 'negBill'):
-            message = '[{}] Not enough power for the circuit'.format(time)
+            message = '[{}] Not enough power for the circuit at {}h'.format(time,time%24)
             self.db.sendUpdateMessage(self.id_sim,_id,time,message)
         
         elif (name == 'posBill'):
-            message = '[{}] To much power for the circuit'.format(time)
+            message = '[{}] To much power for the circuit at {}h'.format(time,time%24)
             self.db.sendUpdateMessage(self.id_sim,_id,time,message)
 
         elif (name == 'USERACTION'):
-            message = '[{}] *****************DISABLE OR ENABLE : {} -> {} *******************'.format(time,_id[0],_id[1])
+            message = '[{}] *******************DISABLE OR ENABLE : {} -> {} at {}h*******************'.format(time,_id[0],_id[1],time%24)
             self.db.sendUpdateMessage(self.id_sim,_id[0],time,message)
         else:
             pass

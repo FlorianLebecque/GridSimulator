@@ -9,6 +9,7 @@ class AdjustableNodePrd(NodeP):
         return self.adjust(target)
 
     def maximize_prod(self,target):
+        print(self)
         return self.adjust(target)
 
     def getMaxPower(self,t):

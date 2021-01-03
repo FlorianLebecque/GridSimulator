@@ -9,7 +9,7 @@ class Node:
         self.datalog = datalog
 
     def __str__(self):
-        return str(self.id) + " - " + str(type(self))
+        return str(self._id) + " - " + str(type(self))+ " - "+str(self.enable)+" - "+str(self.userEnable)
 
     def callUpdate(self,t):
         
@@ -78,7 +78,7 @@ class Node:
     def tryAttribute(self,attr,param,excepts,needReverse):
         target_node = self.getNodeArray(attr,needReverse)
         node_id = -1
-        
+    
         for child in target_node:
             if child.userEnable:
                 alreadytry = False
@@ -100,9 +100,11 @@ class Node:
     
         target_node = []
         temp_node = []
+
         for child in self.childs:
+           
             if child.prior == 100:          #check if it's a node
-                temp_node = child.getNodeArray(attr,needReverse)
+                temp_node += child.getNodeArray(attr,needReverse)
             elif(hasattr(child,attr)):      #check if we have the correct attribute
                 target_node.append(child)
 
