@@ -16,9 +16,11 @@ Le programme permet aux utilisateurs de:
 # Installation
 
 - Telecharger et mettre le dossier dans une plate-forme de développement Web dynamiques (WAMP)
-- Lancer dans une console ou un navigateur web le fichier : //GridSimulator/php socket/server/websocket_server.php
+- Créer une base de donnée "poo_elec" et importer le fichier "poo_elec.sql", il est peut être nécessaire de modifier les identifiants présent dans
+    GridSimulator/backend/inc/database.php
+- Lancer dans une console ou un navigateur web le fichier : GridSimulator/php socket/server/websocket_server.php
 - Lancer le fichier  //GridSimulator/simulation/main.py 
-- Vous pouvez maintenant vous connecté sur le site web //GridSimulator/index.php
+- Vous pouvez maintenant vous connecté sur le site web GridSimulator/index.php
 
 (Pour une instalation sur un serveur à distance -> ouvrer les port 5002 (port pour le websocket))
 
